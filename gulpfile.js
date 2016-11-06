@@ -6,8 +6,10 @@
 var gulp = require('gulp');
 // gulp-sass
 var sass = require('gulp-sass');
+// gulp-concat
+var concat = require('gulp-concat');
 // gulp-uglify
-//var uglify = require('gulp-uglify');
+// var uglify = require('gulp-uglify');
 
 // scss
 gulp.task('scss', function () {
@@ -15,7 +17,6 @@ gulp.task('scss', function () {
         .pipe(sass().on('error', sass.logError))
         . pipe(gulp.dest('./styles/'));
 });
-
 
 
 // default
