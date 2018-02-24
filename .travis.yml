@@ -8,12 +8,12 @@ php:
 
 before_install:
 
-
 mysql:
   database: wordpress_theme_pure_test
   username: root
   encoding: utf8
 
 install:
+
 
 before_script:
