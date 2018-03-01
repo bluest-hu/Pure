@@ -53,31 +53,21 @@ if ( is_home() ) {
     <meta name="keywords" content="<?php echo trim( $blog_keywords ); ?>">
     <meta name="description" content="<?php echo trim( $blog_description ); ?>">
     <meta name="author" content="<?php echo trim( $blog_author ); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <meta name="renderer" content="webkit"/>
     <meta name="force-rendering" content="webkit"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 	<?php
+	wp_meta();
+
 	wp_register_style(
 		'pure-main',
-		get_template_directory_uri() . '/scss/index.min.css',
+		get_template_directory_uri() . '/assets/scss/index.min.css',
 		array(),
-		0.1,
+		'0.1.1',
 		'all'
 	);
-
-	wp_register_script(
-		'pure-prism-js',
-		get_template_directory_uri() . '/scripts/prism.js',
-		array(),
-		'1.11.0'
-	);
-
 	wp_enqueue_style( 'pure-main' );
-
-	wp_enqueue_script( 'pure-prism-js' );
-	wp_print_styles();
-	wp_print_scripts();
 	?>
 
 	<?php wp_head(); ?>
@@ -85,59 +75,67 @@ if ( is_home() ) {
 
 
 <body class="<?php body_class(); ?>">
+
 <header class="main-header">
 
-    <img class="custom-header-background-image"
-         src="<?php header_image(); ?>"
-         height="<?php echo get_custom_header()->height; ?>"
-         width="<?php echo get_custom_header()->width; ?>"
-    />
+    <div class="custom-header-background-image">
+    </div>
 
-    <nav class="header-top-bar">
-        <ul class="list">
-            <li class="list-item"><a href="">Facebook</a></li>
-        </ul>
-    </nav>
+    <div class="header-content-wrap">
+        <!--        <nav class="header-top-bar">-->
+        <!--            <ul class="list">-->
+        <!--                <li class="list-item"><a href="">Facebook</a></li>-->
+        <!--            </ul>-->
+        <!--        </nav>-->
+
+        <div class="main-header-content">
+            <div class="blog-info-wrap">
+				<?php the_custom_logo(); ?>
+
+                <div class="split-line"></div>
+
+                <div class="blog-title-desc-wrap serif">
+                    <a class="home-link"
+                       href="<?php bloginfo( "url" ); ?>">
+                        <h1 class="blog-title">
+							<?php bloginfo( "title" ) ?>
+                        </h1>
+                    </a>
+
+                    <h2 class="blog-description">
+						<?php bloginfo( "description" ) ?>
+                    </h2>
+                </div>
+
+            </div>
 
 
-    <div class="main-header-content">
-        <div class="title-wrap">
-            <img height="60px"
-                 style="vertical-align:middle;margin-right: 10px"
-                 src="">
-            <h1 class="blog-title">
-                <a class="home-link"
-                   href="<?php bloginfo( "url" ); ?>">
-					<?php bloginfo( "title" ) ?>
-                </a>
-            </h1>
-
-            <h2 class="blog-description">
-				<?php bloginfo( "description" ) ?>
-            </h2>
         </div>
 
-		<?php
-		wp_nav_menu( array(
-			'theme_location'  => 'header_menu',
-			'menu'            => 'header-menu',
-			'menu_class'      => 'top-menu',
-			'menu_id'         => 'topMenu',
-			'container'       => 'nav',
-			'container_class' => 'top-nav-container',
-			'container_id'    => 'topNavigationContainer',
-			'echo'            => true,
-			'fallback_cb'     => 'wp_page_menu',
-			'before'          => '',
-			'after'           => '',
-			'link_before'     => '',
-			'link_after'      => '',
-			'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-			'depth'           => 1,
-			'walker'          => ''
-		) );
-		?>
+        <!--	    --><?php
+		//	    wp_nav_menu( array(
+		//		    'theme_location'  => 'header_menu',
+		//		    'menu'            => 'header-menu',
+		//		    'menu_class'      => 'top-menu',
+		//		    'menu_id'         => 'topMenu',
+		//		    'container'       => 'nav',
+		//		    'container_class' => 'top-nav-container',
+		//		    'container_id'    => 'topNavigationContainer',
+		//		    'echo'            => true,
+		//		    'fallback_cb'     => 'wp_page_menu',
+		//		    'before'          => '',
+		//		    'after'           => '',
+		//		    'link_before'     => '',
+		//		    'link_after'      => '',
+		//		    'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+		//		    'depth'           => 1,
+		//		    'walker'          => ''
+		//	    ) );
+		//	    ?>
+
     </div>
+
+
 </header>
 
 <div class="post-list">
@@ -158,9 +156,8 @@ if ( is_home() ) {
                     <div class="posy-meta-wrap">
                         <ul class="post-meta post-meta-top">
                             <li class="post-meta-item author-avatar-wrap">
-                                <img class="author-avatar"
-                                     src="<?php echo get_avatar_url( get_the_author_meta( 'ID' ) ); ?>"
-                                     alt="<?php echo get_the_author_meta( 'nicename' ); ?>">
+
+                                <?php echo get_avatar(get_the_author_meta( 'user_email' )); ?>
                             </li>
                             <li class="post-meta-item">
                                 <a class="author-name"
@@ -176,16 +173,20 @@ if ( is_home() ) {
 
                             <li class="post-meta-item category-list">
 								<?php if ( get_the_category_list() ) { ?>
-									<?php the_category( '/' ); ?>
+									<?php the_category( ' / ' ); ?>
 								<?php } ?>
                             </li>
                         </ul>
                     </div>
                     <div class="post-entry typo serif">
-						<?php echo get_the_content( "" ); ?>
+						<?php
+
+						echo apply_filters( 'the_content', get_the_content( "" ) );
+
+						?>
                     </div>
                     <div class="post-meta post-tags-wrap">
-						<?php the_tags( '', '', '' ); ?>
+						<?php the_tags( '', '、', '' ); ?>
                     </div>
 
 
@@ -197,7 +198,6 @@ if ( is_home() ) {
 								<?php echo get_previous_post_link( '%link' ); ?>
 							<?php }
 							if ( get_next_post_link() ) {
-
 								?>
 
 								<?php echo get_next_post_link( '%link' ); ?>
@@ -208,22 +208,9 @@ if ( is_home() ) {
 					}
 					?>
 
-
-                    <div>
-		                <?php
-		                if ( comments_open() || get_comments_number() ) {
-			                comments_template();
-		                }
-
-		                ;?>
-                    </div>
+					<?php ?>
                 </article>
-
-
-
             </div>
-
-
 		<?php
 		endwhile;
 	} else {
@@ -237,10 +224,6 @@ if ( is_home() ) {
 		<?php ; ?>
 
 	<?php } ?>
-
-
-
-
 
 
     <nav class="post-nav" id="postNav">
@@ -260,7 +243,6 @@ if ( is_home() ) {
 			'after_page_number'  => ''
 		) ); ?>
     </nav>
-
 </div>
 
 <footer class="main-footer" id="main-footer">
@@ -270,12 +252,57 @@ if ( is_home() ) {
     </div>
 </footer>
 
+<?php
+wp_register_style(
+	'pure-main',
+	get_template_directory_uri() . '/assets/scss/index.min.css',
+	array(),
+	'0.1.1',
+	'all'
+);
 
-<?php wp_footer(); ?>
+wp_register_script(
+	'pure-lazyload-js',
+	get_template_directory_uri() . '/assets/scripts/lazyload.min.js',
+	array(),
+	'2.0.0-beta.2'
+);
+
+wp_register_script(
+	'pure-prism-js',
+	get_template_directory_uri() . '/assets/scripts/prism.min.js',
+	array(),
+	'1.11.0'
+);
+
+wp_enqueue_style( 'pure-main' );
+wp_enqueue_script( 'jquery' );
+wp_enqueue_script( 'pure-prism-js' );
+wp_enqueue_script( 'pure-lazyload-js' );
+
+
+wp_print_styles();
+wp_print_scripts();
+wp_footer();
+?>
 
 <script type="text/javascript">
-    Prism.highlightAll()
+    Prism.highlightAll();
+    jQuery(".post img").lazyload();
 </script>
+
+
+<style>
+    .main-header .custom-header-background-image {
+        background-image: url(<?php header_image(); ?>);
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: <?php echo get_custom_header()->default-text-color;?>;
+        padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100 ; ?>%;
+        /*filter: blur(10px);*/
+    }
+</style>
 
 </body>
 </html>

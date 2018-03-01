@@ -1,0 +1,297 @@
+@import url(../styles/normalize.css);
+@import url(../styles/typo.css);
+@import url(../styles/prism.css);
+.serif {
+  font-family: Palatino, Optima, Georgia, serif; }
+  .serif h1, .serif h2, .serif h3, .serif h4, .serif h5, .serif h6 {
+    font-family: inherit; }
+
+.main-header {
+  position: relative;
+  max-width: 100%;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  overflow: hidden; }
+  .main-header .header-content-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 100%; }
+  .main-header:before {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    content: '';
+    background-color: rgba(0, 0, 0, 0.2); }
+  .main-header .main-header-content {
+    height: 100%; }
+  .main-header .header-top-bar {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.5); }
+    .main-header .header-top-bar .list {
+      padding: 0;
+      width: 700px;
+      margin: 0 auto;
+      line-height: 30px; }
+      .main-header .header-top-bar .list .list-item {
+        list-style: none;
+        display: inline-block;
+        color: #000; }
+        .main-header .header-top-bar .list .list-item a {
+          color: inherit; }
+  .main-header .blog-info-wrap {
+    text-align: center;
+    height: 100px;
+    font-size: 0;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    margin-top: -100px; }
+    .main-header .blog-info-wrap .split-line {
+      display: inline-block;
+      height: 100%;
+      width: 2px;
+      background-color: rgba(255, 255, 255, 0.5);
+      margin: 0 20px; }
+    .main-header .blog-info-wrap .custom-logo-link {
+      position: relative;
+      width: 100px;
+      display: inline-block;
+      height: 100px; }
+      .main-header .blog-info-wrap .custom-logo-link .custom-logo {
+        position: absolute;
+        display: block;
+        width: 80px;
+        height: 80px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        margin: auto;
+        border-radius: 5px; }
+    .main-header .blog-info-wrap .blog-title-desc-wrap {
+      display: inline-block;
+      color: #FFF;
+      text-align: left; }
+    .main-header .blog-info-wrap .home-link {
+      display: block;
+      font-size: 70px;
+      line-height: 1;
+      text-decoration: none;
+      color: #fff;
+      margin-bottom: 10px;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box; }
+      .main-header .blog-info-wrap .home-link:hover {
+        color: #eaeaea; }
+      .main-header .blog-info-wrap .home-link .blog-title {
+        display: block;
+        font-size: inherit;
+        line-height: inherit;
+        text-align: inherit;
+        color: inherit; }
+    .main-header .blog-info-wrap .blog-description {
+      font-size: 20px;
+      line-height: 20px;
+      text-align: inherit;
+      color: #eaeaea; }
+
+.post-list .post-wrap {
+  max-width: 700px;
+  padding: 0 30px;
+  margin: 0 auto; }
+.post-list .post-meta-wrap {
+  margin: 10px 0; }
+.post-list .post-meta {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 0; }
+  .post-list .post-meta .post-meta-item {
+    font-size: 14px;
+    line-height: 1;
+    display: inline-block;
+    white-space: nowrap; }
+  .post-list .post-meta .avatar {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px; }
+  .post-list .post-meta .author-name,
+  .post-list .post-meta .publish-time {
+    display: block;
+    text-align: left;
+    line-height: inherit;
+    font-size: inherit; }
+  .post-list .post-meta .author-name {
+    font-size: 18px;
+    padding-bottom: 8px; }
+  .post-list .post-meta .category-list {
+    margin-left: 10px;
+    padding-left: 10px;
+    height: 40px;
+    line-height: 40px;
+    border-left: 1px solid #E5E5E5;
+    vertical-align: bottom; }
+  .post-list .post-meta.post-tags-wrap {
+    font-size: 18px;
+    line-height: 20px;
+    margin: 20px 0; }
+    .post-list .post-meta.post-tags-wrap a {
+      font-style: italic;
+      display: inline-block;
+      font-size: inherit; }
+      .post-list .post-meta.post-tags-wrap a:before {
+        content: '#';
+        display: inline; }
+.post-list .post {
+  border-top: 1px solid #eaeaea; }
+  .post-list .post .post-title {
+    text-align: center;
+    font-size: 55px;
+    margin: 50px 0;
+    line-height: 1.2; }
+    .post-list .post .post-title .post-title-url {
+      font-size: inherit;
+      text-decoration: none;
+      color: #5D5D5D;
+      -webkit-transition: color .5s linear;
+      transition: color .5s linear; }
+      .post-list .post .post-title .post-title-url:hover {
+        color: #333;
+        border-bottom: 1px solid #333; }
+
+.post-entry {
+  font-size: 20px;
+  margin: 50px 0; }
+  .post-entry .gallery {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; }
+    .post-entry .gallery .gallery-item {
+      -webkit-box-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      margin: 10px; }
+  .post-entry pre {
+    border: 1px solid #EEE;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    overflow: auto; }
+  .post-entry p code {
+    padding: 1px 5px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    border: 1px solid #EEE; }
+  .post-entry img {
+    margin-right: auto; }
+    .post-entry img .alignleft {
+      float: left;
+      margin-right: 5px; }
+  .post-entry a {
+    color: inherit; }
+  .post-entry .more-link {
+    color: #D5D5D5;
+    border: 1px solid #D5D5D5;
+    display: inline-block;
+    padding: 0 20px;
+    line-height: 30px;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 20px; }
+  .post-entry table {
+    border: 1px solid #EEE;
+    border-collapse: collapse;
+    width: 100%; }
+    .post-entry table th,
+    .post-entry table td {
+      border: 1px solid #EEE;
+      padding: 5px 10px; }
+    .post-entry table tr:nth-child(even) {
+      background-color: #FAFAFA; }
+  .post-entry .aligncenter {
+    text-align: center; }
+
+.post-nav {
+  margin: 50px 0; }
+  .post-nav .page-numbers {
+    list-style: none;
+    text-align: center; }
+    .post-nav .page-numbers li {
+      display: inline-block;
+      font-size: 0;
+      margin: 0 1px; }
+    .post-nav .page-numbers .page-numbers,
+    .post-nav .page-numbers span,
+    .post-nav .page-numbers a {
+      font-size: 15px;
+      display: block;
+      text-decoration: none;
+      color: #999;
+      padding: 0 5px;
+      min-width: 30px;
+      line-height: 30px;
+      height: 30px;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+      border-radius: 100%; }
+      .post-nav .page-numbers .page-numbers.current,
+      .post-nav .page-numbers span.current,
+      .post-nav .page-numbers a.current {
+        color: #FFF;
+        border-radius: 100%;
+        font-weight: bold;
+        background-color: #DDD; }
+
+.commentlist .comment .children .comment {
+  margin-left: 30px; }
+.commentlist .fn,
+.commentlist .says {
+  font-size: 14px;
+  line-height: 1;
+  display: inline-block;
+  height: 14px;
+  margin-top: -20px; }
+.commentlist .comment-meta {
+  height: 32px; }
+  .commentlist .comment-meta .comment-author {
+    height: 14px; }
+.commentlist .comment-metadata {
+  font-size: 14px; }
+  .commentlist .comment-metadata a, .commentlist .comment-metadata time {
+    font-size: inherit; }
+.commentlist .comment-author .avatar {
+  display: inline-block;
+  border-radius: 50%;
+  float: left;
+  margin-right: 10px; }
+
+.main-footer {
+  background-color: rgba(0, 0, 0, 0.03);
+  padding: 50px 0;
+  font-size: 12px;
+  color: #999; }
+  .main-footer .footer-content {
+    width: 700px;
+    margin: 0 auto;
+    text-align: center; }
+
+.mejs-container,
+.mejs-container .mejs-controls,
+.mejs-embed,
+.mejs-embed body {
+  background-color: #1abc9c; }
+
+/*# sourceMappingURL=index.css.map */
