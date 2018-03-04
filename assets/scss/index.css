@@ -186,8 +186,8 @@
     border: 1px solid #EEE;
     border-radius: 5px;
     background-color: #f8f8f8;
-    font-size: 16px;
-    overflow: auto; }
+    overflow: auto;
+    font-size: 80%; }
   .post-entry p code {
     padding: 1px 5px;
     -webkit-box-sizing: border-box;
@@ -200,27 +200,21 @@
     .post-entry img .alignleft {
       float: left;
       margin-right: 5px; }
-  .post-entry a {
-    color: inherit; }
-  .post-entry .more-link {
+  .post-entry a.more-link {
     color: #D5D5D5;
-    border: 1px solid #D5D5D5;
+    border: 1px solid #e2e2e2;
     display: inline-block;
-    padding: 0 20px;
+    padding: 0 25px;
     line-height: 30px;
     font-size: 14px;
     text-decoration: none;
     border-radius: 20px; }
-  .post-entry table {
-    border: 1px solid #EEE;
-    border-collapse: collapse;
-    width: 100%; }
-    .post-entry table th,
-    .post-entry table td {
-      border: 1px solid #EEE;
-      padding: 5px 10px; }
-    .post-entry table tr:nth-child(even) {
-      background-color: #FAFAFA; }
+    .post-entry a.more-link:hover {
+      color: #FFF;
+      background-color: #1abc9c;
+      border-color: #17a689;
+      -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+              box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); }
   .post-entry .aligncenter {
     text-align: center; }
 

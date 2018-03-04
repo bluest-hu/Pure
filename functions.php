@@ -82,7 +82,7 @@ function my_avatar( $avatar, $id_or_email, $size = '96', $default = '', $alt = f
 			$gavatar_uri = $fix_default;
 		}
 
-		copy( $gavatar_uri, $avatar_local );
+		@copy( $gavatar_uri, $avatar_local );
 
 		// 如果头像大于 10 MB 那么还用默认头像替代
 		if ( filesize( $avatar_local ) > $max_size ) {

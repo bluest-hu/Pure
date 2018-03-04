@@ -24,29 +24,31 @@ if ( is_home() ) {
 	} else {
 		$blog_description = strip_tags( $post->post_content );
 	}
+
 	$blog_description = preg_replace( '/\s+/', ' ', $blog_description );
 	$blog_description = mb_strimwidth( $blog_description, 0, 200 );
 
 	// join all the tags
 	$blog_keywords = array();
+
 	foreach ( wp_get_post_tags( $post_id ) as $tag ) {
 		array_push( $blog_keywords, $tag->name );
 	}
-	$blog_keywords = join( $blog_keywords, ',' );
 
-	$blog_author = get_the_author_meta( 'nicename', $post_author_id );
-	if ( get_the_author_meta( 'email', $post_author_id ) ) {
-		$blog_author = $blog_author . ',' . get_the_author_meta( 'email', $post_author_id );
-	}
+	$blog_keywords = join( $blog_keywords, ',' );
+	$blog_author = get_the_author_meta( 'display_name', $post_author_id );
+
 } else if ( is_archive() ) {
-	echo "is archive";
+
 } else if ( is_search() ) {
-	echo "is search";
+
 } else if ( is_tag() ) {
-	echo "is tag";
+    $blog_title = single_cat_title();
+} else if ( is_category()) {
+    $blog_title = single_cat_title();
 }
 ?>
-<html lang="<?php echo get_bloginfo( 'language' ); ?>">
+<html lang="<?php echo get_language_attributes(); ?>">
 <head>
     <title><?php echo trim( $blog_title ); ?></title>
     <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
@@ -58,7 +60,8 @@ if ( is_home() ) {
     <meta name="force-rendering" content="webkit"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 	<?php
-	wp_meta();
+
+    wp_meta();
 
 	wp_register_style(
 		'pure-main',
@@ -67,7 +70,39 @@ if ( is_home() ) {
 		'0.1.1',
 		'all'
 	);
+
 	wp_enqueue_style( 'pure-main' );
+
+	wp_register_style(
+		'pure-main',
+		get_template_directory_uri() . '/assets/scss/index.min.css',
+		array(),
+		'0.1.1',
+		'all'
+	);
+
+	wp_register_script(
+		'pure-lazyload-js',
+		get_template_directory_uri() . '/assets/scripts/lazyload.min.js',
+		array(),
+		'2.0.0-beta.2',
+		true
+	);
+
+	wp_register_script(
+		'pure-prism-js',
+		get_template_directory_uri() . '/assets/scripts/prism.min.js',
+		array(),
+		'1.11.0',
+		true
+	);
+
+	wp_enqueue_style( 'pure-main' );
+
+
+	wp_print_styles();
+
+
 	?>
 
 	<?php wp_head(); ?>
@@ -156,8 +191,7 @@ if ( is_home() ) {
                     <div class="posy-meta-wrap">
                         <ul class="post-meta post-meta-top">
                             <li class="post-meta-item author-avatar-wrap">
-
-                                <?php echo get_avatar(get_the_author_meta( 'user_email' )); ?>
+								<?php echo get_avatar( get_the_author_meta( 'user_email' ) ); ?>
                             </li>
                             <li class="post-meta-item">
                                 <a class="author-name"
@@ -170,36 +204,31 @@ if ( is_home() ) {
 									<?php echo get_post_time( 'Y/m/d' ); ?>
                                 </time>
                             </li>
-
+                            <?php if ( get_the_category_list() ) { ?>
                             <li class="post-meta-item category-list">
-								<?php if ( get_the_category_list() ) { ?>
-									<?php the_category( ' / ' ); ?>
-								<?php } ?>
+                                <?php the_category( ' / ' ); ?>
                             </li>
+                            <?php } ?>
                         </ul>
                     </div>
                     <div class="post-entry typo serif">
 						<?php
-
-						echo apply_filters( 'the_content', get_the_content( "" ) );
-
+						echo apply_filters( 'the_content', get_the_content( "Read More", true ) );
 						?>
                     </div>
                     <div class="post-meta post-tags-wrap">
 						<?php the_tags( '', '、', '' ); ?>
                     </div>
 
-
 					<?php
 					if ( is_single() ) { ?>
-                        <nav>
+                        <nav id="nav">
 							<?php
 							if ( get_previous_post_link() ) { ?>
 								<?php echo get_previous_post_link( '%link' ); ?>
 							<?php }
 							if ( get_next_post_link() ) {
 								?>
-
 								<?php echo get_next_post_link( '%link' ); ?>
 								<?php
 							}; ?>
@@ -217,7 +246,6 @@ if ( is_home() ) {
 		_e( 'Sorry, no posts matched your criteria.', 'textdomain' );
 	}
 	?>
-
 
 	<?php if ( is_page() ) { ?>
 
@@ -253,37 +281,12 @@ if ( is_home() ) {
 </footer>
 
 <?php
-wp_register_style(
-	'pure-main',
-	get_template_directory_uri() . '/assets/scss/index.min.css',
-	array(),
-	'0.1.1',
-	'all'
-);
+    wp_enqueue_script( 'jquery' );
+    wp_enqueue_script( 'pure-prism-js' );
+    wp_enqueue_script( 'pure-lazyload-js' );
 
-wp_register_script(
-	'pure-lazyload-js',
-	get_template_directory_uri() . '/assets/scripts/lazyload.min.js',
-	array(),
-	'2.0.0-beta.2'
-);
-
-wp_register_script(
-	'pure-prism-js',
-	get_template_directory_uri() . '/assets/scripts/prism.min.js',
-	array(),
-	'1.11.0'
-);
-
-wp_enqueue_style( 'pure-main' );
-wp_enqueue_script( 'jquery' );
-wp_enqueue_script( 'pure-prism-js' );
-wp_enqueue_script( 'pure-lazyload-js' );
-
-
-wp_print_styles();
-wp_print_scripts();
-wp_footer();
+    wp_print_scripts();
+    wp_footer();
 ?>
 
 <script type="text/javascript">
@@ -298,9 +301,7 @@ wp_footer();
         background-attachment: fixed;
         background-repeat: no-repeat;
         background-size: cover;
-        background-color: <?php echo get_custom_header()->default-text-color;?>;
         padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100 ; ?>%;
-        /*filter: blur(10px);*/
     }
 </style>
 
