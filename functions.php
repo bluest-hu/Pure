@@ -274,3 +274,5 @@ function add_image_placeholders( $content ) {
 }
 
 add_filter( 'the_content', 'add_image_placeholders', 99 );
+
+add_filter( 'embed_oembed_discover', '__return_true' );

@@ -11,9 +11,9 @@ $blog_keywords = "";
 $post_author_id = $post->post_author;
 // blog author
 $blog_author = get_bloginfo( 'admin_email' );
-
 // ID
 $post_id = get_the_ID();
+
 if ( is_home() ) {
 
 } else if ( is_single() ) {
@@ -98,11 +98,7 @@ if ( is_home() ) {
 	);
 
 	wp_enqueue_style( 'pure-main' );
-
-
 	wp_print_styles();
-
-
 	?>
 
 	<?php wp_head(); ?>
@@ -110,19 +106,15 @@ if ( is_home() ) {
 
 
 <body class="<?php body_class(); ?>">
-
 <header class="main-header">
-
     <div class="custom-header-background-image">
     </div>
-
     <div class="header-content-wrap">
         <!--        <nav class="header-top-bar">-->
         <!--            <ul class="list">-->
         <!--                <li class="list-item"><a href="">Facebook</a></li>-->
         <!--            </ul>-->
         <!--        </nav>-->
-
         <div class="main-header-content">
             <div class="blog-info-wrap">
 				<?php the_custom_logo(); ?>
@@ -141,36 +133,30 @@ if ( is_home() ) {
 						<?php bloginfo( "description" ) ?>
                     </h2>
                 </div>
-
             </div>
-
-
         </div>
 
-        <!--	    --><?php
-		//	    wp_nav_menu( array(
-		//		    'theme_location'  => 'header_menu',
-		//		    'menu'            => 'header-menu',
-		//		    'menu_class'      => 'top-menu',
-		//		    'menu_id'         => 'topMenu',
-		//		    'container'       => 'nav',
-		//		    'container_class' => 'top-nav-container',
-		//		    'container_id'    => 'topNavigationContainer',
-		//		    'echo'            => true,
-		//		    'fallback_cb'     => 'wp_page_menu',
-		//		    'before'          => '',
-		//		    'after'           => '',
-		//		    'link_before'     => '',
-		//		    'link_after'      => '',
-		//		    'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-		//		    'depth'           => 1,
-		//		    'walker'          => ''
-		//	    ) );
-		//	    ?>
-
+        <?php
+        wp_nav_menu( array(
+            'theme_location'  => 'header_menu',
+            'menu'            => 'header-menu',
+            'menu_class'      => 'top-menu',
+            'menu_id'         => 'topMenu',
+            'container'       => 'nav',
+            'container_class' => 'top-nav-container',
+            'container_id'    => 'topNavigationContainer',
+            'echo'            => true,
+            'fallback_cb'     => 'wp_page_menu',
+            'before'          => '',
+            'after'           => '',
+            'link_before'     => '',
+            'link_after'      => '',
+            'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+            'depth'           => 1,
+            'walker'          => ''
+        ) );
+        ?>
     </div>
-
-
 </header>
 
 <div class="post-list">
@@ -212,34 +198,41 @@ if ( is_home() ) {
                         </ul>
                     </div>
                     <div class="post-entry typo serif">
-						<?php
-						echo apply_filters( 'the_content', get_the_content( "Read More", true ) );
-						?>
+                    <?php
+                        echo apply_filters( 'the_content', get_the_content( "Read More »", true ) );
+                    ?>
+
+                        <nav id="postNav">
+		                    <?php wp_link_pages();?>
+                        </nav>
                     </div>
+
+
+
                     <div class="post-meta post-tags-wrap">
 						<?php the_tags( '', '、', '' ); ?>
                     </div>
-
-					<?php
-					if ( is_single() ) { ?>
-                        <nav id="nav">
-							<?php
-							if ( get_previous_post_link() ) { ?>
-								<?php echo get_previous_post_link( '%link' ); ?>
-							<?php }
-							if ( get_next_post_link() ) {
-								?>
-								<?php echo get_next_post_link( '%link' ); ?>
-								<?php
-							}; ?>
-                        </nav>
-						<?php
-					}
-					?>
-
 					<?php ?>
                 </article>
             </div>
+
+			<?php
+			if ( is_single() ) { ?>
+                <nav id="relativePostNav" class="relative-post-nav">
+                    <ul class="nav-list">
+						<?php
+						if ( get_previous_post_link() ) { ?>
+                            <li class="nav-item prev-nav-item"><?php previous_post_link();?></li>
+						<?php } ?>
+						<?php if ( get_next_post_link() ) {; ?>
+                            <li class="nav-item next-nav-item"><?php next_post_link(); ?></li>
+						<?php } ?>
+                    </ul>
+
+                </nav>
+				<?php
+			}
+			?>
 		<?php
 		endwhile;
 	} else {
@@ -248,9 +241,13 @@ if ( is_home() ) {
 	?>
 
 	<?php if ( is_page() ) { ?>
-
-		<?php ; ?>
-
+        <div class="comment">
+			<?php
+			if ( comments_open() || get_comments_number() ) {
+				comments_template();
+			}
+			;?>
+        </div>
 	<?php } ?>
 
 
@@ -276,7 +273,7 @@ if ( is_home() ) {
 <footer class="main-footer" id="main-footer">
     <div class="footer-content">
         Powered by <a href="https://wordpress.org/" title="code is poetry">WordPress</a><br>
-        Theme By <?php ; ?>
+        Theme By <?php echo wp_get_theme()->display('Author'); ?>
     </div>
 </footer>
 
@@ -300,7 +297,7 @@ if ( is_home() ) {
         background-image: url(<?php header_image(); ?>);
         background-attachment: fixed;
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: contain;
         padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100 ; ?>%;
     }
 </style>
