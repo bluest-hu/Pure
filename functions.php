@@ -125,7 +125,7 @@ function custom_theme_features() {
 
 	// 自定义 header
 	add_theme_support( 'custom-header', array(
-		'default-image'          => get_template_directory_uri() . '/images/header_default.png',
+		'default-image'          => get_template_directory_uri() . '/assets/images/header_default.png',
 		// Display the header text along with the image
 		'header-text'            => false,
 		// Header text color default
@@ -276,3 +276,20 @@ function add_image_placeholders( $content ) {
 add_filter( 'the_content', 'add_image_placeholders', 99 );
 
 add_filter( 'embed_oembed_discover', '__return_true' );
+
+add_filter( 'jetpack_implode_frontend_css', '__return_false' );
+
+
+function deregister_styles() {
+
+}
+
+function deregister_scripts(){
+	wp_deregister_script( 'wp-embed' );
+	wp_dequeue_script( 'devicepx' );
+}
+
+add_action( 'wp_head', 'deregister_styles', 99 );
+
+
+add_action( 'wp_enqueue_scripts', 'deregister_scripts', 99);

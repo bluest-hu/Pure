@@ -36,19 +36,19 @@ if ( is_home() ) {
 	}
 
 	$blog_keywords = join( $blog_keywords, ',' );
-	$blog_author = get_the_author_meta( 'display_name', $post_author_id );
+	$blog_author   = get_the_author_meta( 'display_name', $post_author_id );
 
 } else if ( is_archive() ) {
 
 } else if ( is_search() ) {
 
 } else if ( is_tag() ) {
-    $blog_title = single_cat_title();
-} else if ( is_category()) {
-    $blog_title = single_cat_title();
+	$blog_title = single_cat_title();
+} else if ( is_category() ) {
+	$blog_title = single_cat_title();
 }
 ?>
-<html lang="<?php echo get_language_attributes(); ?>">
+<html <?php echo get_language_attributes(); ?>>
 <head>
     <title><?php echo trim( $blog_title ); ?></title>
     <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
@@ -59,27 +59,20 @@ if ( is_home() ) {
     <meta name="renderer" content="webkit"/>
     <meta name="force-rendering" content="webkit"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-	<?php
-
-    wp_meta();
+    <link rel="alternate" hreflang="<?php get_language_attributes(); ?>" href="alternateURL">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+<?php
+	wp_meta();
 
 	wp_register_style(
 		'pure-main',
-		get_template_directory_uri() . '/assets/scss/index.min.css',
+		get_template_directory_uri() . '/assets/scss/main.min.css',
 		array(),
-		'0.1.1',
+		'20180309',
 		'all'
 	);
 
 	wp_enqueue_style( 'pure-main' );
-
-	wp_register_style(
-		'pure-main',
-		get_template_directory_uri() . '/assets/scss/index.min.css',
-		array(),
-		'0.1.1',
-		'all'
-	);
 
 	wp_register_script(
 		'pure-lazyload-js',
@@ -97,24 +90,25 @@ if ( is_home() ) {
 		true
 	);
 
-	wp_enqueue_style( 'pure-main' );
-	wp_print_styles();
-	?>
+    wp_head();
+?>
 
-	<?php wp_head(); ?>
+    <style>
+        .main-header .custom-header-background-image {
+            background-attachment: fixed;
+            background-size: contain;
+            padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100 ; ?>%;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 
 
-<body class="<?php body_class(); ?>">
+<body <?php body_class(); ?>>
 <header class="main-header">
     <div class="custom-header-background-image">
     </div>
     <div class="header-content-wrap">
-        <!--        <nav class="header-top-bar">-->
-        <!--            <ul class="list">-->
-        <!--                <li class="list-item"><a href="">Facebook</a></li>-->
-        <!--            </ul>-->
-        <!--        </nav>-->
         <div class="main-header-content">
             <div class="blog-info-wrap">
 				<?php the_custom_logo(); ?>
@@ -136,26 +130,26 @@ if ( is_home() ) {
             </div>
         </div>
 
-        <?php
-        wp_nav_menu( array(
-            'theme_location'  => 'header_menu',
-            'menu'            => 'header-menu',
-            'menu_class'      => 'top-menu',
-            'menu_id'         => 'topMenu',
-            'container'       => 'nav',
-            'container_class' => 'top-nav-container',
-            'container_id'    => 'topNavigationContainer',
-            'echo'            => true,
-            'fallback_cb'     => 'wp_page_menu',
-            'before'          => '',
-            'after'           => '',
-            'link_before'     => '',
-            'link_after'      => '',
-            'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-            'depth'           => 1,
-            'walker'          => ''
-        ) );
-        ?>
+		<?php
+		wp_nav_menu( array(
+			'theme_location'  => 'header_menu',
+			'menu'            => 'header-menu',
+			'menu_class'      => 'top-menu',
+			'menu_id'         => 'topMenu',
+			'container'       => 'nav',
+			'container_class' => 'top-nav-container',
+			'container_id'    => 'topNavigationContainer',
+			'echo'            => true,
+			'fallback_cb'     => 'wp_page_menu',
+			'before'          => '',
+			'after'           => '',
+			'link_before'     => '',
+			'link_after'      => '',
+			'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+			'depth'           => 1,
+			'walker'          => ''
+		) );
+		?>
     </div>
 </header>
 
@@ -163,17 +157,16 @@ if ( is_home() ) {
 	<?php if ( have_posts() ) {
 		while ( have_posts() ) : the_post();
 			?>
-            <div <?php post_class( 'post' ); ?>>
-                <article class="post-wrap"
-                         id="article-<?php get_the_ID(); ?>">
-                    <h1 class="post-title serif">
+            <div <?php post_class( 'post h-entry' ); ?>>
+                <article class="post-wrap">
+                    <h2 class="post-title serif entry-title">
                         <a class="post-title-url"
                            href="<?php the_permalink(); ?>"
                            title="<?php the_title(); ?>"
                         >
 							<?php the_title(); ?>
                         </a>
-                    </h1>
+                    </h2>
                     <div class="posy-meta-wrap">
                         <ul class="post-meta post-meta-top">
                             <li class="post-meta-item author-avatar-wrap">
@@ -181,33 +174,32 @@ if ( is_home() ) {
                             </li>
                             <li class="post-meta-item">
                                 <a class="author-name"
+                                   rel="vcard author post-author"
                                    href="<?php echo get_the_author_meta( 'url' ) ?>"
                                    title="<?php echo get_the_author_meta( 'display_name' ); ?>">
 									<?php echo get_the_author_meta( 'display_name' ); ?>
                                 </a>
-                                <time class="publish-time"
+                                <time class="publish-time post-date updated"
                                       datetime="<?php echo get_post_time( 'Y/m/d' ); ?>">
 									<?php echo get_post_time( 'Y/m/d' ); ?>
                                 </time>
                             </li>
-                            <?php if ( get_the_category_list() ) { ?>
-                            <li class="post-meta-item category-list">
-                                <?php the_category( ' / ' ); ?>
-                            </li>
-                            <?php } ?>
+							<?php if ( get_the_category_list() ) { ?>
+                                <li class="post-meta-item category-list">
+									<?php the_category( ' / ' ); ?>
+                                </li>
+							<?php } ?>
                         </ul>
                     </div>
                     <div class="post-entry typo serif">
-                    <?php
-                        echo apply_filters( 'the_content', get_the_content( "Read More »", true ) );
-                    ?>
+						<?php
+						echo apply_filters( 'the_content', get_the_content( "Read More »", false ) );
+						?>
 
-                        <nav id="postNav">
-		                    <?php wp_link_pages();?>
+                        <nav id="">
+							<?php wp_link_pages(); ?>
                         </nav>
                     </div>
-
-
 
                     <div class="post-meta post-tags-wrap">
 						<?php the_tags( '', '、', '' ); ?>
@@ -222,9 +214,10 @@ if ( is_home() ) {
                     <ul class="nav-list">
 						<?php
 						if ( get_previous_post_link() ) { ?>
-                            <li class="nav-item prev-nav-item"><?php previous_post_link();?></li>
+                            <li class="nav-item prev-nav-item"><?php previous_post_link(); ?></li>
 						<?php } ?>
-						<?php if ( get_next_post_link() ) {; ?>
+						<?php if ( get_next_post_link() ) {
+							; ?>
                             <li class="nav-item next-nav-item"><?php next_post_link(); ?></li>
 						<?php } ?>
                     </ul>
@@ -234,31 +227,25 @@ if ( is_home() ) {
 			}
 			?>
 		<?php
+
+
+        echo 123;
+
+
 		endwhile;
 	} else {
 		_e( 'Sorry, no posts matched your criteria.', 'textdomain' );
 	}
 	?>
 
-	<?php if ( is_page() ) { ?>
-        <div class="comment">
-			<?php
-			if ( comments_open() || get_comments_number() ) {
-				comments_template();
-			}
-			;?>
-        </div>
-	<?php } ?>
 
 
-    <nav class="post-nav" id="postNav">
+
+
+    <nav class="pages-nav" id="pagesNav">
 		<?php echo paginate_links( array(
 			'type'               => 'list',
-			'base'               => '%_%',
-			'format'             => '?paged=%#%',
 			'show_all'           => false,
-			'end_size'           => 1,
-			'mid_size'           => 2,
 			'prev_next'          => true,
 			'prev_text'          => __( '« Previous' ),
 			'next_text'          => __( 'Next »' ),
@@ -273,32 +260,29 @@ if ( is_home() ) {
 <footer class="main-footer" id="main-footer">
     <div class="footer-content">
         Powered by <a href="https://wordpress.org/" title="code is poetry">WordPress</a><br>
-        Theme By <?php echo wp_get_theme()->display('Author'); ?>
+        Theme By <?php echo wp_get_theme()->display( 'Author' ); ?>
     </div>
 </footer>
 
 <?php
-    wp_enqueue_script( 'jquery' );
-    wp_enqueue_script( 'pure-prism-js' );
-    wp_enqueue_script( 'pure-lazyload-js' );
+wp_enqueue_script( 'jquery' );
+wp_enqueue_script( 'pure-prism-js' );
+wp_enqueue_script( 'pure-lazyload-js' );
 
-    wp_print_scripts();
-    wp_footer();
+wp_footer();
 ?>
 
-<script type="text/javascript">
-    Prism.highlightAll();
-    jQuery(".post img").lazyload();
+<script>
+    jQuery(function () {
+        Prism.highlightAll();
+        jQuery(".post img").lazyload();
+    });
 </script>
 
 
 <style>
     .main-header .custom-header-background-image {
         background-image: url(<?php header_image(); ?>);
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        background-size: contain;
-        padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100 ; ?>%;
     }
 </style>
 

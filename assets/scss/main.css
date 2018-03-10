@@ -5,6 +5,16 @@
   -ms-word-wrap: break-word;
   word-wrap: break-word; }
 
+.alignleft {
+  float: left; }
+  .alignleft.img {
+    margin-right: 10px; }
+
+.alignright {
+  float: right; }
+  .alignright.img {
+    margin-left: 10px; }
+
 .serif {
   font-family: Palatino, Optima, Georgia, serif; }
   .serif h1, .serif h2, .serif h3, .serif h4, .serif h5, .serif h6 {
@@ -188,6 +198,8 @@
           -ms-flex: 1;
               flex: 1;
       margin: 10px; }
+  .post-entry table {
+    font-size: 80%; }
   .post-entry pre {
     border: 1px solid #EEE;
     border-radius: 5px;
@@ -201,8 +213,6 @@
     border-radius: 4px;
     background-color: #f8f8f8;
     border: 1px solid #EEE; }
-  .post-entry img {
-    margin-right: auto; }
   .post-entry a.more-link {
     color: #D5D5D5;
     border: 1px solid #e2e2e2;
@@ -284,18 +294,18 @@
         border-left-color: #c1eadf;
         right: -21px; }
 
-.post-nav {
+#pagesNav {
   margin: 50px 0; }
-  .post-nav .page-numbers {
+  #pagesNav .page-numbers {
     list-style: none;
     text-align: center; }
-    .post-nav .page-numbers li {
+    #pagesNav .page-numbers li {
       display: inline-block;
       font-size: 0;
       margin: 0 1px; }
-    .post-nav .page-numbers .page-numbers,
-    .post-nav .page-numbers span,
-    .post-nav .page-numbers a {
+    #pagesNav .page-numbers .page-numbers,
+    #pagesNav .page-numbers span,
+    #pagesNav .page-numbers a {
       font-size: 15px;
       display: block;
       text-decoration: none;
@@ -307,9 +317,9 @@
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
       border-radius: 100%; }
-      .post-nav .page-numbers .page-numbers.current,
-      .post-nav .page-numbers span.current,
-      .post-nav .page-numbers a.current {
+      #pagesNav .page-numbers .page-numbers.current,
+      #pagesNav .page-numbers span.current,
+      #pagesNav .page-numbers a.current {
         color: #FFF;
         border-radius: 100%;
         font-weight: bold;
@@ -371,4 +381,4 @@
 .mejs-embed body {
   background-color: #1abc9c; }
 
-/*# sourceMappingURL=index.css.map */
+/*# sourceMappingURL=main.css.map */

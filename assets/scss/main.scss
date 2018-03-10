@@ -8,6 +8,22 @@
   word-wrap: break-word;
 }
 
+.alignleft {
+  float: left;
+
+  &.img {
+    margin-right: 10px;
+  }
+}
+
+.alignright {
+  float: right;
+
+  &.img {
+    margin-left: 10px;
+  }
+}
+
 .serif {
   font-family: Palatino, Optima, Georgia, serif;
 
@@ -284,6 +300,10 @@ $content_width: 700px;
     }
   }
 
+  table {
+    font-size: 80%;
+  }
+
   pre {
     border: 1px solid #EEE;
     border-radius: 5px;
@@ -299,10 +319,6 @@ $content_width: 700px;
     border-radius: 4px;
     background-color: #f8f8f8;
     border: 1px solid #EEE;
-  }
-
-  img {
-    margin-right: auto;
   }
 
   a.more-link {
@@ -406,7 +422,7 @@ $content_width: 700px;
   }
 }
 
-.post-nav {
+#pagesNav {
   margin: 50px 0;
 
   .page-numbers {

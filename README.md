@@ -13,12 +13,10 @@
 
 ## 轻量
 
-​	建议配合  WP Super Cache 与 CDN
-
-
+​	建议配合  WP Super Cache 与 CDN 使用。
 
 1. 优化 JavaScript 与 CSS 引入，降低首屏展示阻塞。
-2. 文章图片支持 lazyload
+2. 文章图片支持 lazyload，优化静态文件。
 3. 去除 WordPress emoji
 
 
@@ -30,4 +28,5 @@
 1. [normalize.css](https://github.com/necolas/normalize.css)
 2. [typo](https://typo.sofi.sh/)
 3. [jquery_lazyload](https://github.com/tuupola/jquery_lazyload)
-4. [PrismJS](http://prismjs.com/download.html?themes=prism-coy&languages=markup+css+clike+javascript)
+4. [PrismJS](http://prismjs.com)
+5. [WordPress]()
