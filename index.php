@@ -50,7 +50,8 @@ if ( is_home() ) {
 ?>
 <html <?php echo get_language_attributes(); ?>>
 <head>
-    <title><?php echo trim( $blog_title ); ?></title>
+    <title><?php echo trim( $blog_title ) ?></title>
+<!--    <title>--><?php //echo wp_title(); ?><!--</title>-->
     <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
     <meta name="keywords" content="<?php echo trim( $blog_keywords ); ?>">
     <meta name="description" content="<?php echo trim( $blog_description ); ?>">
@@ -68,7 +69,7 @@ if ( is_home() ) {
 		'pure-main',
 		get_template_directory_uri() . '/assets/scss/main.min.css',
 		array(),
-		'20180309',
+		'20180311',
 		'all'
 	);
 
@@ -91,8 +92,12 @@ if ( is_home() ) {
 	);
 
     wp_head();
-?>
 
+
+    if ( ! isset( $content_width ) ) {
+	    $content_width = 900;
+    }
+?>
     <style>
         .main-header .custom-header-background-image {
             background-attachment: fixed;
@@ -104,7 +109,7 @@ if ( is_home() ) {
 </head>
 
 
-<body <?php body_class(); ?>>
+<body <?php body_class('serif'); ?>>
 <header class="main-header">
     <div class="custom-header-background-image">
     </div>
@@ -117,7 +122,7 @@ if ( is_home() ) {
 
                 <div class="blog-title-desc-wrap serif">
                     <a class="home-link"
-                       href="<?php bloginfo( "url" ); ?>">
+                       href="<?php echo esc_url( home_url() ); ?>">
                         <h1 class="blog-title">
 							<?php bloginfo( "title" ) ?>
                         </h1>
@@ -157,8 +162,8 @@ if ( is_home() ) {
 	<?php if ( have_posts() ) {
 		while ( have_posts() ) : the_post();
 			?>
-            <div <?php post_class( 'post h-entry' ); ?>>
-                <article class="post-wrap">
+            <article <?php post_class( 'post h-entry' ); ?>>
+                <div class="post-wrap">
                     <h2 class="post-title serif entry-title">
                         <a class="post-title-url"
                            href="<?php the_permalink(); ?>"
@@ -191,7 +196,7 @@ if ( is_home() ) {
 							<?php } ?>
                         </ul>
                     </div>
-                    <div class="post-entry typo serif">
+                    <div class="post-entry typo">
 						<?php
 						echo apply_filters( 'the_content', get_the_content( "Read More »", false ) );
 						?>
@@ -205,42 +210,33 @@ if ( is_home() ) {
 						<?php the_tags( '', '、', '' ); ?>
                     </div>
 					<?php ?>
-                </article>
-            </div>
+                </div>
+            </article>
 
-			<?php
-			if ( is_single() ) { ?>
-                <nav id="relativePostNav" class="relative-post-nav">
-                    <ul class="nav-list">
-						<?php
-						if ( get_previous_post_link() ) { ?>
-                            <li class="nav-item prev-nav-item"><?php previous_post_link(); ?></li>
-						<?php } ?>
-						<?php if ( get_next_post_link() ) {
-							; ?>
-                            <li class="nav-item next-nav-item"><?php next_post_link(); ?></li>
-						<?php } ?>
-                    </ul>
 
-                </nav>
-				<?php
-			}
-			?>
+
+        <?php
+        if ( is_single() ) { ?>
+            <nav id="relativePostNav" class="relative-post-nav">
+                <ul class="nav-list">
+                <?php if ( get_previous_post_link() ) { ?>
+                    <li class="nav-item prev-nav-item"><?php previous_post_link(); ?></li>
+                <?php } else if ( get_next_post_link() ) {; ?>
+                    <li class="nav-item next-nav-item"><?php next_post_link(); ?></li>
+                <?php } ?>
+                </ul>
+            </nav>
+        <?php } ?>
 		<?php
-
-
-        echo 123;
-
+			if ( comments_open() || get_comments_number() ) :
+				comments_template();
+			endif;
 
 		endwhile;
 	} else {
 		_e( 'Sorry, no posts matched your criteria.', 'textdomain' );
 	}
 	?>
-
-
-
-
 
     <nav class="pages-nav" id="pagesNav">
 		<?php echo paginate_links( array(
