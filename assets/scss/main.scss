@@ -8,6 +8,7 @@
   word-wrap: break-word;
 }
 
+
 .alignleft {
   float: left;
 
@@ -71,9 +72,8 @@
   z-index: 100000;
 }
 
-.bypostauthor {
 
-}
+
 
 .serif {
   font-family: Palatino, Optima, Georgia, serif;
@@ -90,6 +90,14 @@
 
 $text-color: #333;
 $content_width: 700px;
+
+.content-width {
+  max-width: $content_width;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .admin-bar {
   .main-header {
@@ -134,7 +142,7 @@ $content_width: 700px;
 
     .list {
       padding: 0;
-      width: $content_width;
+
       margin: 0 auto;
       line-height: 30px;
       .list-item {
@@ -244,6 +252,10 @@ $content_width: 700px;
       font-size: 0;
       line-height: inherit;
       height: inherit;
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+      max-width: 100%;
     }
 
 
@@ -272,8 +284,8 @@ $content_width: 700px;
 
 .post-list {
   .post-wrap {
-    max-width: $content_width;
-    padding: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     margin: 0 auto;
   }
 
@@ -558,12 +570,10 @@ $content_width: 700px;
 }
 
 .comments-area {
-  max-width: $content_width;
-  margin: 0 auto;
 
   .comments-title {
     font-size: 35px;
-    line-height: 2;
+    padding: 10px 0;
     border-bottom: 1px solid #eaeaea;
   }
 
@@ -662,7 +672,7 @@ $content_width: 700px;
   .comment-respond {
     .comment-reply-title {
       font-size: 30px;
-      line-height: 2;
+      padding: 10px 0;
       border-bottom: 1px solid #eaeaea;
       margin: 30px 0;
     }
@@ -695,6 +705,7 @@ $content_width: 700px;
       border: 1px solid #1abc9c;
       border-radius: 30px;
       padding: 0 50px;
+      background: transparent;
       &:hover {
         color: #FFF;
         background-color: #1abc9c;
@@ -767,10 +778,27 @@ $content_width: 700px;
   }
 }
 
-// fix
-.mejs-container,
-.mejs-container .mejs-controls,
-.mejs-embed,
-.mejs-embed body {
-  background-color: #1abc9c;
+@media (max-width: 640px) {
+  .main-header {
+    .blog-info-wrap {
+      .custom-logo-link {
+        display: none;
+      }
+
+      .split-line {
+        display: none;
+      }
+
+      .blog-title-desc-wrap {
+        text-align: center;
+      }
+    }
+
+    .top-menu {
+      margin-top: 0;
+      & > ul {
+
+      }
+    }
+  }
 }

@@ -163,7 +163,7 @@ if ( is_home() ) {
 		while ( have_posts() ) : the_post();
 			?>
             <article <?php post_class( 'post h-entry' ); ?>>
-                <div class="post-wrap">
+                <div class="post-wrap content-width">
                     <h2 class="post-title serif entry-title">
                         <a class="post-title-url"
                            href="<?php the_permalink(); ?>"
@@ -217,7 +217,7 @@ if ( is_home() ) {
 
         <?php
         if ( is_single() ) { ?>
-            <nav id="relativePostNav" class="relative-post-nav">
+            <nav id="relativePostNav" class="relative-post-nav content-width">
                 <ul class="nav-list">
                 <?php if ( get_previous_post_link() ) { ?>
                     <li class="nav-item prev-nav-item"><?php previous_post_link(); ?></li>
