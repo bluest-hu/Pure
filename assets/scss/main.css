@@ -529,7 +529,8 @@
   min-height: 150px; }
 
 .relative-post-nav {
-  margin: 30px 0; }
+  margin-top: 30px;
+  margin-bottom: 30px; }
   .relative-post-nav .nav-list {
     max-width: 700px;
     margin: 0 auto;
