@@ -415,6 +415,8 @@
 .comments-area .comment {
   margin: 30px 0;
   border-bottom: 1px solid #eaeaea; }
+  .comments-area .comment.bypostauthor {
+    font-size: inherit; }
   .comments-area .comment .comment-body {
     margin: 10px 0; }
   .comments-area .comment .reply {
