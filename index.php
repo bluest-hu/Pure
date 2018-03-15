@@ -93,6 +93,8 @@ if ( is_home() ) {
 
     wp_head();
 
+    add_editor_style();
+
 
     if ( ! isset( $content_width ) ) {
 	    $content_width = 900;
@@ -234,7 +236,7 @@ if ( is_home() ) {
 
 		endwhile;
 	} else {
-		_e( 'Sorry, no posts matched your criteria.', 'textdomain' );
+		_e( 'Sorry, no posts matched your criteria.', '' );
 	}
 	?>
 
@@ -243,8 +245,8 @@ if ( is_home() ) {
 			'type'               => 'list',
 			'show_all'           => false,
 			'prev_next'          => true,
-			'prev_text'          => __( '« Previous' ),
-			'next_text'          => __( 'Next »' ),
+			'prev_text'          => __( '« Previous','' ),
+			'next_text'          => __( 'Next »', '' ),
 			'add_args'           => false,
 			'add_fragment'       => '',
 			'before_page_number' => '',
