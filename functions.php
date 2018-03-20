@@ -269,7 +269,7 @@ function add_image_placeholders( $content ) {
 	// This is a pretty simple regex, but it works
 	$content = preg_replace(
 		'#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#',
-		sprintf( '<img${1}src="%s" data-src="${2}"${3}><noscript><img${1}src="${2}"${3}></noscript>', $placeholder_image ),
+		sprintf( '<img${1}src="%s" data-original="${2}"${3}><noscript><img${1}src="${2}"${3}></noscript>', $placeholder_image ),
 		$content );
 
 	return $content;

@@ -62,32 +62,42 @@ if ( is_home() ) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <link rel="alternate" hreflang="<?php get_language_attributes(); ?>" href="alternateURL">
     <link rel="profile" href="http://gmpg.org/xfn/11">
-<?php
+    <link rel="dns-prefetch" href="//cdn.bootcss.com">
+    <?php
 	wp_meta();
 
 	wp_register_style(
 		'pure-main',
 		get_template_directory_uri() . '/assets/scss/main.min.css',
 		array(),
-		'20180311',
+		'20180320',
 		'all'
 	);
+
 
 	wp_enqueue_style( 'pure-main' );
 
 	wp_register_script(
 		'pure-lazyload-js',
-		get_template_directory_uri() . '/assets/scripts/lazyload.min.js',
+		'https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js',
 		array(),
-		'2.0.0-beta.2',
+		'1.9.7',
 		true
 	);
+
+    wp_register_script(
+        'pure-jquery',
+        '//cdn.bootcss.com/jquery/3.3.1/jquery.slim.min.js',
+        array(),
+        '2.0.0-beta.2',
+        true
+    );
 
 	wp_register_script(
 		'pure-prism-js',
 		get_template_directory_uri() . '/assets/scripts/prism.min.js',
 		array(),
-		'1.11.0',
+		'1.12.2',
 		true
 	);
 
@@ -263,7 +273,7 @@ if ( is_home() ) {
 </footer>
 
 <?php
-wp_enqueue_script( 'jquery' );
+wp_enqueue_script( 'pure-jquery' );
 wp_enqueue_script( 'pure-prism-js' );
 wp_enqueue_script( 'pure-lazyload-js' );
 
