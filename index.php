@@ -112,10 +112,9 @@ if ( is_home() ) {
 ?>
     <style>
         .main-header .custom-header-background-image {
-            background-attachment: fixed;
             background-size: contain;
             padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100 ; ?>%;
-            background-repeat: no-repeat;
+            background: url(<?php header_image(); ?>) no-repeat fixed;
         }
     </style>
 </head>
@@ -278,6 +277,13 @@ wp_enqueue_script( 'pure-prism-js' );
 wp_enqueue_script( 'pure-lazyload-js' );
 
 wp_footer();
+
+
+if (get_option('pure_theme_analytics') != '') {
+    echo trim( stripslashes( get_option( 'pure_theme_analytics' ) ) );
+}
+
+
 ?>
 
 <script>
@@ -286,13 +292,6 @@ wp_footer();
         jQuery(".post img").lazyload();
     });
 </script>
-
-
-<style>
-    .main-header .custom-header-background-image {
-        background-image: url(<?php header_image(); ?>);
-    }
-</style>
 
 </body>
 </html>
