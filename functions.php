@@ -56,12 +56,12 @@ function my_avatar( $avatar, $id_or_email, $size = '96', $default = '', $alt = f
 	$STORE_PATH       = ABSPATH . $FOLDER; //默认存储地址
 	$alt              = ( false === $alt ) ? '' : esc_attr( $alt );
 	$avatar_url       = home_url() . $FOLDER . $avatar_file_name; // 猜测在在博客的头像
-	$avatar_local     = ABSPATH. $FOLDER . $avatar_file_name;// 猜测本地绝对路径
+	$avatar_local     = ABSPATH . $FOLDER . $avatar_file_name;// 猜测本地绝对路径
 	$expire           = 604800; //设定7天, 单位:秒
 	$r                = get_option( 'avatar_rating' );
 	$max_size         = 10240000;
 	// 默认的头像 在add_filter get_avatar 会默认传入默认的url;
-	$fix_default      = get_stylesheet_directory_uri() . '/assets/image/default_avatar.jpg';
+	$fix_default = get_stylesheet_directory_uri() . '/assets/image/default_avatar.jpg';
 
 	// 暂时判断目录存在，如果不存在创建，存放的文件夹
 	if ( ! is_dir( $STORE_PATH ) ) {
@@ -100,6 +100,11 @@ function my_avatar( $avatar, $id_or_email, $size = '96', $default = '', $alt = f
 	return $avatar;
 }
 
+/**
+ * @param $theURL
+ *
+ * @return bool|string
+ */
 function get_http_response_code( $theURL ) {
 	$headers = get_headers( $theURL );
 
@@ -252,6 +257,11 @@ function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
 	return $urls;
 }
 
+/**
+ * @param $content
+ *
+ * @return null|string|string[]
+ */
 function add_image_placeholders( $content ) {
 	// Don't lazyload for feeds, previews, mobile
 	if ( is_feed() || is_preview() || ( function_exists( 'is_mobile' ) && is_mobile() ) ) {
@@ -269,7 +279,7 @@ function add_image_placeholders( $content ) {
 	// This is a pretty simple regex, but it works
 	$content = preg_replace(
 		'#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#',
-		sprintf( '<img${1}src="%s" data-src="${2}"${3}><noscript><img${1}src="${2}"${3}></noscript>', $placeholder_image ),
+		sprintf( '<img${1}src="%s" data-original="${2}"${3}><noscript><img${1}src="${2}"${3}></noscript>', $placeholder_image ),
 		$content );
 
 	return $content;
@@ -277,21 +287,154 @@ function add_image_placeholders( $content ) {
 
 add_filter( 'the_content', 'add_image_placeholders', 99 );
 
-add_filter( 'embed_oembed_discover', '__return_true' );
-
-add_filter( 'jetpack_implode_frontend_css', '__return_false' );
-
-
-function deregister_styles() {
-
-}
-
-function deregister_scripts(){
+/**
+ *
+ */
+function deregister_scripts() {
 	wp_deregister_script( 'wp-embed' );
 	wp_dequeue_script( 'devicepx' );
 }
 
-add_action( 'wp_head', 'deregister_styles', 99 );
+
+add_filter( 'embed_oembed_discover', '__return_true' );
+
+add_filter( 'jetpack_implode_frontend_css', '__return_false' );
+
+add_action( 'wp_enqueue_scripts', 'deregister_scripts', 99 );
 
 
-add_action( 'wp_enqueue_scripts', 'deregister_scripts', 99);
+function pure_setting_page() {
+	if ( count( $_POST ) > 0 && isset( $_POST['pure_theme_settings'] ) ) {
+		$settings = $_POST;
+		foreach ( $settings as $setting => $value ) {
+			if ( $setting != 'pure_theme_settings' && $setting != 'Submit' ) {
+				$option_key = 'pure_theme_' . $setting;
+				delete_option( $option_key );
+				add_option( $option_key, trim( $value ) );
+			}
+		}
+	}
+
+	add_menu_page( __( '主题选项' ), __( '主题选项' ), 'edit_themes', basename( __FILE__ ), 'pure_theme_settings' );
+}
+
+function pure_theme_settings() {
+	?>
+    <div class="wrap">
+        <h2>主题选项</h2>
+        <form method="post" action="">
+            <table class="form-table">
+                <tbody>
+                <tr valign="top">
+                    <th scope="row">首页关键词添加</th>
+                    <td>
+                        <fieldset>
+                            <legend class="screen-reader-text">
+                                <span>首页关键词添加</span>
+                            </legend>
+                            <p>
+                                <label for="indexKeywords"
+                                       class="description">
+                                    添加在首页关键词，请用<code>,</code>间隔
+                                </label>
+                            </p>
+                            <textarea name="index_page_keywords"
+                                      class="large-text code"
+                                      id="indexKeywords"
+                                      rows="3"
+                                      cols="30"
+                                      style="text-indent:0;padding:0">
+                                <?php echo stripslashes( trim( get_option( 'pure_theme_index_page_keywords' ) ) ); ?>
+                            </textarea>
+                            <p class="description">
+                                建议设置 2~3 个，最多不超过 5 个
+                            </p>
+                        </fieldset>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">首页描述添加</th>
+                    <td>
+                        <fieldset>
+                            <legend class="screen-reader-text">
+                                <span>首页描述添加</span>
+                            </legend>
+                            <p>
+                                <label for="indexDescription"
+                                       class="description">
+                                    添加首页描述
+                                </label>
+                            </p>
+                            <textarea name="index_page_description"
+                                      class="large-text code"
+                                      id="indexDescription"
+                                      rows="3"
+                                      cols="30"
+                                      style="text-indent:0;padding:0">
+                                <?php echo stripslashes( trim( get_option( 'pure_theme_index_page_description' ) ) ); ?>
+                            </textarea>
+                            <p class="description">
+                                在Google的搜索结果中，摘要信息标题长度一般在 72 字节（即 36 个中文字）左右，而百度则只有 56 字节（即 28 个中文字）左右，超出这个范围的内容将被省略。
+                            </p>
+                        </fieldset>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">统计代码添加</th>
+                    <td>
+                        <fieldset>
+                            <legend class="screen-reader-text">
+                                <span>统计代码添加</span>
+                            </legend>
+                            <p>
+                                <label for="analytics"
+                                       class="description">
+                                    在主题底部添加统计代码或者分享代码等（请包含 <code>&lt;script&gt;&lt;/script&gt;</code>标签 ）
+                                </label>
+                            </p>
+                            <textarea name="analytics"
+                                      class="large-text code"
+                                      id="analytics"
+                                      rows="10"
+                                      cols="50"
+                                      style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_analytics' ) ) ); ?></textarea>
+                        </fieldset>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">文章页面的分享代码/相关文章</th>
+                    <td>
+                        <fieldset>
+                            <legend class="screen-reader-text">
+                                <span>统计代码添加</span>
+                            </legend>
+                            <p>
+                                <label for="single_script">
+                                    在文章主题底部添加统计代码或者分享代码等（请包含 <code>&lt;script&gt;&lt;/script&gt;</code>标签 ）
+                                </label>
+                            </p>
+                            <textarea name="single_script"
+                                      class="large-text code"
+                                      id="single_script" rows="10"
+                                      cols="50"
+                                      style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_single_script' ) ) ); ?></textarea>
+                            <p class="description">
+                                请注意该段代码只会在文章页面出现
+                            </p>
+                        </fieldset>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="submit">
+                <input type="submit" name="Submit" class="button-primary" value="保存设置"/>
+                <input type="hidden" name="pure_theme_settings" value="save" style="display:none;"/>
+            </p>
+        </form>
+    </div>
+<?php }
+
+/**
+ * 添加主题设置选项
+ */
+add_action( 'admin_menu', 'pure_setting_page' );
