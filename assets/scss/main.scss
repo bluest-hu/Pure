@@ -335,10 +335,21 @@ $content_width: 700px;
     .category-list {
       margin-left: $top-meta-margin;
       padding-left: $top-meta-margin;
-      height: $top-meta-height;
-      line-height: $top-meta-height;
+      min-height: $top-meta-height;
+      line-height: $top-meta-height - $top-meta-margin;
       border-left: 1px solid #E5E5E5;
       vertical-align: bottom;
+      white-space: normal;
+      display: inline-flex;
+      //justify-content:center;
+      align-items:center;
+      flex-wrap: wrap;
+
+
+      a {
+        display: inline-block;
+        vertical-align: bottom;
+      }
     }
 
     &.post-tags-wrap {
@@ -801,5 +812,17 @@ $content_width: 700px;
 
       }
     }
+  }
+}
+
+.article-pages {
+  text-align: center;
+
+  a {
+    text-decoration: none;
+  }
+
+  .page {
+    padding: 0 5px;
   }
 }

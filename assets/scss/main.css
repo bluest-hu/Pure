@@ -229,10 +229,22 @@
   .post-list .post-meta .category-list {
     margin-left: 10px;
     padding-left: 10px;
-    height: 40px;
-    line-height: 40px;
+    min-height: 40px;
+    line-height: 30px;
     border-left: 1px solid #E5E5E5;
-    vertical-align: bottom; }
+    vertical-align: bottom;
+    white-space: normal;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap; }
+    .post-list .post-meta .category-list a {
+      display: inline-block;
+      vertical-align: bottom; }
   .post-list .post-meta.post-tags-wrap {
     font-size: 18px;
     line-height: 20px;
@@ -569,5 +581,11 @@
     text-align: center; }
   .main-header .top-menu {
     margin-top: 0; } }
+.article-pages {
+  text-align: center; }
+  .article-pages a {
+    text-decoration: none; }
+  .article-pages .page {
+    padding: 0 5px; }
 
 /*# sourceMappingURL=main.css.map */

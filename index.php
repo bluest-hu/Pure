@@ -42,8 +42,19 @@
 						echo apply_filters( 'the_content', get_the_content( "Read More »", false ) );
 						?>
 
-                        <nav id="">
-							<?php wp_link_pages(); ?>
+                        <nav class="article-pages">
+							<?php wp_link_pages(array(
+                                'before'           => '<div>' . __( 'Pages:' ),
+                                'after'            => '</div>',
+                                'link_before'      => '<span class="page">',
+                                'link_after'       => '</span>',
+                                'next_or_number'   => 'number',
+                                'separator'        => ' ',
+                                'nextpagelink'     => __( 'Next page' ),
+                                'previouspagelink' => __( 'Previous page' ),
+                                'pagelink'         => '%',
+                                'echo'             => 1
+                            )); ?>
                         </nav>
                     </div>
 
