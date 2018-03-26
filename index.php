@@ -62,6 +62,14 @@
 						<?php the_tags( '', '、', '' ); ?>
                     </div>
 					<?php ?>
+
+	                <?php
+	                if (is_single()) {
+		                if (get_option('pure_theme_single_ads_script') != '') {
+			                echo trim( stripslashes( get_option( 'pure_theme_single_ads_script' ) ) );
+		                }
+	                }
+	                ?>
                 </div>
             </article>
         <?php

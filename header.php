@@ -114,7 +114,7 @@ if ( is_home() ) {
 		.main-header .custom-header-background-image {
 			padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100 ; ?>%;
 			background: url(<?php header_image(); ?>) no-repeat fixed;
-			background-size: cover;
+			background-size: contain;
 		}
 	</style>
 </head>
@@ -122,7 +122,8 @@ if ( is_home() ) {
 <body <?php body_class('serif'); ?>>
 
 <header class="main-header">
-	<div class="custom-header-background-image">
+	<div class="custom-header-background-image"
+         id="customHeaderBackgroundImage">
 	</div>
 	<div class="header-content-wrap">
 		<div class="main-header-content">
