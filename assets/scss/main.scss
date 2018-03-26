@@ -12,7 +12,8 @@
 .alignleft {
   float: left;
 
-  &.img {
+  &figure,
+  & img{
     margin-right: 10px;
   }
 }
@@ -25,7 +26,7 @@
 .alignright {
   float: right;
 
-  &.img {
+  & figure {
     margin-left: 10px;
   }
 }
@@ -35,6 +36,10 @@
 }
 
 .wp-caption {
+
+}
+
+.gallery {
 
 }
 
@@ -335,10 +340,21 @@ $content_width: 700px;
     .category-list {
       margin-left: $top-meta-margin;
       padding-left: $top-meta-margin;
-      height: $top-meta-height;
-      line-height: $top-meta-height;
+      min-height: $top-meta-height;
+      line-height: $top-meta-height - $top-meta-margin;
       border-left: 1px solid #E5E5E5;
       vertical-align: bottom;
+      white-space: normal;
+      display: inline-flex;
+      //justify-content:center;
+      align-items:center;
+      flex-wrap: wrap;
+
+
+      a {
+        display: inline-block;
+        vertical-align: bottom;
+      }
     }
 
     &.post-tags-wrap {
@@ -393,14 +409,90 @@ $content_width: 700px;
   font-size: 20px;
   margin: 50px 0;
 
-  .gallery {
-    display: flex;
+  .attachment {
+    a {
+      display: block;
+      border: none;
 
-    .gallery-item {
-      flex: 1;
-      margin: 10px;
+      img {
+        display: block;
+        max-width: 100%;
+        margin: 0 auto;
+
+      }
     }
   }
+
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -5px;
+    margin-right: -5px;
+
+    .gallery-item {
+      margin: 5px 0 5px 0;
+      padding: 0 5px;
+      box-sizing: border-box;
+    }
+
+    .gallery-caption {
+      margin-top: 5px;
+      line-height: 1.2;
+      font-size: 14px;
+      text-align: left;
+      overflow : hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 20;
+      -webkit-box-orient: vertical;
+    }
+
+    .gallery-icon {
+
+      &:hover {
+        img {
+          transform: scale3d(1.5, 1.5, 1);
+        }
+      }
+      a {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        padding-bottom: 100%;
+        border-radius: 4px;
+        border: 1px solid #1abc9c;
+
+        &:hover {
+          box-shadow: 0 1px 5px rgba(0, 0, 0, .1);
+        }
+
+      }
+
+      img {
+        position: absolute;
+        display: block;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        min-width: 100%;
+        min-height: 100%;
+        transition: transform .5s linear;
+        will-change: transform;
+
+      }
+    }
+  }
+
+  @for $i from 1 through 10 {
+    .gallery-columns-#{$i} {
+      .gallery-item {
+        flex-basis: 100% / $i;
+      }
+    }
+  }
+
 
   table {
     font-size: 80%;
@@ -801,5 +893,17 @@ $content_width: 700px;
 
       }
     }
+  }
+}
+
+.article-pages {
+  text-align: center;
+
+  a {
+    text-decoration: none;
+  }
+
+  .page {
+    padding: 0 5px;
   }
 }

@@ -279,7 +279,7 @@ function add_image_placeholders( $content ) {
 	// This is a pretty simple regex, but it works
 	$content = preg_replace(
 		'#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#',
-		sprintf( '<img${1}src="%s" data-original="${2}"${3}><noscript><img${1}src="${2}"${3}></noscript>', $placeholder_image ),
+		sprintf( '<img${1}src="%s" data-original="${2}?imageslim"${3}><noscript><img${1}src="${2}"${3}></noscript>', $placeholder_image ),
 		$content );
 
 	return $content;
@@ -424,6 +424,30 @@ function pure_theme_settings() {
                         </fieldset>
                     </td>
                 </tr>
+                <tr valign="top">
+                    <th scope="row">文章页面的广告</th>
+                    <td>
+                        <fieldset>
+                            <legend class="screen-reader-text">
+                                <span>统计代码添加</span>
+                            </legend>
+                            <p>
+                                <label for="single_script">
+                                    在文章主题内页添加广告（请包含 <code>&lt;script&gt;&lt;/script&gt;</code>标签 ）
+                                </label>
+                            </p>
+                            <textarea name="single_ads_script"
+                                      class="large-text code"
+                                      id="single_script" rows="10"
+                                      cols="50"
+                                      style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_single_ads_script' ) ) ); ?></textarea>
+                            <p class="description">
+                                请注意该段代码只会在文章页面出现
+                            </p>
+                        </fieldset>
+                    </td>
+                </tr>
+
                 </tbody>
             </table>
             <p class="submit">
