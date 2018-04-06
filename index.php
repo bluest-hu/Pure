@@ -15,11 +15,12 @@
                     </h2>
                     <div class="posy-meta-wrap">
                         <ul class="post-meta post-meta-top">
+
                             <li class="post-meta-item author-avatar-wrap">
 								<?php echo get_avatar( get_the_author_meta( 'user_email' ) ); ?>
                             </li>
-                            <li class="post-meta-item">
-                                <a class="author-name"
+                            <li class="post-meta-item author vcard">
+                                <a class="author-name fn"
                                    rel="vcard author post-author"
                                    href="<?php echo get_the_author_meta( 'url' ) ?>"
                                    title="<?php echo get_the_author_meta( 'display_name' ); ?>">

@@ -39,7 +39,6 @@ if (get_option('pure_theme_analytics') != '') {
         var wiewPortWidth = $Body.width();
 
         var justfy = function () {
-
         }
     });
 </script>

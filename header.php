@@ -51,7 +51,6 @@ if ( is_home() ) {
 <html <?php echo get_language_attributes(); ?>>
 <head>
 	<title><?php echo trim( $blog_title ) ?></title>
-	<!--    <title>--><?php //echo wp_title(); ?><!--</title>-->
 	<meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
 	<meta name="keywords" content="<?php echo trim( $blog_keywords ); ?>">
 	<meta name="description" content="<?php echo trim( $blog_description ); ?>">
@@ -60,8 +59,7 @@ if ( is_home() ) {
 	<meta name="renderer" content="webkit"/>
 	<meta name="force-rendering" content="webkit"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-	<link rel="alternate" hreflang="<?php get_language_attributes(); ?>" href="alternateURL">
-	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="alternate" hreflang="<?php get_language_attributes(); ?>" href="<?php echo home_url();?>">
 	<link rel="dns-prefetch" href="//cdn.bootcss.com">
 	<?php
 	wp_meta();
@@ -79,25 +77,25 @@ if ( is_home() ) {
 
 	wp_register_script(
 		'pure-lazyload-js',
-		'https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js',
+		'//cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js',
 		array(),
-		'1.9.7',
+		false,
 		true
 	);
 
 	wp_register_script(
 		'pure-jquery',
-		'//cdn.bootcss.com/jquery/3.3.1/jquery.slim.min.js',
+		'//cdn.bootcss.com/jquery/3.3.1/jquery.min.js',
 		array(),
-		'2.0.0-beta.2',
+		false,
 		true
 	);
 
 	wp_register_script(
 		'pure-prism-js',
-		get_template_directory_uri() . '/assets/scripts/prism.min.js',
+		'//cdn.bootcss.com/prism/1.13.0/prism.min.js',
 		array(),
-		'1.12.2',
+		false,
 		true
 	);
 
