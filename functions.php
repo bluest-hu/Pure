@@ -122,6 +122,12 @@ if ( ! function_exists( 'utf8Substr' ) ) {
 	}
 }
 
+if ( function_exists( 'register_nav_menus' ) ) {
+	register_nav_menus( array(
+		'header_menu' => '顶部菜单',
+	) );
+}
+
 // Register Theme Features
 function custom_theme_features() {
 

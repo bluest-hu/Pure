@@ -239,7 +239,7 @@ $content_width: 700px;
     }
   }
 
-  .top-menu {
+  .top-nav-container {
     width: 100%;
     position: sticky;
     top: 0;
@@ -253,7 +253,7 @@ $content_width: 700px;
     /* Google Chrome */
     backdrop-filter: saturate(180%) blur(20px);
 
-    > ul {
+    .top-menu {
       font-size: 0;
       line-height: inherit;
       height: inherit;
@@ -263,8 +263,7 @@ $content_width: 700px;
       max-width: 100%;
     }
 
-
-    .page_item {
+    .menu-item {
       font-size: 12px;
       display: inline-block;
       margin: 0 15px;

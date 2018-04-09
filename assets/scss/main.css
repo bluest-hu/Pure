@@ -159,7 +159,7 @@
       line-height: 20px;
       text-align: inherit;
       color: #eaeaea; }
-  .main-header .top-menu {
+  .main-header .top-nav-container {
     width: 100%;
     position: -webkit-sticky;
     position: sticky;
@@ -173,7 +173,7 @@
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     /* Google Chrome */
     backdrop-filter: saturate(180%) blur(20px); }
-    .main-header .top-menu > ul {
+    .main-header .top-nav-container .top-menu {
       font-size: 0;
       line-height: inherit;
       height: inherit;
@@ -181,15 +181,15 @@
       overflow-y: hidden;
       white-space: nowrap;
       max-width: 100%; }
-    .main-header .top-menu .page_item {
+    .main-header .top-nav-container .menu-item {
       font-size: 12px;
       display: inline-block;
       margin: 0 15px;
       line-height: inherit; }
-      .main-header .top-menu .page_item.current_page_item a, .main-header .top-menu .page_item:hover a {
+      .main-header .top-nav-container .menu-item.current_page_item a, .main-header .top-nav-container .menu-item:hover a {
         color: #FFF;
         text-decoration: none; }
-      .main-header .top-menu .page_item a {
+      .main-header .top-nav-container .menu-item a {
         display: block;
         color: #999; }
 

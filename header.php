@@ -1,8 +1,9 @@
 <!doctype html>
 <?php
 // TODO: for better SEO!
+$title = get_bloginfo( 'title' );
 // blog info
-$blog_title = get_bloginfo( 'title' ) . '-' . get_bloginfo( 'description' );
+$blog_title = $title . '-' . get_bloginfo( 'description' );
 // description
 $blog_description = get_bloginfo( 'description' );
 // keywords
@@ -17,7 +18,7 @@ $post_id = get_the_ID();
 if ( is_home() ) {
 
 } else if ( is_single() ) {
-	$blog_title = single_post_title( '', false );
+	$blog_title = single_post_title( '', false ) . ' - ' . get_bloginfo( 'title' );
 
 	if ( get_the_excerpt() ) { // 默认读取文章的摘要信息
 		$blog_description = get_the_excerpt( $post_id );
@@ -34,7 +35,6 @@ if ( is_home() ) {
 	foreach ( wp_get_post_tags( $post_id ) as $tag ) {
 		array_push( $blog_keywords, $tag->name );
 	}
-
 	$blog_keywords = join( $blog_keywords, ',' );
 	$blog_author   = get_the_author_meta( 'display_name', $post_author_id );
 
@@ -43,24 +43,27 @@ if ( is_home() ) {
 } else if ( is_search() ) {
 
 } else if ( is_tag() ) {
-	$blog_title = single_cat_title();
+    echo single_tag_title();
+	$blog_title = single_tag_title() . '-' . $title;
+
 } else if ( is_category() ) {
-	$blog_title = single_cat_title();
+	$blog_title = single_cat_title(). '-' . $title;
+
+} else if ( is_page() ) {
+	$blog_title = $blog_title - '';
 }
 ?>
 <html <?php echo get_language_attributes(); ?>>
 <head>
-	<title><?php echo trim( $blog_title ) ?></title>
-	<meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
-	<meta name="keywords" content="<?php echo trim( $blog_keywords ); ?>">
-	<meta name="description" content="<?php echo trim( $blog_description ); ?>">
-	<meta name="author" content="<?php echo trim( $blog_author ); ?>">
-	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<meta name="renderer" content="webkit"/>
-	<meta name="force-rendering" content="webkit"/>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-	<link rel="alternate" hreflang="<?php get_language_attributes(); ?>" href="<?php echo home_url();?>">
-	<link rel="dns-prefetch" href="//cdn.bootcss.com">
+    <title><?php echo trim( $blog_title ) ?></title>
+    <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
+    <meta name="keywords" content="<?php echo trim( $blog_keywords ); ?>">
+    <meta name="description" content="<?php echo trim( $blog_description ); ?>">
+    <meta name="author" content="<?php echo trim( $blog_author ); ?>">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link rel="alternate" hreflang="<?php get_language_attributes(); ?>" href="<?php echo home_url(); ?>">
+    <link rel="dns-prefetch" href="//cdn.bootcss.com">
 	<?php
 	wp_meta();
 
@@ -71,7 +74,6 @@ if ( is_home() ) {
 		'20180320',
 		'all'
 	);
-
 
 	wp_enqueue_style( 'pure-main' );
 
@@ -108,42 +110,42 @@ if ( is_home() ) {
 		$content_width = 900;
 	}
 	?>
-	<style>
-		.main-header .custom-header-background-image {
-			padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100 ; ?>%;
-			background: url(<?php header_image(); ?>) no-repeat fixed;
-			background-size: contain;
-		}
-	</style>
+    <style>
+        .main-header .custom-header-background-image {
+            padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100 ; ?>%;
+            background: url(<?php header_image(); ?>) no-repeat fixed;
+            background-size: contain;
+        }
+    </style>
 </head>
 
-<body <?php body_class('serif'); ?>>
+<body <?php body_class( 'serif' ); ?>>
 
 <header class="main-header">
-	<div class="custom-header-background-image"
+    <div class="custom-header-background-image"
          id="customHeaderBackgroundImage">
-	</div>
-	<div class="header-content-wrap">
-		<div class="main-header-content">
-			<div class="blog-info-wrap">
+    </div>
+    <div class="header-content-wrap">
+        <div class="main-header-content">
+            <div class="blog-info-wrap">
 				<?php the_custom_logo(); ?>
 
-				<div class="split-line"></div>
+                <div class="split-line"></div>
 
-				<div class="blog-title-desc-wrap serif">
-					<a class="home-link"
-					   href="<?php echo esc_url( home_url() ); ?>">
-						<h1 class="blog-title">
+                <div class="blog-title-desc-wrap serif">
+                    <a class="home-link"
+                       href="<?php echo esc_url( home_url() ); ?>">
+                        <h1 class="blog-title">
 							<?php bloginfo( "title" ) ?>
-						</h1>
-					</a>
+                        </h1>
+                    </a>
 
-					<h2 class="blog-description">
+                    <h2 class="blog-description">
 						<?php bloginfo( "description" ) ?>
-					</h2>
-				</div>
-			</div>
-		</div>
+                    </h2>
+                </div>
+            </div>
+        </div>
 
 		<?php
 		wp_nav_menu( array(
@@ -165,5 +167,5 @@ if ( is_home() ) {
 			'walker'          => ''
 		) );
 		?>
-	</div>
+    </div>
 </header>
