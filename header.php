@@ -55,14 +55,13 @@ if ( is_home() ) {
 ?>
 <html <?php echo get_language_attributes(); ?>>
 <head>
-    <title><?php echo trim( $blog_title ) ?></title>
     <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
     <meta name="keywords" content="<?php echo trim( $blog_keywords ); ?>">
     <meta name="description" content="<?php echo trim( $blog_description ); ?>">
     <meta name="author" content="<?php echo trim( $blog_author ); ?>">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <link rel="alternate" hreflang="<?php get_language_attributes(); ?>" href="<?php echo home_url(); ?>">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="alternate" hreflang="<?php get_bloginfo('charset'); ?>" href="<?php echo home_url(); ?>">
     <link rel="dns-prefetch" href="//cdn.bootcss.com">
 	<?php
 	wp_meta();

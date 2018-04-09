@@ -19,16 +19,15 @@
                             <li class="post-meta-item author-avatar-wrap">
 								<?php echo get_avatar( get_the_author_meta( 'user_email' ) ); ?>
                             </li>
-                            <li class="post-meta-item author vcard">
-                                <a class="author-name fn"
-                                   rel="vcard author post-author"
+                            <li class="post-meta-item">
+                                <a class="author-name fn vcard author post-author"
                                    href="<?php echo get_the_author_meta( 'url' ) ?>"
                                    title="<?php echo get_the_author_meta( 'display_name' ); ?>">
 									<?php echo get_the_author_meta( 'display_name' ); ?>
                                 </a>
                                 <time class="publish-time post-date updated"
-                                      datetime="<?php echo get_post_time( 'Y/m/d' ); ?>">
-									<?php echo get_post_time( 'Y/m/d' ); ?>
+                                      datetime="<?php echo get_post_time('Y-m-d'); ?>">
+									<?php echo get_post_time( 'Y-m-d' ); ?>
                                 </time>
                             </li>
 							<?php if ( get_the_category_list() ) { ?>
