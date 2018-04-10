@@ -1,9 +1,6 @@
 <!doctype html>
 <?php
-// TODO: for better SEO!
-$title = get_bloginfo( 'title' );
-// blog info
-$blog_title = $title . '-' . get_bloginfo( 'description' );
+
 // description
 $blog_description = get_bloginfo( 'description' );
 // keywords
@@ -18,7 +15,6 @@ $post_id = get_the_ID();
 if ( is_home() ) {
 
 } else if ( is_single() ) {
-	$blog_title = single_post_title( '', false ) . ' - ' . get_bloginfo( 'title' );
 
 	if ( get_the_excerpt() ) { // 默认读取文章的摘要信息
 		$blog_description = get_the_excerpt( $post_id );
@@ -39,29 +35,22 @@ if ( is_home() ) {
 	$blog_author   = get_the_author_meta( 'display_name', $post_author_id );
 
 } else if ( is_archive() ) {
-
 } else if ( is_search() ) {
-
 } else if ( is_tag() ) {
-    echo single_tag_title();
-	$blog_title = single_tag_title() . '-' . $title;
-
 } else if ( is_category() ) {
-	$blog_title = single_cat_title(). '-' . $title;
-
 } else if ( is_page() ) {
-	$blog_title = $blog_title - '';
 }
 ?>
 <html <?php echo get_language_attributes(); ?>>
 <head>
     <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
+    <meta http-equiv="Content-Type" content="text/html;charset=<?php echo get_bloginfo( 'charset' ); ?>">
     <meta name="keywords" content="<?php echo trim( $blog_keywords ); ?>">
     <meta name="description" content="<?php echo trim( $blog_description ); ?>">
     <meta name="author" content="<?php echo trim( $blog_author ); ?>">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <link rel="alternate" hreflang="<?php get_bloginfo('charset'); ?>" href="<?php echo home_url(); ?>">
+    <link rel="alternate" hreflang="zh-Hans" href="<?php echo home_url(); ?>">
     <link rel="dns-prefetch" href="//cdn.bootcss.com">
 	<?php
 	wp_meta();
@@ -80,7 +69,7 @@ if ( is_home() ) {
 		'pure-lazyload-js',
 		'//cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js',
 		array(),
-		false,
+		null,
 		true
 	);
 
@@ -88,7 +77,7 @@ if ( is_home() ) {
 		'pure-jquery',
 		'//cdn.bootcss.com/jquery/3.3.1/jquery.min.js',
 		array(),
-		false,
+		null,
 		true
 	);
 
@@ -96,14 +85,13 @@ if ( is_home() ) {
 		'pure-prism-js',
 		'//cdn.bootcss.com/prism/1.13.0/prism.min.js',
 		array(),
-		false,
+		null,
 		true
 	);
 
 	wp_head();
 
 	add_editor_style();
-
 
 	if ( ! isset( $content_width ) ) {
 		$content_width = 900;
