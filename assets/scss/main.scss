@@ -872,10 +872,20 @@ $content_width: 700px;
 
 @media (max-width: 640px) {
   .main-header {
+    .blog-title-desc-wrap {
+      //transform: translateY(-10px);
+    }
+
     .blog-info-wrap {
+
+      .home-link {
+        font-size: 50px;
+      }
+
       .custom-logo-link {
         display: none;
       }
+
 
       .split-line {
         display: none;
@@ -888,9 +898,50 @@ $content_width: 700px;
 
     .top-menu {
       margin-top: 0;
-      & > ul {
+    }
 
+    .top-nav-container {
+      height: 30px;
+      line-height: 30px;
+      margin-top: -30px;
+    }
+  }
+
+  .post-list  {
+    .post {
+      margin-top: 30px;
+      .post-title {
+        font-size: 30px;
       }
+    }
+  }
+
+  .post-entry {
+    font-size: 15px;
+
+    table {
+      max-width: 100%;
+    }
+  }
+
+  .relative-post-nav .nav-list .nav-item {
+    font-size: 14px;
+  }
+
+  .post-list .post-meta.post-tags-wrap {
+    font-size: 15px;
+  }
+
+  .main-header {
+    margin-bottom: 0;
+  }
+
+  .comments-area  {
+    .comment .comment-content {
+      font-size: 15px;
+    }
+    .comments-title {
+      font-size: 20px;
     }
   }
 }

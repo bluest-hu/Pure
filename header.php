@@ -44,6 +44,7 @@ if ( is_home() ) {
 <html <?php echo get_language_attributes(); ?>>
 <head>
     <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
+    <meta name="theme-color" content="#1abc9c"/>
     <meta http-equiv="Content-Type" content="text/html;charset=<?php echo get_bloginfo( 'charset' ); ?>">
     <meta name="keywords" content="<?php echo trim( $blog_keywords ); ?>">
     <meta name="description" content="<?php echo trim( $blog_description ); ?>">
@@ -59,7 +60,7 @@ if ( is_home() ) {
 		'pure-main',
 		get_template_directory_uri() . '/assets/scss/main.min.css',
 		array(),
-		'20180320',
+		'20180411',
 		'all'
 	);
 
