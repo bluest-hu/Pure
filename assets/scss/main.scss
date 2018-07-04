@@ -77,9 +77,6 @@
   z-index: 100000;
 }
 
-
-
-
 .serif {
   font-family: Palatino, Optima, Georgia, serif;
 
@@ -783,12 +780,30 @@ $content_width: 700px;
       display: flex;
     }
 
+
     label {
       display: inline-block;
       width: 100px;
       font-size: 18px;
       line-height: 40px;
       flex-grow: 0;
+    }
+
+    .comment-form-cookies-consent {
+      margin-bottom: 25px;
+
+      #wp-comment-cookies-consent {
+        line-height: 1;
+      }
+
+      label {
+        line-height: 1;
+        width: auto;
+        margin-left: 5px;
+        font-size: 14px;
+        color: #666;
+        display: inline;
+      }
     }
 
     .submit {
@@ -870,6 +885,28 @@ $content_width: 700px;
   }
 }
 
+.article-pages {
+  text-align: center;
+
+  a {
+    text-decoration: none;
+  }
+
+  .page {
+    padding: 0 5px;
+  }
+}
+
+.page {
+  &.page-template-firends {
+    .friend-list {
+      .friend-list_item {
+
+      }
+    }
+  }
+}
+
 @media (max-width: 640px) {
   .main-header {
     .blog-title-desc-wrap {
@@ -938,7 +975,7 @@ $content_width: 700px;
 
   .comments-area  {
     .comment .comment-content {
-      font-size: 15px;
+      font-size: 14px;
     }
     .comments-title {
       font-size: 20px;
@@ -946,14 +983,3 @@ $content_width: 700px;
   }
 }
 
-.article-pages {
-  text-align: center;
-
-  a {
-    text-decoration: none;
-  }
-
-  .page {
-    padding: 0 5px;
-  }
-}
