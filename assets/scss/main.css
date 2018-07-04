@@ -582,6 +582,17 @@
   -webkit-box-flex: 0;
       -ms-flex-positive: 0;
           flex-grow: 0; }
+.comments-area .comment-form .comment-form-cookies-consent {
+  margin-bottom: 25px; }
+  .comments-area .comment-form .comment-form-cookies-consent #wp-comment-cookies-consent {
+    line-height: 1; }
+  .comments-area .comment-form .comment-form-cookies-consent label {
+    line-height: 1;
+    width: auto;
+    margin-left: 5px;
+    font-size: 14px;
+    color: #666;
+    display: inline; }
 .comments-area .comment-form .submit {
   height: 40px;
   border: 1px solid #1abc9c;
@@ -687,7 +698,7 @@
     margin-bottom: 0; }
 
   .comments-area .comment .comment-content {
-    font-size: 15px; }
+    font-size: 14px; }
   .comments-area .comments-title {
     font-size: 20px; } }
 .article-pages {

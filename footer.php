@@ -30,13 +30,12 @@ if (get_option('pure_theme_analytics') != '') {
         Prism.highlightAll();
         jQuery(".post img").lazyload();
 
-        var $BgImage = $("#customHeaderBackgroundImage");
-        var bgImageWidth = <?php echo get_custom_header()->width ;?>;
-        var $Body = $("body");
-        var wiewPortWidth = $Body.width();
-
-        var justfy = function () {
-        }
+        //var $BgImage = $("#customHeaderBackgroundImage");
+        //var bgImageWidth = <?php //echo get_custom_header()->width ;?>//;
+        //var $Body = $("body");
+        //var wiewPortWidth = $Body.width();
+        //var justfy = function () {
+        //}
     });
 </script>
 

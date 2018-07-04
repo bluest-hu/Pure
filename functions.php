@@ -296,6 +296,9 @@ function add_image_placeholders( $content ) {
 
 add_filter( 'the_content', 'add_image_placeholders', 99 );
 
+
+add_filter( "pre_option_link_manager_enabled", "__return_true" );
+
 /**
  *
  */

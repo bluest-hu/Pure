@@ -12,10 +12,13 @@ $blog_author = get_bloginfo( 'admin_email' );
 // ID
 $post_id = get_the_ID();
 
+if (get_option('pure_theme_index_page_keywords') != '') {
+	$blog_keywords  = trim( stripslashes( get_option( 'pure_theme_index_page_keywords' ) ) );
+}
+
 if ( is_home() ) {
 
 } else if ( is_single() ) {
-
 	if ( get_the_excerpt() ) { // 默认读取文章的摘要信息
 		$blog_description = get_the_excerpt( $post_id );
 	} else {
@@ -39,6 +42,7 @@ if ( is_home() ) {
 } else if ( is_tag() ) {
 } else if ( is_category() ) {
 } else if ( is_page() ) {
+} else {
 }
 ?>
 <html <?php echo get_language_attributes(); ?>>
@@ -52,7 +56,6 @@ if ( is_home() ) {
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <link rel="alternate" hreflang="zh-Hans" href="<?php echo home_url(); ?>">
-    <link rel="dns-prefetch" href="//cdn.bootcss.com">
 	<?php
 	wp_meta();
 
