@@ -17,7 +17,7 @@
                         <ul class="post-meta post-meta-top">
 
                             <li class="post-meta-item author-avatar-wrap">
-								<?php echo get_avatar( get_the_author_meta( 'user_email' ) ); ?>
+								<?php echo get_avatar( get_the_author_meta( 'user_email' ), 40 ); ?>
                             </li>
                             <li class="post-meta-item vcard author author_name post-author">
                                 <a class="author-name fn"

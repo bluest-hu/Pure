@@ -59,15 +59,15 @@ if ( is_home() ) {
 	<?php
 	wp_meta();
 
-	wp_register_style(
-		'pure-main',
-		get_template_directory_uri() . '/assets/scss/main.min.css',
-		array(),
-		'20180411',
-		'all'
-	);
+// 	wp_register_style(
+// 		'pure-main',
+// 		get_template_directory_uri() . '/assets/scss/main.min.css',
+// 		array(),
+// 		'20180411',
+// 		'all'
+// 	);
 
-	wp_enqueue_style( 'pure-main' );
+// 	wp_enqueue_style( 'pure-main' );
 
 	wp_register_script(
 		'pure-lazyload-js',
@@ -101,6 +101,10 @@ if ( is_home() ) {
 		$content_width = 900;
 	}
 	?>
+	
+    <style type="text/css">
+	<?php include(get_stylesheet_directory() .'/assets/scss/main.min.css');?>
+    </style>
     <style>
         .main-header .custom-header-background-image {
             padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100 ; ?>%;

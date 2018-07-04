@@ -10,6 +10,7 @@
 		v<?php echo $theme_info->display( 'Version' ); ?>
 
 		by<?php echo $theme_info->display( 'Author' ); ?>
+		<?php echo get_option( 'zh_cn_l10n_icp_num' );?>
 	</div>
 </footer>
 
