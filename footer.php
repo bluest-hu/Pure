@@ -26,17 +26,9 @@ if (get_option('pure_theme_analytics') != '') {
 ?>
 
 <script>
-    jQuery(function () {
-        Prism.highlightAll();
-        jQuery(".post img").lazyload();
 
-        //var $BgImage = $("#customHeaderBackgroundImage");
-        //var bgImageWidth = <?php //echo get_custom_header()->width ;?>//;
-        //var $Body = $("body");
-        //var wiewPortWidth = $Body.width();
-        //var justfy = function () {
-        //}
-    });
+    Prism.highlightAll();
+    lazyload(document.querySelectorAll(".post-entry img"));
 </script>
 
 </body>
