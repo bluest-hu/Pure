@@ -122,6 +122,12 @@ if ( ! function_exists( 'utf8Substr' ) ) {
 	}
 }
 
+if ( function_exists( 'register_nav_menus' ) ) {
+	register_nav_menus( array(
+		'header_menu' => '顶部菜单',
+	) );
+}
+
 // Register Theme Features
 function custom_theme_features() {
 
@@ -199,8 +205,10 @@ function custom_theme_features() {
 		'caption'
 	) );
 
+	// 缩略图
 	add_theme_support( 'post-thumbnails' );
 
+	// title tag
 	add_theme_support( "title-tag" );
 }
 
@@ -258,6 +266,7 @@ function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
 }
 
 /**
+ * 增加图片缩略图
  * @param $content
  *
  * @return null|string|string[]
@@ -279,7 +288,7 @@ function add_image_placeholders( $content ) {
 	// This is a pretty simple regex, but it works
 	$content = preg_replace(
 		'#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#',
-		sprintf( '<img${1}src="%s" data-original="${2}?imageslim"${3}><noscript><img${1}src="${2}"${3}></noscript>', $placeholder_image ),
+		sprintf( '<img${1}src="%s" data-original="${2}"${3}><noscript><img${1}src="${2}"${3}></noscript>', $placeholder_image ),
 		$content );
 
 	return $content;
@@ -301,6 +310,9 @@ add_filter( 'embed_oembed_discover', '__return_true' );
 add_filter( 'jetpack_implode_frontend_css', '__return_false' );
 
 add_action( 'wp_enqueue_scripts', 'deregister_scripts', 99 );
+
+remove_action('wp_head', 'rest_output_link_wp_head', 10);
+
 
 
 function pure_setting_page() {
@@ -462,3 +474,47 @@ function pure_theme_settings() {
  * 添加主题设置选项
  */
 add_action( 'admin_menu', 'pure_setting_page' );
+
+
+/* Archives list by zwwooooo | http://zww.me */
+function zww_archives_list() {
+	if ( ! $output = get_option( 'zww_archives_list' ) ) {
+		$output    = '<div id="archives"><p>[<a id="al_expand_collapse" href="#">全部展开/收缩</a>] <em>(注: 点击月份可以展开)</em></p>';
+		$the_query = new WP_Query( 'posts_per_page=-1&ignore_sticky_posts=1' ); //update: 加上忽略置顶文章
+		$year      = 0;
+		$mon       = 0;
+		$i         = 0;
+		$j         = 0;
+		while ( $the_query->have_posts() ) : $the_query->the_post();
+			$year_tmp = get_the_time( 'Y' );
+			$mon_tmp  = get_the_time( 'm' );
+			$y        = $year;
+			$m        = $mon;
+			if ( $mon != $mon_tmp && $mon > 0 ) {
+				$output .= '</ul></li>';
+			}
+			if ( $year != $year_tmp && $year > 0 ) {
+				$output .= '</ul>';
+			}
+			if ( $year != $year_tmp ) {
+				$year   = $year_tmp;
+				$output .= '<h3 class="al_year">' . $year . ' 年</h3><ul class="al_mon_list">'; //输出年份
+			}
+			if ( $mon != $mon_tmp ) {
+				$mon    = $mon_tmp;
+				$output .= '<li><span class="al_mon">' . $mon . ' 月</span><ul class="al_post_list">'; //输出月份
+			}
+			$output .= '<li>' . get_the_time( 'd日: ' ) . '<a href="' . get_permalink() . '">' . get_the_title() . '</a> <em>(' . get_comments_number( '0', '1', '%' ) . ')</em></li>'; //输出文章日期和标题
+		endwhile;
+		wp_reset_postdata();
+		$output .= '</ul></li></ul></div>';
+		update_option( 'zww_archives_list', $output );
+	}
+	echo $output;
+}
+
+function clear_zal_cache() {
+	update_option( 'zww_archives_list', '' ); // 清空 zww_archives_list
+}
+
+add_action( 'save_post', 'clear_zal_cache' ); // 新发表文章/修改文章时
