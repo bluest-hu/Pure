@@ -26,9 +26,10 @@ if (get_option('pure_theme_analytics') != '') {
 ?>
 
 <script>
-
-    Prism.highlightAll();
-    lazyload(document.querySelectorAll(".post-entry img"));
+	document.addEventListener('DOMContentLoaded', function () {
+		Prism.highlightAll();
+    	lazyload(document.querySelectorAll(".post-entry img"));
+	}, false);
 </script>
 
 </body>
