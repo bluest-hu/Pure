@@ -94,7 +94,7 @@ function my_avatar( $avatar, $id_or_email, $size = '96', $default = '', $alt = f
 	$file_make_time = filemtime( $avatar_local );
 
 	$avatar = "<img title='{$alt}' 
-					alt='{$alt}' src='{$avatar_url}?&t={$file_make_time}' 
+					alt='{$alt}' src='{$avatar_url}?t={$file_make_time}' 
 					class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' />";
 
 	return $avatar;
@@ -283,7 +283,7 @@ function add_image_placeholders( $content ) {
 	}
 
 	// In case you want to change the placeholder image
-	$placeholder_image = apply_filters( 'lazyload_images_placeholder_image', get_template_directory_uri() . '/assets/images/image-pending.gif' );
+	$placeholder_image = apply_filters( 'lazyload_images_placeholder_image', get_template_directory_uri() . '/assets/images/svg-loaders/puff.svg' );
 
 	// This is a pretty simple regex, but it works
 	$content = preg_replace(

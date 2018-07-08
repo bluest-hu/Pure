@@ -6,4 +6,9 @@
  * Time: 12:15
  */
 
-echo '404';
+get_header();?>
+<div class="post-wrap content-width">
+	<h1>404</h1>
+</div>
+
+<?php get_footer();?>
