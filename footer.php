@@ -16,8 +16,12 @@
 </footer>
 
 <?php
-wp_enqueue_script( 'pure-jquery' );
-wp_enqueue_script( 'pure-prism-js' );
+//wp_enqueue_script( 'pure-jquery' );
+
+if (is_single()) {
+	wp_enqueue_script( 'pure-prism-js' );
+}
+
 wp_enqueue_script( 'pure-lazyload-js' );
 
 wp_footer();
@@ -28,10 +32,23 @@ if (get_option('pure_theme_analytics') != '') {
 
 <script>
 	document.addEventListener('DOMContentLoaded', function () {
-		Prism.highlightAll();
     	lazyload(document.querySelectorAll(".post-entry img"));
 	}, false);
 </script>
 
+<?php
+
+if (is_single()) {
+
+?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Prism.highlightAll();
+    }, false);
+</script>
+<?php
+}
+?>
 </body>
 </html>
