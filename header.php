@@ -99,7 +99,9 @@ if ( is_home() ) {
         <?php include(get_stylesheet_directory() .'/assets/scss/main.min.css');?>
         .main-header .custom-header-background-image {
             padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100 ; ?>%;
-            background: url(<?php header_image(); ?>) no-repeat fixed;
+            background-image: url(<?php header_image(); ?>);
+            background-repeat:  no-repeat;
+            background-attachment: fixed;
             background-size: contain;
         }
     </style>

@@ -278,7 +278,7 @@
         color: #777777; }
 
 .post-entry {
-  font-size: 20px;
+  font-size: 18px;
   margin: 50px 0; }
   .post-entry .attachment a {
     display: block;
@@ -688,7 +688,7 @@
   .post-list .post {
     margin-top: 30px; }
     .post-list .post .post-title {
-      font-size: 30px; }
+      font-size: 35px; }
 
   .post-entry {
     font-size: 15px; }
