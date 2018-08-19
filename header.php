@@ -55,6 +55,7 @@ if ( is_home() ) {
     <meta name="author" content="<?php echo trim( $blog_author ); ?>">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="x-dns-prefetch-control" content="on">
     <link rel="alternate" hreflang="zh-Hans" href="<?php echo home_url(); ?>">
 	<?php
 	wp_meta();
@@ -76,7 +77,6 @@ if ( is_home() ) {
 		null,
 		true
 	);
-
 
 	wp_register_script(
 		'pure-prism-js',
@@ -102,7 +102,8 @@ if ( is_home() ) {
             background-image: url(<?php header_image(); ?>);
             background-repeat:  no-repeat;
             background-attachment: fixed;
-            background-size: contain;
+            background-size: 100%;
+            background-position: center;
         }
     </style>
 </head>

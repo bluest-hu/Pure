@@ -11,13 +11,11 @@
 
 		by<?php echo $theme_info->display( 'Author' ); ?>
         <br>
-		<?php echo get_option( 'zh_cn_l10n_icp_num' );?>
+        <a href="http://www.miitbeian.gov.cn"><?php echo get_option( 'zh_cn_l10n_icp_num' );?></a>
 	</div>
 </footer>
 
 <?php
-//wp_enqueue_script( 'pure-jquery' );
-
 if (is_single()) {
 	wp_enqueue_script( 'pure-prism-js' );
 }
