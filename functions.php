@@ -4,6 +4,7 @@
  * User: hubery
  * Date: 2016/11/3
  * Time: 18:22
+ * charset: utf-8
  */
 
 /**
@@ -107,29 +108,21 @@ function my_avatar( $avatar, $id_or_email, $size = '96', $default = '', $alt = f
  */
 function get_http_response_code( $theURL ) {
 	$headers = get_headers( $theURL );
-
 	return substr( $headers[0], 9, 3 );
 }
 
 // 替换原来的系统函数
 add_filter( 'get_avatar', 'my_avatar', 10, 5 );
 
-if ( ! function_exists( 'utf8Substr' ) ) {
-	function utf8Substr( $str, $from, $len ) {
-		return preg_replace( '#^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,' . $from . '}' .
-		                     '((?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,' . $len . '}).*#s',
-			'$1', $str );
-	}
-}
-
-if ( function_exists( 'register_nav_menus' ) ) {
+// Register Top Menu
+add_action('init', function () {
 	register_nav_menus( array(
 		'header_menu' => '顶部菜单',
-	) );
-}
+	));
+});
 
 // Register Theme Features
-function custom_theme_features() {
+add_action( 'after_setup_theme', function () {
 
 	// Add theme support for Automatic Feed Links
 	add_theme_support( 'automatic-feed-links' );
@@ -159,7 +152,6 @@ function custom_theme_features() {
 		'admin-preview-callback' => 'adminpreview_cb',
 	) );
 
-
 	// 自定义 logo
 	add_theme_support( 'custom-logo', array(
 		'height'      => 100,
@@ -171,7 +163,7 @@ function custom_theme_features() {
 
 	// 自定义背景图片
 	add_theme_support( 'custom-background', array(
-		'default-color'          => '#FFF',
+		'default-color'          => '000',
 		'default-image'          => '',
 		'default-repeat'         => 'no-repeat',
 		'default-position-x'     => 'left',
@@ -209,10 +201,10 @@ function custom_theme_features() {
 	add_theme_support( 'post-thumbnails' );
 
 	// title tag
-	add_theme_support( "title-tag" );
-}
+	add_theme_support( 'title-tag' );
 
-add_action( 'after_setup_theme', 'custom_theme_features' );
+	add_theme_support( 'customize-selective-refresh-widgets' );
+});
 
 /**
  * Disable the emoji's
@@ -267,6 +259,7 @@ function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
 
 /**
  * 增加图片缩略图
+ *
  * @param $content
  *
  * @return null|string|string[]
@@ -296,7 +289,6 @@ function add_image_placeholders( $content ) {
 
 add_filter( 'the_content', 'add_image_placeholders', 99 );
 
-
 add_filter( "pre_option_link_manager_enabled", "__return_true" );
 
 /**
@@ -308,14 +300,13 @@ function deregister_scripts() {
 }
 
 
-add_filter( 'embed_oembed_discover', '__return_true' );
+add_filter( 'embed_oembed_discover', true );
 
 add_filter( 'jetpack_implode_frontend_css', '__return_false' );
 
-add_action( 'wp_enqueue_scripts', 'deregister_scripts', 99 );
+//add_action( 'wp_enqueue_scripts', 'deregister_scripts', 99 );
 
-remove_action('wp_head', 'rest_output_link_wp_head', 10);
-
+remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
 
 
 function pure_setting_page() {

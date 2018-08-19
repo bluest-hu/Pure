@@ -3,41 +3,44 @@
 	<?php if ( have_posts() ) {
 		while ( have_posts() ) : the_post();
 			?>
-            <article <?php post_class( 'post h-entry' ); ?>>
+            <article <?php post_class( 'post h-entry' ); ?> id="post-<?php the_ID(); ?>">
                 <div class="post-wrap content-width">
-                    <h2 class="post-title serif entry-title">
-                        <a class="post-title-url"
-                           href="<?php the_permalink(); ?>"
-                           title="<?php the_title(); ?>"
-                        >
-							<?php the_title(); ?>
-                        </a>
-                    </h2>
-                    <div class="posy-meta-wrap">
-                        <ul class="post-meta post-meta-top">
+                    <header class="entry-header">
+                        <h2 class="post-title serif entry-title">
+                            <a class="post-title-url"
+                               href="<?php the_permalink(); ?>"
+                               title="<?php the_title(); ?>"
+                            >
+			                    <?php the_title(); ?>
+                            </a>
+                        </h2>
+                        <div class="posy-meta-wrap">
+                            <ul class="post-meta post-meta-top">
 
-                            <li class="post-meta-item author-avatar-wrap">
-								<?php echo get_avatar( get_the_author_meta( 'user_email' ), 40 ); ?>
-                            </li>
-                            <li class="post-meta-item vcard author author_name post-author">
-                                <a class="author-name fn"
-                                   href="<?php echo get_the_author_meta( 'url' ) ?>"
-                                   title="<?php echo get_the_author_meta( 'display_name' ); ?>">
-                                    <?php echo get_the_author_meta( 'display_name' ); ?>
-                                </a>
-                                <time class="publish-time post-date updated"
-                                      datetime="<?php echo get_post_time('Y-m-d'); ?>">
-									<?php echo get_post_time( 'Y-m-d' ); ?>
-                                </time>
-                            </li>
-							<?php if ( get_the_category_list() ) { ?>
-                                <li class="post-meta-item category-list">
-									<?php the_category( ' / ' ); ?>
+                                <li class="post-meta-item author-avatar-wrap">
+				                    <?php echo get_avatar( get_the_author_meta( 'user_email' ), 40 ); ?>
                                 </li>
-							<?php } ?>
-                        </ul>
-                    </div>
-                    <div class="post-entry typo">
+                                <li class="post-meta-item vcard author author_name post-author">
+                                    <a class="author-name fn"
+                                       href="<?php echo get_the_author_meta( 'url' ) ?>"
+                                       title="<?php echo get_the_author_meta( 'display_name' ); ?>">
+					                    <?php echo get_the_author_meta( 'display_name' ); ?>
+                                    </a>
+                                    <time class="publish-time post-date updated"
+                                          datetime="<?php echo get_post_time('Y-m-d'); ?>">
+					                    <?php echo get_post_time( 'Y-m-d' ); ?>
+                                    </time>
+                                </li>
+			                    <?php if ( get_the_category_list() ) { ?>
+                                    <li class="post-meta-item category-list">
+					                    <?php the_category( ' / ' ); ?>
+                                    </li>
+			                    <?php } ?>
+                            </ul>
+                        </div>
+                    </header>
+
+                    <div class="post-entry entry-content typo">
 						<?php
 						echo apply_filters( 'the_content', get_the_content( "Read More »", false ) );
 						?>
@@ -58,10 +61,11 @@
                         </nav>
                     </div>
 
-                    <div class="post-meta post-tags-wrap">
-						<?php the_tags( '', '、', '' ); ?>
-                    </div>
-					<?php ?>
+                    <footer class="entry-footer">
+                        <div class="post-meta post-tags-wrap">
+		                    <?php the_tags( '', '、', '' ); ?>
+                        </div>
+                    </footer>
 
 	                <?php
 	                if (is_single()) {
