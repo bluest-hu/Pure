@@ -11,7 +11,9 @@
 
 		by<?php echo $theme_info->display( 'Author' ); ?>
         <br>
-        <a href="http://www.miitbeian.gov.cn"><?php echo get_option( 'zh_cn_l10n_icp_num' );?></a>
+    <?php if (get_option( 'zh_cn_l10n_icp_num' )){ ?>
+        <a href="http://www.miitbeian.gov.cn" rel="nofollow"><?php echo get_option( 'zh_cn_l10n_icp_num' );?></a>
+    <?php } ?>
 	</div>
 </footer>
 
