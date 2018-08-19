@@ -11,11 +11,11 @@
 
 .alignleft {
   float: left;
+}
 
-  &figure,
-  & img{
-    margin-right: 10px;
-  }
+figure.alignleft,
+img.alignleft{
+  margin-right: 15px;
 }
 
 .aligncenter {
@@ -25,10 +25,11 @@
 
 .alignright {
   float: right;
+}
 
-  & figure {
-    margin-left: 10px;
-  }
+img.alignright,
+figure.alignright {
+  margin-left: 15px;
 }
 
 .sticky {
@@ -245,41 +246,59 @@ $content_width: 700px;
     line-height: 50px;
     height: 50px;
     margin-top: -50px;
-    background-color: rgba( 0, 0, 0, .1);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);;
-    /* Google Chrome */
+    overflow: hidden;
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
+    background-color: rgba(0, 0, 0, .1);
 
-    .top-menu {
-      font-size: 0;
-      line-height: inherit;
-      height: inherit;
-      overflow-x: auto;
-      overflow-y: hidden;
-      white-space: nowrap;
-      max-width: 100%;
+    //&:before {
+    //  overflow: hidden;
+    //  top: 0;
+    //  width: 100%;
+    //  height: 100%;
+    //  display: block;
+    //  content: '';
+    //  position: absolute;
+    //  filter: blur(20px);
+    //}
+  }
+
+
+  .top-menu {
+    font-size: 0;
+    line-height: inherit;
+    height: inherit;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+    position: relative;
+
+    ul li {
+      display: inline-block;
+    }
+  }
+
+  .page_item,
+  .menu-item {
+    font-size: 12px;
+    display: inline-block;
+    margin: 0 15px;
+    line-height: inherit;
+
+
+    &.current_page_item,
+    &.current-menu-item,
+    &:hover {
+      a {
+        color: #FFF;
+        text-decoration: none;
+      }
     }
 
-    .menu-item {
-      font-size: 12px;
-      display: inline-block;
-      margin: 0 15px;
-      line-height: inherit;
-
-
-      &.current_page_item,
-      &.current-menu-item,
-      &:hover {
-        a {
-          color: #FFF;
-          text-decoration: none;
-        }
-      }
-
-      a {
-        display: block;
-        color: #999;
-      }
+    a {
+      display: block;
+      color: #999;
     }
   }
 }
@@ -376,6 +395,11 @@ $content_width: 700px;
     margin: 50px 0;
     border-bottom: 1px solid #eaeaea;
 
+
+    &.last-child {
+      border-bottom: none;
+    }
+
     .post-title {
       text-align: center;
       font-size: 50px;
@@ -405,6 +429,21 @@ $content_width: 700px;
 .post-entry {
   font-size: 18px;
   margin: 50px 0;
+
+  audio {
+    display: block;
+    width: 100%;
+  }
+
+  iframe,
+  twitterwidget {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  iframe {
+    display: block;
+  }
 
   .attachment {
     a {
@@ -477,7 +516,6 @@ $content_width: 700px;
         min-height: 100%;
         transition: transform .5s linear;
         will-change: transform;
-
       }
     }
   }
@@ -493,6 +531,7 @@ $content_width: 700px;
 
   table {
     font-size: 80%;
+    width: 100%;
   }
 
   pre {
@@ -529,6 +568,26 @@ $content_width: 700px;
       box-shadow: 0 1px 5px rgba(0, 0, 0, .1);
     }
   }
+
+  .post-password-form {
+    text-align: center;
+    border: 1px solid #EEE;
+    border-radius: 4px;
+    padding: 25px 0;
+    //box-shadow: 0px 0px 1px rgba(0,0,0, .2);
+
+    p {
+      margin: 0;
+    }
+  }
+
+  img.wp-post-image,
+  img.attachment-thumbnail,
+  img.attachment-medium,
+  img.attachment-large,
+  img.attachment-full {
+
+  }
 }
 
 .post.format-chat {
@@ -553,7 +612,6 @@ $content_width: 700px;
       padding: 5px 10px;
       position: relative;
       border-radius: 5px;
-      //color: #555;
       $triangle-width: 10px;
       z-index: 2;
 
@@ -613,6 +671,29 @@ $content_width: 700px;
   }
 }
 
+.post.format-link {
+  .post-entry {
+    a {
+      position: relative;
+      display: block;
+      border: 2px dashed #EAEAEA;
+      text-align: center;
+      background: lighten(#EAEAEA, 10);
+      padding: 10px 0;
+      border-radius: 4px;
+    }
+  }
+}
+
+.post.format-status {
+  .post-entry {
+    > * {
+      display: block;
+      background-color: lighten(#EAEAEA, 5);
+    }
+  }
+}
+
 .pages-nav {
   margin: 50px 0;
 
@@ -660,6 +741,14 @@ $content_width: 700px;
 
 .comments-area {
 
+  .comment-list {
+    .pingback {
+      margin: 15px 0;
+    }
+  }
+
+
+
   .comments-title {
     font-size: 35px;
     padding: 10px 0;
@@ -678,8 +767,6 @@ $content_width: 700px;
       margin: 10px 0;
     }
 
-
-
     .reply {
       position: absolute;
       right: 0;
@@ -692,8 +779,6 @@ $content_width: 700px;
         display: block;
       }
     }
-
-
 
     .children {
       .comment {

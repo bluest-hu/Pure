@@ -7,8 +7,10 @@
 
 .alignleft {
   float: left; }
-  .alignleftfigure, .alignleft img {
-    margin-right: 10px; }
+
+figure.alignleft,
+img.alignleft {
+  margin-right: 15px; }
 
 .aligncenter {
   margin-left: auto;
@@ -16,8 +18,10 @@
 
 .alignright {
   float: right; }
-  .alignright figure {
-    margin-left: 10px; }
+
+img.alignright,
+figure.alignright {
+  margin-left: 15px; }
 
 .sticky {
   position: -webkit-sticky;
@@ -169,29 +173,37 @@
     line-height: 50px;
     height: 50px;
     margin-top: -50px;
-    background-color: rgba(0, 0, 0, 0.1);
+    overflow: hidden;
     -webkit-backdrop-filter: saturate(180%) blur(20px);
-    /* Google Chrome */
-    backdrop-filter: saturate(180%) blur(20px); }
-    .main-header .top-nav-container .top-menu {
-      font-size: 0;
-      line-height: inherit;
-      height: inherit;
-      overflow-x: auto;
-      overflow-y: hidden;
-      white-space: nowrap;
-      max-width: 100%; }
-    .main-header .top-nav-container .menu-item {
-      font-size: 12px;
-      display: inline-block;
-      margin: 0 15px;
-      line-height: inherit; }
-      .main-header .top-nav-container .menu-item.current_page_item a, .main-header .top-nav-container .menu-item.current-menu-item a, .main-header .top-nav-container .menu-item:hover a {
-        color: #FFF;
-        text-decoration: none; }
-      .main-header .top-nav-container .menu-item a {
-        display: block;
-        color: #999; }
+    backdrop-filter: saturate(180%) blur(20px);
+    background-color: rgba(0, 0, 0, 0.1); }
+  .main-header .top-menu {
+    font-size: 0;
+    line-height: inherit;
+    height: inherit;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+    position: relative; }
+    .main-header .top-menu ul li {
+      display: inline-block; }
+  .main-header .page_item,
+  .main-header .menu-item {
+    font-size: 12px;
+    display: inline-block;
+    margin: 0 15px;
+    line-height: inherit; }
+    .main-header .page_item.current_page_item a, .main-header .page_item.current-menu-item a, .main-header .page_item:hover a,
+    .main-header .menu-item.current_page_item a,
+    .main-header .menu-item.current-menu-item a,
+    .main-header .menu-item:hover a {
+      color: #FFF;
+      text-decoration: none; }
+    .main-header .page_item a,
+    .main-header .menu-item a {
+      display: block;
+      color: #999; }
 
 .post-list .post-wrap {
   padding-top: 30px;
@@ -259,6 +271,8 @@
 .post-list .post {
   margin: 50px 0;
   border-bottom: 1px solid #eaeaea; }
+  .post-list .post.last-child {
+    border-bottom: none; }
   .post-list .post .post-title {
     text-align: center;
     font-size: 50px;
@@ -280,6 +294,15 @@
 .post-entry {
   font-size: 18px;
   margin: 50px 0; }
+  .post-entry audio {
+    display: block;
+    width: 100%; }
+  .post-entry iframe,
+  .post-entry twitterwidget {
+    margin-left: auto;
+    margin-right: auto; }
+  .post-entry iframe {
+    display: block; }
   .post-entry .attachment a {
     display: block;
     border: none; }
@@ -369,7 +392,8 @@
     -ms-flex-preferred-size: 10%;
         flex-basis: 10%; }
   .post-entry table {
-    font-size: 80%; }
+    font-size: 80%;
+    width: 100%; }
   .post-entry pre {
     border: 1px solid #EEE;
     border-radius: 5px;
@@ -398,6 +422,13 @@
       border-color: #17a689;
       -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
               box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); }
+  .post-entry .post-password-form {
+    text-align: center;
+    border: 1px solid #EEE;
+    border-radius: 4px;
+    padding: 25px 0; }
+    .post-entry .post-password-form p {
+      margin: 0; }
 
 .post.format-chat .post-entry {
   display: -webkit-box;
@@ -464,6 +495,19 @@
         border-left-color: #c1eadf;
         right: -21px; }
 
+.post.format-link .post-entry a {
+  position: relative;
+  display: block;
+  border: 2px dashed #EAEAEA;
+  text-align: center;
+  background: white;
+  padding: 10px 0;
+  border-radius: 4px; }
+
+.post.format-status .post-entry > * {
+  display: block;
+  background-color: #f7f7f7; }
+
 .pages-nav {
   margin: 50px 0; }
   .pages-nav .page-numbers {
@@ -499,6 +543,8 @@
         font-weight: bold;
         background-color: #DDD; }
 
+.comments-area .comment-list .pingback {
+  margin: 15px 0; }
 .comments-area .comments-title {
   font-size: 35px;
   padding: 10px 0;
@@ -708,4 +754,5 @@
     font-size: 14px; }
   .comments-area .comments-title {
     font-size: 20px; } }
+
 /*# sourceMappingURL=main.css.map */
