@@ -16,7 +16,6 @@
                         </h2>
                         <div class="posy-meta-wrap">
                             <ul class="post-meta post-meta-top">
-
                                 <li class="post-meta-item author-avatar-wrap">
 				                    <?php echo get_avatar( get_the_author_meta( 'user_email' ), 40 ); ?>
                                 </li>

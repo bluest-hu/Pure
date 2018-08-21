@@ -1,5 +1,11 @@
 {
+  "short_name": "深蓝的天空",
+  "name": "深蓝的天空",
   "lang": "zh-CN",
   "start_url": "/",
-  "display": "browser"
+  "background_color": "#1abc9c",
+  "theme_color": "#1abc9c",
+  "display": "standalone",
+  "icons": [
+  ]
 }

@@ -51,4 +51,5 @@ if (is_single()) {
 }
 ?>
 </body>
+<!--<?php echo get_num_queries(); ?>-->
 </html>
