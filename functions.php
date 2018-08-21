@@ -52,13 +52,13 @@ function my_avatar( $avatar, $id_or_email, $size = '96', $default = '', $alt = f
 
 
 	$FOLDER           = '/avatar/';
-	$email_md5        = md5( strtolower( trim( $email ) ) );// 对email 进行 md5处理
+	$email_md5        = md5( strtolower( trim( $email ) ) );// 对 email 进行 md5处理
 	$avatar_file_name = $email_md5 . "_" . $size . '.jpg';
 	$STORE_PATH       = ABSPATH . $FOLDER; //默认存储地址
 	$alt              = ( false === $alt ) ? '' : esc_attr( $alt );
-	$avatar_url       = home_url() . $FOLDER . $avatar_file_name; // 猜测在在博客的头像
+	$avatar_url       = home_url() . $FOLDER . $avatar_file_name; // 猜测在博客的头像
 	$avatar_local     = ABSPATH . $FOLDER . $avatar_file_name;// 猜测本地绝对路径
-	$expire           = 604800; //设定7天, 单位:秒
+	$expire           = 604800 * 3; //设定 21 天, 单位:秒
 	$r                = get_option( 'avatar_rating' );
 	$max_size         = 10240000;
 	// 默认的头像 在add_filter get_avatar 会默认传入默认的url;
