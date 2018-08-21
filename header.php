@@ -64,14 +64,13 @@ if ( ! isset( $content_width ) ) {
     <meta name="keywords" content="<?php echo trim( $blog_keywords ); ?>">
     <meta name="description" content="<?php echo trim( $blog_description ); ?>">
     <meta name="author" content="<?php echo trim( $blog_author ); ?>">
-    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,shrink-to-fit=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="msapplication-starturl" content="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#1abc9c"/>
-    <meta name="referrer" content="always"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="theme-color" content="#1abc9c">
+    <meta name="referrer" content="always">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="x-dns-prefetch-control" content="on">
 	<?php
     wp_meta();
