@@ -1,12 +1,12 @@
 <?php get_header();?>
-<div class="post-list">
+<div class="main-content">
 	<?php if ( have_posts() ) {
 		while ( have_posts() ) : the_post();
 			?>
             <article <?php post_class( 'post h-entry' ); ?> id="post-<?php the_ID(); ?>">
                 <div class="post-wrap content-width">
                     <header class="entry-header">
-                        <h2 class="post-title serif entry-title">
+                        <h2 class="post-title entry-title">
                             <a class="post-title-url"
                                href="<?php the_permalink(); ?>"
                                title="<?php the_title(); ?>"

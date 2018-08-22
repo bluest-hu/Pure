@@ -303,7 +303,7 @@ $content_width: 700px;
   }
 }
 
-.post-list {
+.main-content {
   .post-wrap {
     padding-top: 30px;
     padding-bottom: 30px;
@@ -435,7 +435,7 @@ $content_width: 700px;
 }
 
 .post-entry {
-  font-size: 18px;
+  font-size: 16px;
   margin: 50px 0;
   word-break: break-all;
 
@@ -448,6 +448,21 @@ $content_width: 700px;
   twitterwidget {
     margin-left: auto;
     margin-right: auto;
+
+  }
+
+  figure {
+    margin-left: auto;
+    margin-right: auto;
+
+    a {
+      text-decoration: none;
+      border-bottom: none;
+    }
+
+    figcaption {
+      text-align: center;
+    }
   }
 
   iframe {
@@ -548,7 +563,7 @@ $content_width: 700px;
     border-radius: 5px;
     background-color: #f8f8f8;
     overflow: auto;
-    font-size: 80%;
+    font-size: 14px;
 
     code {
       padding: unset;
@@ -690,13 +705,21 @@ $content_width: 700px;
 .post.format-link {
   .post-entry {
     a {
+      font-size: 20px;
       position: relative;
       display: block;
       border: 2px dashed #EAEAEA;
       text-align: center;
-      background: lighten(#EAEAEA, 10);
-      padding: 10px 0;
-      border-radius: 4px;
+      background: lighten(#EAEAEA, 5);
+      padding: 25px 0;
+      border-radius: 5px;
+
+      &:before {
+        content: '☞';
+        display: inline-block;
+        margin-right: 5px;
+        font-size: inherit;
+      }
     }
   }
 }
@@ -707,6 +730,13 @@ $content_width: 700px;
       display: block;
       background-color: lighten(#EAEAEA, 5);
     }
+  }
+}
+
+.post.format-quote {
+  blockquote {
+    font-size: 20px;
+    font-weight: bold;
   }
 }
 
@@ -766,7 +796,7 @@ $content_width: 700px;
 
 
   .comments-title {
-    font-size: 35px;
+    font-size: 30px;
     padding: 10px 0;
     border-bottom: 1px solid #eaeaea;
   }
@@ -964,8 +994,8 @@ $content_width: 700px;
 
     .nav-item {
       flex: 1;
-      font-size: 20px;
-      line-height: 1.1;
+      font-size: 18px;
+      line-height: 1.2;
       max-width: 50%;
     }
 
@@ -1047,7 +1077,7 @@ $content_width: 700px;
     }
   }
 
-  .post-list  {
+  .main-content  {
     .post {
       margin-top: 30px;
       .post-title {
@@ -1068,7 +1098,7 @@ $content_width: 700px;
     font-size: 14px;
   }
 
-  .post-list .post-meta.post-tags-wrap {
+  .main-content .post-meta.post-tags-wrap {
     font-size: 15px;
   }
 

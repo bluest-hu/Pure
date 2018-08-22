@@ -34,8 +34,13 @@ if ( is_single() ) {
 	$blog_keywords = join( $blog_keywords, ',' );
 	$blog_author   = get_the_author_meta( 'display_name', $post_author_id );
 
+} else if (is_tag()) {
+    $blog_keywords = single_tag_title('', false);
+    $blog_description = tag_description();
+} else if (is_category()) {
+	$blog_keywords = single_cat_title('', false);
+	$blog_description = category_description();
 }
-
 
 wp_register_script(
 	'pure-lazyload-js',
@@ -77,7 +82,6 @@ if ( ! isset( $content_width ) ) {
 	<?php
     wp_meta();
     wp_head();
-	add_editor_style();
 	?>
     <link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/manifest.json">
     <link rel="alternate" hreflang="zh-Hans" href="<?php echo home_url(); ?>">
@@ -92,9 +96,10 @@ if ( ! isset( $content_width ) ) {
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: 100%;
-        background-position: center;
+        /*background-position: center;*/
     }
     </style>
+    <?php add_editor_style();?>
 </head>
 
 <body <?php body_class( 'serif' ); ?>>
