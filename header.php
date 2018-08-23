@@ -90,6 +90,7 @@ if ( ! isset( $content_width ) ) {
     <?php
      include(get_stylesheet_directory() .'/assets/scss/main.min.css');
     ?>
+    .main-header .top-nav-container::before,
     .main-header .custom-header-background-image {
         padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100 ; ?>%;
         background-image: url(<?php header_image(); ?>);
@@ -98,12 +99,8 @@ if ( ! isset( $content_width ) ) {
         background-size: 100%;
         /*background-position: center;*/
     }
-
     .main-header .top-nav-container::before {
-        background-image: url(<?php header_image(); ?>);
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: 100%;
+        padding-bottom: 0;
     }
     </style>
     <?php add_editor_style();?>
