@@ -34,8 +34,13 @@ if ( is_single() ) {
 	$blog_keywords = join( $blog_keywords, ',' );
 	$blog_author   = get_the_author_meta( 'display_name', $post_author_id );
 
+} else if (is_tag()) {
+    $blog_keywords = single_tag_title('', false);
+    $blog_description = tag_description();
+} else if (is_category()) {
+	$blog_keywords = single_cat_title('', false);
+	$blog_description = category_description();
 }
-
 
 wp_register_script(
 	'pure-lazyload-js',
@@ -68,6 +73,8 @@ if ( ! isset( $content_width ) ) {
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="msapplication-starturl" content="/">
+    <meta name="msapplication-navbutton-color" content="#1abc9c">
+    <meta name="msapplication-TileColor" content="#1abc9c">
     <meta name="theme-color" content="#1abc9c">
     <meta name="referrer" content="always">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -75,24 +82,28 @@ if ( ! isset( $content_width ) ) {
 	<?php
     wp_meta();
     wp_head();
-	add_editor_style();
 	?>
     <link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/manifest.json">
     <link rel="alternate" hreflang="zh-Hans" href="<?php echo home_url(); ?>">
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
     <style>
     <?php
-    include(get_stylesheet_directory() .'/assets/scss/main.min.css');
+     include(get_stylesheet_directory() .'/assets/scss/main.min.css');
     ?>
+    .main-header .top-nav-container::before,
     .main-header .custom-header-background-image {
         padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100 ; ?>%;
         background-image: url(<?php header_image(); ?>);
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: 100%;
-        background-position: center;
+        /*background-position: center;*/
+    }
+    .main-header .top-nav-container::before {
+        padding-bottom: 0;
     }
     </style>
+    <?php add_editor_style();?>
 </head>
 
 <body <?php body_class( 'serif' ); ?>>

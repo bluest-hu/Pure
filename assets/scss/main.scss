@@ -1,4 +1,4 @@
-@import "../styles/normalize.css";
+//@import "../styles/normalize.css";
 @import "../styles/typo.css";
 @import "../styles/prism.css";
 
@@ -8,13 +8,12 @@
   word-wrap: break-word;
 }
 
-
 .alignleft {
   float: left;
 }
 
 figure.alignleft,
-img.alignleft{
+img.alignleft {
   margin-right: 15px;
 }
 
@@ -46,6 +45,13 @@ figure.alignright {
 
 .gallery-caption {
 
+}
+
+
+@supports (-webkit-backdrop-filter: blur(20px)) or (backdrop-filter: blur(20px)) {
+  .main-header .top-nav-container:before {
+    display: none;
+  }
 }
 
 .screen-reader-text {
@@ -247,22 +253,22 @@ $content_width: 700px;
     height: 50px;
     margin-top: -50px;
     overflow: hidden;
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
-    background-color: rgba(0, 0, 0, .1);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, .3);
 
-    //&:before {
-    //  overflow: hidden;
-    //  top: 0;
-    //  width: 100%;
-    //  height: 100%;
-    //  display: block;
-    //  content: '';
-    //  position: absolute;
-    //  filter: blur(20px);
-    //}
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: -30px;
+      -webkit-filter: blur(20px);
+      filter: blur(20px);
+    }
   }
-
 
   .top-menu {
     font-size: 0;
@@ -286,7 +292,6 @@ $content_width: 700px;
     margin: 0 15px;
     line-height: inherit;
 
-
     &.current_page_item,
     &.current-menu-item,
     &:hover {
@@ -303,7 +308,7 @@ $content_width: 700px;
   }
 }
 
-.post-list {
+.main-content {
   .post-wrap {
     padding-top: 30px;
     padding-bottom: 30px;
@@ -363,9 +368,8 @@ $content_width: 700px;
       white-space: normal;
       display: inline-flex;
       //justify-content:center;
-      align-items:center;
+      align-items: center;
       flex-wrap: wrap;
-
 
       a {
         display: inline-block;
@@ -381,11 +385,17 @@ $content_width: 700px;
       a {
         //text-decoration: underline;
         font-style: italic;
+        font-style: oblique;
         display: inline-block;
         font-size: inherit;
+        text-transform: capitalize;
+        margin: 0 5px;
         &:before {
           content: '#';
           display: inline;
+          font-weight: bold;
+          //color: #999;
+          //font-style: normal;
         }
       }
     }
@@ -394,7 +404,6 @@ $content_width: 700px;
   .post {
     margin: 50px 0;
     border-bottom: 1px solid #eaeaea;
-
 
     &.last-child {
       border-bottom: none;
@@ -426,8 +435,14 @@ $content_width: 700px;
 
     &.sticky {
       .post-title {
+        &:before {
+          content: '☞';
+          color: #1abc9c;
+          margin-right: 0px;
+        }
         .post-title-url {
-          background: yellow;
+
+          //background: yellow;
         }
       }
     }
@@ -435,9 +450,18 @@ $content_width: 700px;
 }
 
 .post-entry {
-  font-size: 18px;
+  font-size: 17px;
   margin: 50px 0;
   word-break: break-all;
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: #1abc9c;
+      border-bottom-color: #1abc9c;
+    }
+  }
 
   audio {
     display: block;
@@ -448,6 +472,21 @@ $content_width: 700px;
   twitterwidget {
     margin-left: auto;
     margin-right: auto;
+
+  }
+
+  figure {
+    margin-left: auto;
+    margin-right: auto;
+
+    a {
+      text-decoration: none;
+      border-bottom: none;
+    }
+
+    figcaption {
+      text-align: center;
+    }
   }
 
   iframe {
@@ -485,7 +524,7 @@ $content_width: 700px;
       line-height: 1.2;
       font-size: 14px;
       text-align: left;
-      overflow : hidden;
+      overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 20;
@@ -537,7 +576,6 @@ $content_width: 700px;
     }
   }
 
-
   table {
     font-size: 80%;
     width: 100%;
@@ -548,7 +586,7 @@ $content_width: 700px;
     border-radius: 5px;
     background-color: #f8f8f8;
     overflow: auto;
-    font-size: 80%;
+    font-size: 14px;
 
     code {
       padding: unset;
@@ -690,13 +728,21 @@ $content_width: 700px;
 .post.format-link {
   .post-entry {
     a {
+      font-size: 20px;
       position: relative;
       display: block;
       border: 2px dashed #EAEAEA;
       text-align: center;
-      background: lighten(#EAEAEA, 10);
-      padding: 10px 0;
-      border-radius: 4px;
+      background: lighten(#EAEAEA, 5);
+      padding: 25px 0;
+      border-radius: 5px;
+
+      &:before {
+        content: '☞';
+        display: inline-block;
+        margin-right: 5px;
+        font-size: inherit;
+      }
     }
   }
 }
@@ -707,6 +753,13 @@ $content_width: 700px;
       display: block;
       background-color: lighten(#EAEAEA, 5);
     }
+  }
+}
+
+.post.format-quote {
+  blockquote {
+    font-size: 20px;
+    font-weight: bold;
   }
 }
 
@@ -744,7 +797,6 @@ $content_width: 700px;
       border-radius: 100%;
       //border: 1px solid #eee;
 
-
       &.current {
         color: #FFF;
         border-radius: 100%;
@@ -763,10 +815,8 @@ $content_width: 700px;
     }
   }
 
-
-
   .comments-title {
-    font-size: 35px;
+    font-size: 30px;
     padding: 10px 0;
     border-bottom: 1px solid #eaeaea;
   }
@@ -790,7 +840,7 @@ $content_width: 700px;
       display: none;
     }
 
-    .comment-body:hover  {
+    .comment-body:hover {
       .reply {
         display: block;
       }
@@ -883,7 +933,6 @@ $content_width: 700px;
       display: flex;
     }
 
-
     label {
       display: inline-block;
       width: 100px;
@@ -964,8 +1013,8 @@ $content_width: 700px;
 
     .nav-item {
       flex: 1;
-      font-size: 20px;
-      line-height: 1.1;
+      font-size: 18px;
+      line-height: 1.2;
       max-width: 50%;
     }
 
@@ -1026,7 +1075,6 @@ $content_width: 700px;
         display: none;
       }
 
-
       .split-line {
         display: none;
       }
@@ -1047,7 +1095,7 @@ $content_width: 700px;
     }
   }
 
-  .post-list  {
+  .main-content {
     .post {
       margin-top: 30px;
       .post-title {
@@ -1068,7 +1116,7 @@ $content_width: 700px;
     font-size: 14px;
   }
 
-  .post-list .post-meta.post-tags-wrap {
+  .main-content .post-meta.post-tags-wrap {
     font-size: 15px;
   }
 
@@ -1076,7 +1124,7 @@ $content_width: 700px;
     margin-bottom: 0;
   }
 
-  .comments-area  {
+  .comments-area {
     .comment .comment-content {
       font-size: 14px;
     }
@@ -1086,3 +1134,17 @@ $content_width: 700px;
   }
 }
 
+
+.admin-bar {
+  .main-header {
+    margin-top: -35px;
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .admin-bar {
+    .main-header {
+      margin-top: -46px;
+    }
+  }
+}
