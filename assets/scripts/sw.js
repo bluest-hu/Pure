@@ -1,3 +1,2 @@
 self.addEventListener('install', (event) => {
-
 });
