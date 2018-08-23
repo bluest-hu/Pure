@@ -1,4 +1,4 @@
-@import "../styles/normalize.css";
+//@import "../styles/normalize.css";
 @import "../styles/typo.css";
 @import "../styles/prism.css";
 
@@ -8,13 +8,12 @@
   word-wrap: break-word;
 }
 
-
 .alignleft {
   float: left;
 }
 
 figure.alignleft,
-img.alignleft{
+img.alignleft {
   margin-right: 15px;
 }
 
@@ -247,22 +246,26 @@ $content_width: 700px;
     height: 50px;
     margin-top: -50px;
     overflow: hidden;
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
-    background-color: rgba(0, 0, 0, .1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    //box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .3);
+    background-color: rgba(0, 0, 0, .5);
 
-    //&:before {
-    //  overflow: hidden;
-    //  top: 0;
-    //  width: 100%;
-    //  height: 100%;
-    //  display: block;
-    //  content: '';
-    //  position: absolute;
-    //  filter: blur(20px);
-    //}
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: -10px;
+      z-index: -1;
+      -webkit-filter: blur(20px);
+      filter: blur(20px);
+      opacity: .9;
+    }
+
   }
-
 
   .top-menu {
     font-size: 0;
@@ -285,7 +288,6 @@ $content_width: 700px;
     display: inline-block;
     margin: 0 15px;
     line-height: inherit;
-
 
     &.current_page_item,
     &.current-menu-item,
@@ -363,9 +365,8 @@ $content_width: 700px;
       white-space: normal;
       display: inline-flex;
       //justify-content:center;
-      align-items:center;
+      align-items: center;
       flex-wrap: wrap;
-
 
       a {
         display: inline-block;
@@ -381,11 +382,17 @@ $content_width: 700px;
       a {
         //text-decoration: underline;
         font-style: italic;
+        font-style: oblique;
         display: inline-block;
         font-size: inherit;
+        text-transform: capitalize;
+        margin: 0 5px;
         &:before {
           content: '#';
           display: inline;
+          font-weight: bold;
+          //color: #999;
+          //font-style: normal;
         }
       }
     }
@@ -394,7 +401,6 @@ $content_width: 700px;
   .post {
     margin: 50px 0;
     border-bottom: 1px solid #eaeaea;
-
 
     &.last-child {
       border-bottom: none;
@@ -426,8 +432,14 @@ $content_width: 700px;
 
     &.sticky {
       .post-title {
+        &:before {
+          content: '☞';
+          color: #1abc9c;
+          margin-right: 0px;
+        }
         .post-title-url {
-          background: yellow;
+
+          //background: yellow;
         }
       }
     }
@@ -435,9 +447,18 @@ $content_width: 700px;
 }
 
 .post-entry {
-  font-size: 16px;
+  font-size: 17px;
   margin: 50px 0;
   word-break: break-all;
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: #1abc9c;
+      border-bottom-color: #1abc9c;
+    }
+  }
 
   audio {
     display: block;
@@ -500,7 +521,7 @@ $content_width: 700px;
       line-height: 1.2;
       font-size: 14px;
       text-align: left;
-      overflow : hidden;
+      overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 20;
@@ -551,7 +572,6 @@ $content_width: 700px;
       }
     }
   }
-
 
   table {
     font-size: 80%;
@@ -774,7 +794,6 @@ $content_width: 700px;
       border-radius: 100%;
       //border: 1px solid #eee;
 
-
       &.current {
         color: #FFF;
         border-radius: 100%;
@@ -792,8 +811,6 @@ $content_width: 700px;
       margin: 15px 0;
     }
   }
-
-
 
   .comments-title {
     font-size: 30px;
@@ -820,7 +837,7 @@ $content_width: 700px;
       display: none;
     }
 
-    .comment-body:hover  {
+    .comment-body:hover {
       .reply {
         display: block;
       }
@@ -912,7 +929,6 @@ $content_width: 700px;
       margin: 30px 0;
       display: flex;
     }
-
 
     label {
       display: inline-block;
@@ -1056,7 +1072,6 @@ $content_width: 700px;
         display: none;
       }
 
-
       .split-line {
         display: none;
       }
@@ -1077,7 +1092,7 @@ $content_width: 700px;
     }
   }
 
-  .main-content  {
+  .main-content {
     .post {
       margin-top: 30px;
       .post-title {
@@ -1106,7 +1121,7 @@ $content_width: 700px;
     margin-bottom: 0;
   }
 
-  .comments-area  {
+  .comments-area {
     .comment .comment-content {
       font-size: 14px;
     }

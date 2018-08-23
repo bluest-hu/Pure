@@ -88,7 +88,7 @@ if ( ! isset( $content_width ) ) {
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
     <style>
     <?php
-    include(get_stylesheet_directory() .'/assets/scss/main.min.css');
+     include(get_stylesheet_directory() .'/assets/scss/main.min.css');
     ?>
     .main-header .custom-header-background-image {
         padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100 ; ?>%;
@@ -97,6 +97,13 @@ if ( ! isset( $content_width ) ) {
         background-attachment: fixed;
         background-size: 100%;
         /*background-position: center;*/
+    }
+
+    .main-header .top-nav-container::before {
+        background-image: url(<?php header_image(); ?>);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100%;
     }
     </style>
     <?php add_editor_style();?>
