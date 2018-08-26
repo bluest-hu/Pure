@@ -1,46 +1,5 @@
 <!DOCTYPE html>
 <?php
-// description
-$blog_description = get_bloginfo( 'description' );
-// keywords
-$blog_keywords = "";
-// author ID
-$post_author_id = $post->post_author;
-// blog author
-$blog_author = get_bloginfo( 'admin_email' );
-// ID
-$post_id = get_the_ID();
-
-if ( get_option( 'pure_theme_index_page_keywords' ) != '' ) {
-	$blog_keywords = trim( stripslashes( get_option( 'pure_theme_index_page_keywords' ) ) );
-}
-
-if ( is_single() ) {
-	if ( get_the_excerpt() ) { // 默认读取文章的摘要信息
-		$blog_description = get_the_excerpt();
-	} else {
-		$blog_description = strip_tags( $post->post_content );
-	}
-
-	$blog_description = preg_replace( '/\s+/', ' ', $blog_description );
-	$blog_description = mb_strimwidth( $blog_description, 0, 200 );
-
-	// join all the tags
-	$blog_keywords = array();
-
-	foreach ( wp_get_post_tags( $post_id ) as $tag ) {
-		array_push( $blog_keywords, $tag->name );
-	}
-	$blog_keywords = join( $blog_keywords, ',' );
-	$blog_author   = get_the_author_meta( 'display_name', $post_author_id );
-
-} else if (is_tag()) {
-    $blog_keywords = single_tag_title('', false);
-    $blog_description = tag_description();
-} else if (is_category()) {
-	$blog_keywords = single_cat_title('', false);
-	$blog_description = category_description();
-}
 
 wp_register_script(
 	'pure-lazyload-js',
@@ -66,9 +25,6 @@ if ( ! isset( $content_width ) ) {
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta http-equiv="content-type" content="charset=<?php bloginfo('charset');?>;<?php bloginfo('html_type')?>>">
-    <meta name="keywords" content="<?php echo trim( $blog_keywords ); ?>">
-    <meta name="description" content="<?php echo trim( $blog_description ); ?>">
-    <meta name="author" content="<?php echo trim( $blog_author ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,shrink-to-fit=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -80,7 +36,7 @@ if ( ! isset( $content_width ) ) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="x-dns-prefetch-control" content="on">
 	<?php
-    wp_meta();
+	wp_meta();
     wp_head();
 	?>
     <link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/manifest.json">

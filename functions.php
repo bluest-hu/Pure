@@ -121,6 +121,61 @@ add_action('init', function () {
 	));
 });
 
+/**
+ * 添加 头部 SEO 信息
+ */
+add_action('wp_head', function () {
+	global $post;
+	// description
+	$blog_description = get_bloginfo( 'description' );
+	// keywords
+	$blog_keywords = "";
+	// author ID
+	$post_author_id = $post->post_author;
+	// blog author
+	$blog_author = get_bloginfo( 'admin_email' );
+	// ID
+	$post_id = get_the_ID();
+
+	if ( get_option( 'pure_theme_index_page_keywords' ) != '' ) {
+		$blog_keywords = trim( stripslashes( get_option( 'pure_theme_index_page_keywords' ) ) );
+	}
+
+	if (get_option('pure_theme_index_page_description') != '') {
+	    $blog_description = trim(stripcslashes(get_option('pure_theme_index_page_description')));
+    }
+
+	if ( is_single() ) {
+		if ( get_the_excerpt() ) { // 默认读取文章的摘要信息
+			$blog_description = get_the_excerpt();
+		} else {
+			$blog_description = strip_tags( $post->post_content );
+		}
+
+		$blog_description = preg_replace( '/\s+/', ' ', $blog_description );
+		$blog_description = mb_strimwidth( $blog_description, 0, 200 );
+
+		// join all the tags
+		$blog_keywords = array();
+
+		foreach ( wp_get_post_tags( $post_id ) as $tag ) {
+			array_push( $blog_keywords, $tag->name );
+		}
+		$blog_keywords = join( $blog_keywords, ',' );
+		$blog_author   = get_the_author_meta( 'display_name', $post_author_id );
+
+	} else if (is_tag()) {
+		$blog_keywords = single_tag_title('', false);
+		$blog_description = tag_description();
+	} else if (is_category()) {
+		$blog_keywords = single_cat_title('', false);
+		$blog_description = category_description();
+	}
+	echo "<meta name=\"keywords\" content=\"{$blog_keywords}\">
+    <meta name=\"description\" content=\"${$blog_description}\">
+    <meta name=\"author\" content=\"${$blog_author}\">";
+});
+
 // Register Theme Features
 add_action( 'after_setup_theme', function () {
 
@@ -376,9 +431,7 @@ function pure_theme_settings() {
                                       id="indexDescription"
                                       rows="3"
                                       cols="30"
-                                      style="text-indent:0;padding:0">
-                                <?php echo stripslashes( trim( get_option( 'pure_theme_index_page_description' ) ) ); ?>
-                            </textarea>
+                                      style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_index_page_description' ) ) ); ?></textarea>
                             <p class="description">
                                 在Google的搜索结果中，摘要信息标题长度一般在 72 字节（即 36 个中文字）左右，而百度则只有 56 字节（即 28 个中文字）左右，超出这个范围的内容将被省略。
                             </p>
