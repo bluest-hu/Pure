@@ -117,7 +117,7 @@ add_filter( 'get_avatar', 'my_avatar', 10, 5 );
 // Register Top Menu
 add_action('init', function () {
 	register_nav_menus( array(
-		'header_menu' => '顶部菜单',
+		'header_menu' => __('顶部菜单'),
 	));
 });
 
@@ -192,7 +192,7 @@ add_action( 'after_setup_theme', function () {
 		// Header image width (in pixels)
 		'width'                  => 1000,
 		// Header image height (in pixels)
-		'height'                 => 400,
+		'height'                 => 300,
 		'flex-width'             => true,
 		'flex-height'            => true,
 		// Header image random rotation default
