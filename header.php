@@ -17,6 +17,14 @@ wp_register_script(
 	true
 );
 
+//wp_register_script(
+//	'pure-sw-js',
+//	'/wp-json/wp_theme_pure/v1/get_sw_js',
+//	array(),
+//	null,
+//	true
+//);
+
 if ( ! isset( $content_width ) ) {
 	$content_width = 900;
 }
@@ -41,7 +49,9 @@ if ( ! isset( $content_width ) ) {
 	?>
     <link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/manifest.json">
     <link rel="alternate" hreflang="zh-Hans" href="<?php echo home_url(); ?>">
-    <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
+        <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+	<?php endif; ?>
     <style>
     <?php
      include(get_stylesheet_directory() .'/assets/scss/main.min.css');
@@ -63,52 +73,51 @@ if ( ! isset( $content_width ) ) {
 </head>
 
 <body <?php body_class( 'serif' ); ?>>
+    <header class="main-header">
+        <div class="custom-header-background-image"
+             id="customHeaderBackgroundImage">
+        </div>
+        <div class="header-content-wrap">
+            <div class="main-header-content">
+                <div class="blog-info-wrap">
+                    <?php the_custom_logo(); ?>
 
-<header class="main-header">
-    <div class="custom-header-background-image"
-         id="customHeaderBackgroundImage">
-    </div>
-    <div class="header-content-wrap">
-        <div class="main-header-content">
-            <div class="blog-info-wrap">
-				<?php the_custom_logo(); ?>
+                    <div class="split-line"></div>
 
-                <div class="split-line"></div>
+                    <div class="blog-title-desc-wrap serif">
+                        <a class="home-link"
+                           href="<?php echo esc_url( home_url( '/' ) ); ?>">
+                            <h1 class="blog-title">
+                                <?php bloginfo( "title" ) ?>
+                            </h1>
+                        </a>
 
-                <div class="blog-title-desc-wrap serif">
-                    <a class="home-link"
-                       href="<?php echo esc_url( home_url( '/' ) ); ?>">
-                        <h1 class="blog-title">
-							<?php bloginfo( "title" ) ?>
-                        </h1>
-                    </a>
-
-                    <h2 class="blog-description">
-						<?php bloginfo( "description" ) ?>
-                    </h2>
+                        <h2 class="blog-description">
+                            <?php bloginfo( "description" ) ?>
+                        </h2>
+                    </div>
                 </div>
             </div>
-        </div>
 
-		<?php
-		wp_nav_menu( array(
-			'theme_location'  => 'header_menu',
-			'menu'            => 'header-menu',
-			'menu_class'      => 'top-menu',
-			'menu_id'         => 'topMenu',
-			'container'       => 'nav',
-			'container_class' => 'top-nav-container',
-			'container_id'    => 'topNavigationContainer',
-			'echo'            => true,
-			'fallback_cb'     => 'wp_page_menu',
-			'before'          => '',
-			'after'           => '',
-			'link_before'     => '',
-			'link_after'      => '',
-			'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-			'depth'           => 1,
-			'walker'          => ''
-		) );
-		?>
-    </div>
-</header>
+            <?php
+            wp_nav_menu( array(
+                'theme_location'  => 'header_menu',
+                'menu'            => 'header-menu',
+                'menu_class'      => 'top-menu',
+                'menu_id'         => 'topMenu',
+                'container'       => 'nav',
+                'container_class' => 'top-nav-container',
+                'container_id'    => 'topNavigationContainer',
+                'echo'            => true,
+                'fallback_cb'     => 'wp_page_menu',
+                'before'          => '',
+                'after'           => '',
+                'link_before'     => '',
+                'link_after'      => '',
+                'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                'depth'           => 1,
+                'walker'          => ''
+            ) );
+            ?>
+        </div>
+    </header>

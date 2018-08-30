@@ -1,17 +1,18 @@
-const CACHE_VERSION  = '{{GIT_COMMIT_HASH}}' + '<?php echo get_option("pure_theme_pwa_cache_version"); ?>';
+const CACHE_NAME = '{{GIT_COMMIT_HASH}}' + '_v_<?php echo get_option("pure_theme_pwa_cache_version"); ?>';
 
-let initcacheResourceList = [
+console.log(CACHE_NAME);
+let initCacheResourceList = [
 ];
 
 self.addEventListener('install', (event) => {
-    caches.open(initcacheResourceList).then(cache => {
+    caches.open(initCacheResourceList).then(cache => {
         console.log(cache);
     });
     event.waitUntil(
         // self.skipWaiting()
         Promise.all([
             caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(initcacheResourceList)),
+            .then(cache => cache.addAll(initCacheResourceList)),
             caches.keys()
             .then(cacheList => {
                 cacheList.map(cacheName => {
