@@ -7,7 +7,7 @@ function replaceVersionCode() {
     let gitCommitHashCode = fs.readFileSync('.git/' + ref, 'utf-8').trim();
     let sourcePath = path.resolve(__dirname, '../assets/scripts/sw.js');
     let content = fs.readFileSync(sourcePath, 'utf-8');
-    let targetPath = path.resolve(__dirname, '../sw.php');
+    let targetPath = path.resolve(__dirname, '../inc/sw.php');
 
     gitCommitHashCode = gitCommitHashCode.substring(0, 6);
     content = content.replace(/{{GIT_COMMIT_HASH}}/, gitCommitHashCode);

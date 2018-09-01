@@ -108,6 +108,7 @@ function my_avatar( $avatar, $id_or_email, $size = '96', $default = '', $alt = f
  */
 function get_http_response_code( $theURL ) {
 	$headers = get_headers( $theURL );
+
 	return substr( $headers[0], 9, 3 );
 }
 
@@ -115,16 +116,16 @@ function get_http_response_code( $theURL ) {
 add_filter( 'get_avatar', 'my_avatar', 10, 5 );
 
 // Register Top Menu
-add_action('init', function () {
+add_action( 'init', function () {
 	register_nav_menus( array(
-		'header_menu' => __('顶部菜单'),
-	));
-});
+		'header_menu' => __( '顶部菜单' ),
+	) );
+} );
 
 /**
  * 添加 头部 SEO 信息
  */
-add_action('wp_head', function () {
+add_action( 'wp_head', function () {
 	global $post;
 	// description
 	$blog_description = get_bloginfo( 'description' );
@@ -141,9 +142,9 @@ add_action('wp_head', function () {
 		$blog_keywords = trim( stripslashes( get_option( 'pure_theme_index_page_keywords' ) ) );
 	}
 
-	if (get_option('pure_theme_index_page_description') != '') {
-	    $blog_description = trim(stripcslashes(get_option('pure_theme_index_page_description')));
-    }
+	if ( get_option( 'pure_theme_index_page_description' ) != '' ) {
+		$blog_description = trim( stripcslashes( get_option( 'pure_theme_index_page_description' ) ) );
+	}
 
 	if ( is_single() ) {
 		if ( get_the_excerpt() ) { // 默认读取文章的摘要信息
@@ -164,17 +165,17 @@ add_action('wp_head', function () {
 		$blog_keywords = join( $blog_keywords, ',' );
 		$blog_author   = get_the_author_meta( 'display_name', $post_author_id );
 
-	} else if (is_tag()) {
-		$blog_keywords = single_tag_title('', false);
+	} else if ( is_tag() ) {
+		$blog_keywords    = single_tag_title( '', false );
 		$blog_description = tag_description();
-	} else if (is_category()) {
-		$blog_keywords = single_cat_title('', false);
+	} else if ( is_category() ) {
+		$blog_keywords    = single_cat_title( '', false );
 		$blog_description = category_description();
 	}
 	echo "<meta name=\"keywords\" content=\"{$blog_keywords}\">
     <meta name=\"description\" content=\"${$blog_description}\">
     <meta name=\"author\" content=\"${$blog_author}\">";
-});
+} );
 
 // Register Theme Features
 add_action( 'after_setup_theme', function () {
@@ -259,7 +260,7 @@ add_action( 'after_setup_theme', function () {
 	add_theme_support( 'title-tag' );
 
 	add_theme_support( 'customize-selective-refresh-widgets' );
-});
+} );
 
 /**
  * Disable the emoji's
@@ -386,125 +387,125 @@ function pure_theme_settings() {
         <form method="post" action="">
             <table class="form-table">
                 <tbody>
-                    <tr valign="top">
-                        <th scope="row">首页关键词添加</th>
-                        <td>
-                            <fieldset>
-                                <legend class="screen-reader-text">
-                                    <span>首页关键词添加</span>
-                                </legend>
-                                <p>
-                                    <label for="indexKeywords"
-                                           class="description">
-                                        添加在首页关键词，请用<code>,</code>间隔
-                                    </label>
-                                </p>
-                                <textarea name="index_page_keywords"
-                                          class="large-text code"
-                                          id="indexKeywords"
-                                          rows="3"
-                                          cols="30"
-                                          style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_index_page_keywords' ) ) ); ?></textarea>
-                                <p class="description">
-                                    建议设置 2~3 个，最多不超过 5 个
-                                </p>
-                            </fieldset>
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row">首页描述添加</th>
-                        <td>
-                            <fieldset>
-                                <legend class="screen-reader-text">
-                                    <span>首页描述添加</span>
-                                </legend>
-                                <p>
-                                    <label for="indexDescription"
-                                           class="description">
-                                        添加首页描述
-                                    </label>
-                                </p>
-                                <textarea name="index_page_description"
-                                          class="large-text code"
-                                          id="indexDescription"
-                                          rows="3"
-                                          cols="30"
-                                          style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_index_page_description' ) ) ); ?></textarea>
-                                <p class="description">
-                                    在Google的搜索结果中，摘要信息标题长度一般在 72 字节（即 36 个中文字）左右，而百度则只有 56 字节（即 28 个中文字）左右，超出这个范围的内容将被省略。
-                                </p>
-                            </fieldset>
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row">统计代码添加</th>
-                        <td>
-                            <fieldset>
-                                <legend class="screen-reader-text">
-                                    <span>统计代码添加</span>
-                                </legend>
-                                <p>
-                                    <label for="analytics"
-                                           class="description">
-                                        在主题底部添加统计代码或者分享代码等（请包含 <code>&lt;script&gt;&lt;/script&gt;</code>标签 ）
-                                    </label>
-                                </p>
-                                <textarea name="analytics"
-                                          class="large-text code"
-                                          id="analytics"
-                                          rows="10"
-                                          cols="50"
-                                          style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_analytics' ) ) ); ?></textarea>
-                            </fieldset>
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row">文章页面的分享代码/相关文章</th>
-                        <td>
-                            <fieldset>
-                                <legend class="screen-reader-text">
-                                    <span>统计代码添加</span>
-                                </legend>
-                                <p>
-                                    <label for="single_script">
-                                        在文章主题底部添加统计代码或者分享代码等（请包含 <code>&lt;script&gt;&lt;/script&gt;</code>标签 ）
-                                    </label>
-                                </p>
-                                <textarea name="single_script"
-                                          class="large-text code"
-                                          id="single_script" rows="10"
-                                          cols="50"
-                                          style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_single_script' ) ) ); ?></textarea>
-                                <p class="description">
-                                    请注意该段代码只会在文章页面出现
-                                </p>
-                            </fieldset>
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row">文章页面的广告</th>
-                        <td>
-                            <fieldset>
-                                <legend class="screen-reader-text">
-                                    <span>统计代码添加</span>
-                                </legend>
-                                <p>
-                                    <label for="single_script">
-                                        在文章主题内页添加广告（请包含 <code>&lt;script&gt;&lt;/script&gt;</code>标签 ）
-                                    </label>
-                                </p>
-                                <textarea name="single_ads_script"
-                                          class="large-text code"
-                                          id="single_script" rows="10"
-                                          cols="50"
-                                          style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_single_ads_script' ) ) ); ?></textarea>
-                                <p class="description">
-                                    请注意该段代码只会在文章页面出现
-                                </p>
-                            </fieldset>
-                        </td>
-                    </tr>
-                    </tbody>
+                <tr valign="top">
+                    <th scope="row">首页关键词添加</th>
+                    <td>
+                        <fieldset>
+                            <legend class="screen-reader-text">
+                                <span>首页关键词添加</span>
+                            </legend>
+                            <p>
+                                <label for="indexKeywords"
+                                       class="description">
+                                    添加在首页关键词，请用<code>,</code>间隔
+                                </label>
+                            </p>
+                            <textarea name="index_page_keywords"
+                                      class="large-text code"
+                                      id="indexKeywords"
+                                      rows="3"
+                                      cols="30"
+                                      style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_index_page_keywords' ) ) ); ?></textarea>
+                            <p class="description">
+                                建议设置 2~3 个，最多不超过 5 个
+                            </p>
+                        </fieldset>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">首页描述添加</th>
+                    <td>
+                        <fieldset>
+                            <legend class="screen-reader-text">
+                                <span>首页描述添加</span>
+                            </legend>
+                            <p>
+                                <label for="indexDescription"
+                                       class="description">
+                                    添加首页描述
+                                </label>
+                            </p>
+                            <textarea name="index_page_description"
+                                      class="large-text code"
+                                      id="indexDescription"
+                                      rows="3"
+                                      cols="30"
+                                      style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_index_page_description' ) ) ); ?></textarea>
+                            <p class="description">
+                                在Google的搜索结果中，摘要信息标题长度一般在 72 字节（即 36 个中文字）左右，而百度则只有 56 字节（即 28 个中文字）左右，超出这个范围的内容将被省略。
+                            </p>
+                        </fieldset>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">统计代码添加</th>
+                    <td>
+                        <fieldset>
+                            <legend class="screen-reader-text">
+                                <span>统计代码添加</span>
+                            </legend>
+                            <p>
+                                <label for="analytics"
+                                       class="description">
+                                    在主题底部添加统计代码或者分享代码等（请包含 <code>&lt;script&gt;&lt;/script&gt;</code>标签 ）
+                                </label>
+                            </p>
+                            <textarea name="analytics"
+                                      class="large-text code"
+                                      id="analytics"
+                                      rows="10"
+                                      cols="50"
+                                      style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_analytics' ) ) ); ?></textarea>
+                        </fieldset>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">文章页面的分享代码/相关文章</th>
+                    <td>
+                        <fieldset>
+                            <legend class="screen-reader-text">
+                                <span>统计代码添加</span>
+                            </legend>
+                            <p>
+                                <label for="single_script">
+                                    在文章主题底部添加统计代码或者分享代码等（请包含 <code>&lt;script&gt;&lt;/script&gt;</code>标签 ）
+                                </label>
+                            </p>
+                            <textarea name="single_script"
+                                      class="large-text code"
+                                      id="single_script" rows="10"
+                                      cols="50"
+                                      style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_single_script' ) ) ); ?></textarea>
+                            <p class="description">
+                                请注意该段代码只会在文章页面出现
+                            </p>
+                        </fieldset>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">文章页面的广告</th>
+                    <td>
+                        <fieldset>
+                            <legend class="screen-reader-text">
+                                <span>统计代码添加</span>
+                            </legend>
+                            <p>
+                                <label for="single_script">
+                                    在文章主题内页添加广告（请包含 <code>&lt;script&gt;&lt;/script&gt;</code>标签 ）
+                                </label>
+                            </p>
+                            <textarea name="single_ads_script"
+                                      class="large-text code"
+                                      id="single_script" rows="10"
+                                      cols="50"
+                                      style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_single_ads_script' ) ) ); ?></textarea>
+                            <p class="description">
+                                请注意该段代码只会在文章页面出现
+                            </p>
+                        </fieldset>
+                    </td>
+                </tr>
+                </tbody>
             </table>
             <p class="submit">
                 <input type="submit" name="Submit" class="button-primary" value="保存设置"/>
@@ -519,28 +520,95 @@ function pure_theme_settings() {
     </div>
 <?php }
 
-/**
- * 添加主题设置选项
- */
+
 add_action( 'admin_menu', 'pure_setting_page' );
 
 /**
+ * 添加主题设置选项
+ * ios: https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/
+ * chrome: https://developer.chrome.com/multidevice/android/installtohomescreen
  *
+ * @param array $sizeSet 尺寸合集
+ * @return array
+ */
+function get_theme_manifest($sizeSet= array( 32, 120, 152, 167, 180, 192, 270, 512, )) {
+	$icons = array();
+
+	if ( has_site_icon() ) {
+		foreach ( $sizeSet as $s ) {
+			$image_url = get_site_icon_url( $s );
+			$file_type = substr( $image_url, - 3 );
+
+			array_push( $icons, array(
+				"src"   => $image_url,
+				"sizes" => "{$s}x{$s}",
+				"type"  => "image/{$file_type}",
+			) );
+		}
+	}
+
+	$res = array(
+		"name"                        => get_bloginfo( 'blogname' ),
+		"short_name"                  => substr( get_bloginfo( 'blogname' ), 0, 12 ),
+		"description"                 => get_bloginfo( 'description' ),
+		"lang"                        => get_bloginfo( 'language' ),
+		"dir"                         => "rtl",
+		"start_url"                   => get_bloginfo( 'url' ),
+		"background_color"            => "#1abc9c",
+		"theme_color"                 => "#1abc9c",
+		"display"                     => "standalone",
+		"prefer_related_applications" => false,
+		"icons"                       => $icons,
+	);
+
+	return $res;
+}
+
+CONST PURE_THEME_MANIFEST_KEY = 'KEY_theme_pure_manifest';
+$c = 0;
+
+add_action( 'custom_header_options', function () {
+    global $c;
+    echo $c += 1;
+	$res = wp_cache_get( PURE_THEME_MANIFEST_KEY );
+	wp_cache_set( 'theme_pure_manifest', $res );
+} );
+
+
+/**
+ *  注册接口
  */
 add_action( 'rest_api_init', function () {
 	register_rest_route( 'wp_theme_pure/v1', '/get_sw_js/', array(
-		'methods' => 'GET',
+		'methods'  => WP_REST_Server::READABLE,
 		'callback' => function () {
 
-			header_remove("Content-Type");
-			header( 'Content-Type: application/javascript');
+			header_remove( "Content-Type" );
+			header( 'Content-Type: application/javascript' );
+			header( 'Service-Worker-Allowed: /' );
 
-		    return include "sw.php";
-        },
+			return include "inc/sw.php";
+		},
+	) );
+
+
+	register_rest_route( 'wp_theme_pure/v1', '/manifest.json', array(
+		'methods'  => WP_REST_Server::READABLE,
+		'callback' => function () {
+			header( 'Content-Type: application/manifest+json' );
+			$manifest = wp_cache_get( PURE_THEME_MANIFEST_KEY );
+
+			if ( ! $manifest ) {
+				$manifest = get_theme_manifest();
+				wp_cache_set( PURE_THEME_MANIFEST_KEY, $manifest );
+			}
+
+			return $manifest;
+		},
 	) );
 } );
 
 
 //add_option('pure_theme_pwa_cache_version', get_option('pure_theme_pwa_cache_version') + 0);
-add_option('pure_theme_pwa_cache_version', 1);
+add_option( 'pure_theme_pwa_cache_version', 1 );
 

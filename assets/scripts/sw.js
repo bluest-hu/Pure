@@ -26,14 +26,16 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-    console.log(event);
     event.respondWith(
         caches.match(event.request)
         .then(response =>  {
+            console.log('match', response);
+
             if (response) {
                 return response ;
             }
             let fetchRequest = event.request.clone();
+
             return fetch(fetchRequest)
             .then(response => {
                 if (!response || response.status !== 200 || response.type !== 'basic') {
