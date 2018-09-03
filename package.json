@@ -4,7 +4,9 @@
   "description": "a wordpress theme",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack -w --config build/webpack.config.js",
+    "product": "webpack --config build/webpack.config.js"
   },
   "repository": "git+https://github.com/ihuguowei/Pure.git",
   "author": "hubery",
@@ -13,5 +15,8 @@
     "url": "https://github.com/ihuguowei/Pure/issues"
   },
   "homepage": "https://github.com/ihuguowei/Pure#readme",
-  "devDependencies": {}
+  "devDependencies": {
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0"
+  }
 }

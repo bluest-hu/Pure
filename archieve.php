@@ -15,6 +15,9 @@
                 <h1 class="post-title entry-title"><?php echo get_the_title(); ?></h1>
             </header>
 
+            <?php
+            ;?>
+
             <div class="post-entry entry-content typo">
 				<?php
 

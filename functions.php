@@ -108,6 +108,7 @@ function my_avatar( $avatar, $id_or_email, $size = '96', $default = '', $alt = f
  */
 function get_http_response_code( $theURL ) {
 	$headers = get_headers( $theURL );
+
 	return substr( $headers[0], 9, 3 );
 }
 
@@ -115,16 +116,16 @@ function get_http_response_code( $theURL ) {
 add_filter( 'get_avatar', 'my_avatar', 10, 5 );
 
 // Register Top Menu
-add_action('init', function () {
+add_action( 'init', function () {
 	register_nav_menus( array(
-		'header_menu' => __('顶部菜单'),
-	));
-});
+		'header_menu' => __( '顶部菜单' ),
+	) );
+} );
 
 /**
  * 添加 头部 SEO 信息
  */
-add_action('wp_head', function () {
+add_action( 'wp_head', function () {
 	global $post;
 	// description
 	$blog_description = get_bloginfo( 'description' );
@@ -141,9 +142,9 @@ add_action('wp_head', function () {
 		$blog_keywords = trim( stripslashes( get_option( 'pure_theme_index_page_keywords' ) ) );
 	}
 
-	if (get_option('pure_theme_index_page_description') != '') {
-	    $blog_description = trim(stripcslashes(get_option('pure_theme_index_page_description')));
-    }
+	if ( get_option( 'pure_theme_index_page_description' ) != '' ) {
+		$blog_description = trim( stripcslashes( get_option( 'pure_theme_index_page_description' ) ) );
+	}
 
 	if ( is_single() ) {
 		if ( get_the_excerpt() ) { // 默认读取文章的摘要信息
@@ -163,18 +164,17 @@ add_action('wp_head', function () {
 		}
 		$blog_keywords = join( $blog_keywords, ',' );
 		$blog_author   = get_the_author_meta( 'display_name', $post_author_id );
-
-	} else if (is_tag()) {
-		$blog_keywords = single_tag_title('', false);
+	} else if ( is_tag() ) {
+		$blog_keywords    = single_tag_title( '', false );
 		$blog_description = tag_description();
-	} else if (is_category()) {
-		$blog_keywords = single_cat_title('', false);
+	} else if ( is_category() ) {
+		$blog_keywords    = single_cat_title( '', false );
 		$blog_description = category_description();
 	}
 	echo "<meta name=\"keywords\" content=\"{$blog_keywords}\">
-    <meta name=\"description\" content=\"${$blog_description}\">
-    <meta name=\"author\" content=\"${$blog_author}\">";
-});
+    <meta name=\"description\" content=\"{$blog_description}\">
+    <meta name=\"author\" content=\"{$blog_author}\">";
+} );
 
 // Register Theme Features
 add_action( 'after_setup_theme', function () {
@@ -259,7 +259,7 @@ add_action( 'after_setup_theme', function () {
 	add_theme_support( 'title-tag' );
 
 	add_theme_support( 'customize-selective-refresh-widgets' );
-});
+} );
 
 /**
  * Disable the emoji's
@@ -404,9 +404,7 @@ function pure_theme_settings() {
                                       id="indexKeywords"
                                       rows="3"
                                       cols="30"
-                                      style="text-indent:0;padding:0">
-                                <?php echo stripslashes( trim( get_option( 'pure_theme_index_page_keywords' ) ) ); ?>
-                            </textarea>
+                                      style="text-indent:0;padding:0"><?php echo stripslashes( trim( get_option( 'pure_theme_index_page_keywords' ) ) ); ?></textarea>
                             <p class="description">
                                 建议设置 2~3 个，最多不超过 5 个
                             </p>
@@ -506,7 +504,6 @@ function pure_theme_settings() {
                         </fieldset>
                     </td>
                 </tr>
-
                 </tbody>
             </table>
             <p class="submit">
@@ -514,12 +511,104 @@ function pure_theme_settings() {
                 <input type="hidden" name="pure_theme_settings" value="save" style="display:none;"/>
             </p>
         </form>
+
+
+        <form action="">
+
+        </form>
     </div>
 <?php }
 
-/**
- * 添加主题设置选项
- */
+
 add_action( 'admin_menu', 'pure_setting_page' );
 
+/**
+ * 添加主题设置选项
+ * ios: https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/
+ * chrome: https://developer.chrome.com/multidevice/android/installtohomescreen
+ *
+ * @param array $sizeSet 尺寸合集
+ * @return array
+ */
+function get_theme_manifest($sizeSet= array( 32, 120, 152, 167, 180, 192, 270, 512, )) {
+	$icons = array();
+
+	if ( has_site_icon() ) {
+		foreach ( $sizeSet as $s ) {
+			$image_url = get_site_icon_url( $s );
+			$file_type = substr( $image_url, - 3 );
+
+			array_push( $icons, array(
+				"src"   => $image_url,
+				"sizes" => "{$s}x{$s}",
+				"type"  => "image/{$file_type}",
+			) );
+		}
+	}
+
+	$res = array(
+		"name"                        => get_bloginfo( 'blogname' ),
+		"short_name"                  => substr( get_bloginfo( 'blogname' ), 0, 12 ),
+		"description"                 => get_bloginfo( 'description' ),
+		"lang"                        => get_bloginfo( 'language' ),
+		"dir"                         => "rtl",
+		"start_url"                   => get_bloginfo( 'url' ),
+		"background_color"            => "#1abc9c",
+		"theme_color"                 => "#1abc9c",
+		"display"                     => "standalone",
+		"prefer_related_applications" => false,
+        "orientation"                 => "portrait",
+		"icons"                       => $icons,
+	);
+
+	return $res;
+}
+
+CONST PURE_THEME_MANIFEST_KEY = 'KEY_theme_pure_manifest';
+$c = 0;
+
+add_action( 'custom_header_options', function () {
+    global $c;
+    echo $c += 1;
+	$res = wp_cache_get( PURE_THEME_MANIFEST_KEY );
+	wp_cache_set( 'theme_pure_manifest', $res );
+} );
+
+
+/**
+ *  注册接口
+ */
+add_action( 'rest_api_init', function () {
+	register_rest_route( 'wp_theme_pure/v1', '/get_sw_js/', array(
+		'methods'  => WP_REST_Server::READABLE,
+		'callback' => function () {
+
+			header_remove( "Content-Type" );
+			header( 'Content-Type: application/javascript' );
+			header( 'Service-Worker-Allowed: /' );
+
+			return include "inc/sw.php";
+		},
+	) );
+
+
+	register_rest_route( 'wp_theme_pure/v1', '/manifest.json', array(
+		'methods'  => WP_REST_Server::READABLE,
+		'callback' => function () {
+			header( 'Content-Type: application/manifest+json' );
+			$manifest = wp_cache_get( PURE_THEME_MANIFEST_KEY );
+
+			if ( ! $manifest ) {
+				$manifest = get_theme_manifest();
+				wp_cache_set( PURE_THEME_MANIFEST_KEY, $manifest );
+			}
+
+			return $manifest;
+		},
+	) );
+} );
+
+
+//add_option('pure_theme_pwa_cache_version', get_option('pure_theme_pwa_cache_version') + 0);
+add_option( 'pure_theme_pwa_cache_version', 1 );
 

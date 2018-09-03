@@ -1,4 +1,4 @@
-const CACHE_NAME = '{{GIT_COMMIT_HASH}}' + '_v_<?php echo get_option("pure_theme_pwa_cache_version"); ?>';
+const CACHE_NAME = '6d598a' + '_v_<?php echo get_option("pure_theme_pwa_cache_version"); ?>';
 
 console.log(CACHE_NAME);
 let initCacheResourceList = [
@@ -26,16 +26,14 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+    console.log(event);
     event.respondWith(
         caches.match(event.request)
         .then(response =>  {
-            console.log('match', response);
-
             if (response) {
                 return response ;
             }
             let fetchRequest = event.request.clone();
-
             return fetch(fetchRequest)
             .then(response => {
                 if (!response || response.status !== 200 || response.type !== 'basic') {
