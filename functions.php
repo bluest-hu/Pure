@@ -164,7 +164,6 @@ add_action( 'wp_head', function () {
 		}
 		$blog_keywords = join( $blog_keywords, ',' );
 		$blog_author   = get_the_author_meta( 'display_name', $post_author_id );
-
 	} else if ( is_tag() ) {
 		$blog_keywords    = single_tag_title( '', false );
 		$blog_description = tag_description();
@@ -173,8 +172,8 @@ add_action( 'wp_head', function () {
 		$blog_description = category_description();
 	}
 	echo "<meta name=\"keywords\" content=\"{$blog_keywords}\">
-    <meta name=\"description\" content=\"${$blog_description}\">
-    <meta name=\"author\" content=\"${$blog_author}\">";
+    <meta name=\"description\" content=\"{$blog_description}\">
+    <meta name=\"author\" content=\"{$blog_author}\">";
 } );
 
 // Register Theme Features
@@ -558,6 +557,7 @@ function get_theme_manifest($sizeSet= array( 32, 120, 152, 167, 180, 192, 270, 5
 		"theme_color"                 => "#1abc9c",
 		"display"                     => "standalone",
 		"prefer_related_applications" => false,
+        "orientation"                 => "portrait",
 		"icons"                       => $icons,
 	);
 
