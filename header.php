@@ -61,7 +61,13 @@ if ( ! isset( $content_width ) ) {
         padding-bottom: 0;
     }
     </style>
-    <?php add_editor_style();?>
+    <?php
+    add_editor_style();
+    
+    if (get_option('pure_theme_analytics') != '') {
+	    echo trim( stripslashes( get_option( 'pure_theme_analytics' ) ) );
+    }
+    ;?>
 </head>
 
 <body <?php body_class( 'serif' ); ?>>
