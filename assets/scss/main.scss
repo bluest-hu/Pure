@@ -463,7 +463,8 @@ $content_width: 700px;
 .post-entry {
   font-size: 17px;
   margin: 50px 0;
-  word-break: break-all;
+  word-break: break-word;
+  text-align: justify;
 
   a {
     color: inherit;
