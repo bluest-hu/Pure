@@ -25,9 +25,6 @@ if (is_single()) {
 wp_enqueue_script( 'pure-lazyload-js' );
 
 wp_footer();
-if (get_option('pure_theme_analytics') != '') {
-	echo trim( stripslashes( get_option( 'pure_theme_analytics' ) ) );
-}
 ?>
 
 <script>
@@ -56,8 +53,6 @@ if (is_single()) {?>
     document.addEventListener('DOMContentLoaded', function () {
         Prism.highlightAll();
     }, false);
-
-
 </script>
 <?php
 }

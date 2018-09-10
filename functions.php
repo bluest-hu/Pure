@@ -102,9 +102,9 @@ function my_avatar( $avatar, $id_or_email, $size = '96', $default = '', $alt = f
 }
 
 /**
- * @param $theURL
+ * @param string $theURL
  *
- * @return bool|string
+ * @return bool|string 
  */
 function get_http_response_code( $theURL ) {
 	$headers = get_headers( $theURL );
@@ -350,18 +350,18 @@ add_filter( "pre_option_link_manager_enabled", "__return_true" );
  *
  */
 function deregister_scripts() {
-	wp_deregister_script( 'wp-embed' );
+	// wp_deregister_script( 'wp-embed' );
 	wp_dequeue_script( 'devicepx' );
 }
 
 
 add_filter( 'embed_oembed_discover', true );
 
-add_filter( 'jetpack_implode_frontend_css', '__return_false' );
+// add_filter( 'jetpack_implode_frontend_css', '__return_false' );
 
 add_action( 'wp_enqueue_scripts', 'deregister_scripts', 99 );
 
-remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+// remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
 
 
 function pure_setting_page() {
