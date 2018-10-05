@@ -261,6 +261,11 @@ add_action( 'after_setup_theme', function () {
 	add_theme_support( 'customize-selective-refresh-widgets' );
 } );
 
+add_filter('upload_mimes', function ($mimes = array()) {
+	$mimes['svg'] = 'image/svg+xml';
+	return $mimes;
+});
+
 /**
  * Disable the emoji's
  */
