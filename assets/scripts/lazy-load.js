@@ -1,53 +1,26 @@
-(function () {
+class LazyLoad {
+    constructor(selector) {
+        this.observe = null;
+        this.targetElements = null;
 
-
-
-    window.addEventListener('resize', function () {
-
-    });
-
-
-    function isInSight(el) {
-        if (!el) {
-            return false;
+        if (IntersectionObserver in window) {
+            this.observe = new IntersectionObserver((entries) => {
+                Array.prototype.forEach.call(entries, (entry) => {
+                    const src = entry.dataSet[src];
+                });
+            });
+            intersectionObserver.observe(this.targetElements);
+        } else {
+            window.addEventListener('scroll', () => {
+                Array.prototype.forEach.call(this.targetElements, () => {
+                });
+            });
         }
+    };
 
-
+    isInSight(el, scrollTop) {
+        const rect = el.getBoundingClientRect();
+        return (rect.left + ect.width / 2)  - (0 + window.innerWidth / 2) <= window.innerWidth / 2 - rect.width / 2 || 
+        (window.innerHeight - rect.height) / 2;
     }
-
-
-    function getOffset (el) {
-        let info = {
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-        };
-
-        const dict = {
-            top: 'offsetTop',
-            right: 'offsetRight',
-            left: 'offsetLeft',
-            bottom: 'offsetBottom'
-        };
-
-
-        let target = el;
-
-        while(target) {
-            
-    
-
-            target = el.parentElement;
-        }
-    }
-
-
-
-
-    class LazyLoad {
-        constructor(selector) {
-            
-        };
-    }
-})();
+}
