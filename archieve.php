@@ -12,15 +12,11 @@
     <div class="post-wrap content-width">
         <article <?php post_class( 'post h-entry' ); ?>>
             <header class="entry-header">
-                <h1 class="post-title entry-title"><?php echo get_the_title(); ?></h1>
+                <h1 class="post-title entry-title"><?php echo esc_html(get_the_title()); ?></h1>
             </header>
-
-            <?php
-            ;?>
 
             <div class="post-entry entry-content typo">
 				<?php
-
 				/* Archives list by zwwooooo | http://zww.me */
 				function zww_archives_list() {
 					if ( ! $output = get_option( 'zww_archives_list' ) ) {
@@ -57,13 +53,13 @@
 								$mon    = $mon_tmp;
 								$output .= '<li><span class="al_mon">' . $mon . ' 月</span><ul class="al_post_list">'; //输出月份
 							}
-							$output .= '<li>' . get_the_time( 'd日: ' ) . '<a href="' . get_permalink() . '">' . get_the_title() . '</a> <em>(' . get_comments_number( '0', '1', '%' ) . ')</em></li>'; //输出文章日期和标题
+							$output .= '<li>' . get_the_time( 'd日: ' ) . '<a href="' . get_permalink() . '">' . esc_html(get_the_title()) . '</a> <em>(' . get_comments_number( '0', '1', '%' ) . ')</em></li>'; //输出文章日期和标题
 						}
 						wp_reset_postdata();
 						$output .= '</ul></li></ul></div>';
 						update_option( 'zww_archives_list', $output );
 					}
-					echo $output;
+					echo esc_html($output);
 				}
 
 				function clear_zal_cache() {

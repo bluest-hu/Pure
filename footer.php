@@ -5,14 +5,14 @@
 <footer class="main-footer" id="main-footer">
 	<div class="footer-content">
 		Powered by <a href="https://wordpress.org/" title="code is poetry">WordPress</a><br>
-		Theme <a href="<?php echo $theme_info->display('ThemeURI'); ?>"><?php echo $theme_info->display( 'Name' ); ?></a>
+		Theme <a href="<?php echo esc_html($theme_info->display('ThemeURI')); ?>"><?php echo esc_html($theme_info->display( 'Name' )); ?></a>
 
-		v<?php echo $theme_info->display( 'Version' ); ?>
+		v<?php echo esc_html($theme_info->display( 'Version' )); ?>
 
-		by<?php echo $theme_info->display( 'Author' ); ?>
+		by<?php echo esc_html($theme_info->display( 'Author' )); ?>
         <br>
     <?php if (get_option( 'zh_cn_l10n_icp_num' )){ ?>
-        <a href="http://www.miitbeian.gov.cn" rel="nofollow"><?php echo get_option( 'zh_cn_l10n_icp_num' );?></a>
+        <a href="http://www.miitbeian.gov.cn" rel="nofollow"><?php echo esc_html(get_option( 'zh_cn_l10n_icp_num' ));?></a>
     <?php } ?>
 	</div>
 </footer>
@@ -58,5 +58,5 @@ if (is_single()) {?>
 }
 ?>
 </body>
-<!--total <?php echo get_num_queries(); ?> query-->
+<!--total <?php echo esc_html(get_num_queries()); ?> query-->
 </html>

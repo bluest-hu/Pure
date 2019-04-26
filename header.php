@@ -21,7 +21,7 @@ if ( ! isset( $content_width ) ) {
 	$content_width = 900;
 }
 ?>
-<html <?php echo get_language_attributes(); ?>>
+<html <?php echo esc_html(get_language_attributes()); ?>>
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta http-equiv="content-type" content="charset=<?php bloginfo('charset');?>;<?php bloginfo('html_type')?>>">
@@ -40,7 +40,7 @@ if ( ! isset( $content_width ) ) {
     wp_head();
 	?>
     <link rel="manifest" href="/wp-json/wp_theme_pure/v1/manifest.json">
-    <link rel="alternate" hreflang="zh-Hans" href="<?php echo home_url(); ?>">
+    <link rel="alternate" hreflang="zh-Hans" href="<?php echo esc_url(home_url()); ?>">
 	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php endif; ?>

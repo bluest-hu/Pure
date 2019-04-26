@@ -1,1 +1,2 @@
-import './lazyload.min.js';
+import './lazy-load.js';
+import '../scss/main.scss';

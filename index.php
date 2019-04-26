@@ -94,7 +94,6 @@
 			if ( comments_open() || get_comments_number() ) :
 				comments_template();
 			endif;
-
 		endwhile;
 	} else {
 		_e( 'Sorry, no posts matched your criteria.', '' );
