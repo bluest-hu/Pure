@@ -1,5 +1,7 @@
 const path  =require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 function replaceVersionCode() {
     let fs = require("fs");
@@ -21,11 +23,11 @@ replaceVersionCode();
 const isDevMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
+    devtool: isDevMode ? 'source-map' : '',
     entry: './assets/scripts/index.js',
     resolve: {
-        modules: [path.resolve(__dirname, '../node_modules')],
+        // modules: [path.resolve(__dirname, '../node_modules')],
         alias: {
-            // '~/': [path.resolve(__dirname, '../node_modules')],
         }
     },
     output: {
@@ -34,8 +36,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.scss$/,
-                exclude: /node_modules/,
+                test: /\.[s]?css$/,
                 use: [ 
                     MiniCssExtractPlugin.loader,      
                     { 
@@ -47,8 +48,6 @@ module.exports = {
                     {
                         loader: 'postcss-loader',
                         options: { 
-                            // parser: 'sugarss',
-                            exec: true,
                             sourceMap: true,
                         },
                     },
@@ -63,11 +62,50 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
-            filename: "[name].css",
+            filename: "[name].min.css",
             chunkFilename: "[id].css"
         })
-    ]
+    ],
+    performance: {
+        hints: 'error',
+    },
+    optimization:{
+        // splitChunks: {
+        //     chunks: 'all',
+        //     minSize: 30000,
+        //     minChunks: 1,
+        //     maxAsyncRequests: 5,
+        //     maxInitialRequests: 3,
+        //     name: true,
+        //     cacheGroups: {
+        //         styles: {
+        //             name: 'main',
+        //             test: /\.css$/,
+        //             chunks: 'all',
+        //             enforce: true
+        //         }
+        //     }
+        // },
+        minimizer: [
+            new OptimizeCSSAssetsPlugin({
+                assetNameRegExp: /\.css$/g,
+                cssProcessor: require('cssnano'),
+                // cssProcessorOptions: cssnanoOptions,
+                cssProcessorPluginOptions: {
+                    preset: [
+                        'default', 
+                        {
+                            discardComments: {
+                                removeAll: true,
+                            },
+                            normalizeUnicode: false
+                        }
+                    ]
+                },
+                canPrint: true
+            })
+        ],
+    },
 };

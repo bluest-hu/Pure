@@ -1,2 +1,3 @@
-import './lazy-load.js';
+import LazyLoad from "vanilla-lazyload";
+import 'typo.css';
 import '../scss/main.scss';
