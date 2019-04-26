@@ -89,23 +89,27 @@ module.exports = {
         //     }
         // },
         minimizer: [
-            new OptimizeCSSAssetsPlugin({
-                assetNameRegExp: /\.css$/g,
-                cssProcessor: require('cssnano'),
-                // cssProcessorOptions: cssnanoOptions,
-                cssProcessorPluginOptions: {
-                    preset: [
-                        'default', 
-                        {
-                            discardComments: {
-                                removeAll: true,
-                            },
-                            normalizeUnicode: false
-                        }
-                    ]
-                },
-                canPrint: true
-            })
+            // new OptimizeCSSAssetsPlugin({
+            //     assetNameRegExp:  /\.css\.*(?!.*map)/g,
+            //     cssProcessor: require('cssnano'),
+            //     // cssProcessorOptions: cssnanoOptions,
+            //     cssProcessorPluginOptions: {
+            //         preset: [
+            //             'default', 
+            //             {
+            //                 discardComments: {
+            //                     removeAll: true,
+            //                 },
+            //                 normalizeUnicode: false,
+            //                 autoprefixer:  { 
+            //                     disable: true 
+            //                 },
+            //                 safe: true,
+            //             },
+            //         ],
+            //     },
+            //     canPrint: true
+            // }),
         ],
     },
 };

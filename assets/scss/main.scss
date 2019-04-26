@@ -651,7 +651,7 @@ $content_width: 700px;
   img.attachment-medium,
   img.attachment-large,
   img.attachment-full {
-
+    border: none;
   }
 }
 
@@ -819,7 +819,6 @@ $content_width: 700px;
 }
 
 .comments-area {
-
   .comment-list {
     .pingback {
       margin: 15px 0;
