@@ -46,7 +46,7 @@ if ( ! isset( $content_width ) ) {
 	<?php endif; ?>
     <style>
     <?php
-     include(get_stylesheet_directory() .'/assets/scss/main.min.css');
+     include(get_stylesheet_directory() .'/dist/main.min.css');
     ?>
     .main-header .top-nav-container::before,
     .main-header .custom-header-background-image {
@@ -96,26 +96,28 @@ if ( ! isset( $content_width ) ) {
                     </div>
                 </div>
             </div>
-
-            <?php
-            wp_nav_menu( array(
-                'theme_location'  => 'header_menu',
-                'menu'            => 'header-menu',
-                'menu_class'      => 'top-menu',
-                'menu_id'         => 'topMenu',
-                'container'       => 'nav',
-                'container_class' => 'top-nav-container',
-                'container_id'    => 'topNavigationContainer',
-                'echo'            => true,
-                'fallback_cb'     => 'wp_page_menu',
-                'before'          => '',
-                'after'           => '',
-                'link_before'     => '',
-                'link_after'      => '',
-                'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-                'depth'           => 1,
-                'walker'          => ''
-            ) );
-            ?>
+            <nav class="top-nav-container" id="topNavigationContainer">
+                <?php
+                wp_nav_menu( array(
+                    'theme_location'  => 'header_menu',
+                    'menu'            => 'header-menu',
+                    'menu_class'      => 'top-menu',
+                    'menu_id'         => 'topMenu',
+                    // 'container'       => '',
+                    // 'container_class' => '',
+                    // 'container_id'    => '',
+                    'echo'            => true,
+                    'fallback_cb'     => 'wp_page_menu',
+                    'before'          => '',
+                    'after'           => '',
+                    'link_before'     => '',
+                    'link_after'      => '',
+                    'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                    'depth'           => 1,
+                    'walker'          => ''
+                ) );
+                ?>
+            </nav>
+            
         </div>
     </header>
