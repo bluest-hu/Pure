@@ -1,4 +1,4 @@
-const CACHE_NAME = '938ce9' + '_v_<?php echo get_option("pure_theme_pwa_cache_version"); ?>';
+const CACHE_NAME = '24d20f' + '_v_<?php echo get_option("pure_theme_pwa_cache_version"); ?>';
 
 console.log(CACHE_NAME);
 let initCacheResourceList = [

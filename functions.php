@@ -313,7 +313,6 @@ function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
 
 		$urls = array_diff( $urls, array( $emoji_svg_url ) );
 	}
-
 	return $urls;
 }
 

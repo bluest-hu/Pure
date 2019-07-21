@@ -2,20 +2,20 @@
 <?php
 
 wp_register_script(
-	'pure-lazyload-js',
-	get_template_directory_uri() . '/assets/scripts/lazyload.min.js',
+	'main-js',
+	get_template_directory_uri() . '/dist/main.js',
 	array(),
 	null,
 	true
 );
 
-wp_register_script(
-	'pure-prism-js',
-	get_template_directory_uri() . '/assets/scripts/prism.min.js',
-	array(),
-	null,
-	true
-);
+// wp_register_script(
+// 	'pure-prism-js',
+// 	get_template_directory_uri() . '/assets/scripts/prism.min.js',
+// 	array(),
+// 	null,
+// 	true
+// );
 
 if ( ! isset( $content_width ) ) {
 	$content_width = 900;

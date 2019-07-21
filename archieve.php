@@ -73,13 +73,9 @@
             </div>
 
             <footer>
-
             </footer>
         </article>
-
-
     </div>
-
 </div>
 
 

@@ -31,10 +31,12 @@ module.exports = {
         }
     },
     output: {
+        filename: '[name].js',
         path: path.resolve(__dirname, '../dist'),
     },
     module: {
         rules: [
+            {},
             {
                 test: /\.[s]?css$/,
                 use: [ 
@@ -72,44 +74,44 @@ module.exports = {
         hints: 'error',
     },
     optimization:{
-        // splitChunks: {
-        //     chunks: 'all',
-        //     minSize: 30000,
-        //     minChunks: 1,
-        //     maxAsyncRequests: 5,
-        //     maxInitialRequests: 3,
-        //     name: true,
-        //     cacheGroups: {
-        //         styles: {
-        //             name: 'main',
-        //             test: /\.css$/,
-        //             chunks: 'all',
-        //             enforce: true
-        //         }
-        //     }
-        // },
+        splitChunks: {
+            chunks: 'all',
+            minSize: 30000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            name: true,
+            cacheGroups: {
+                styles: {
+                    name: 'main',
+                    test: /\.css$/,
+                    chunks: 'all',
+                    enforce: true
+                }
+            }
+        },
         minimizer: [
-            // new OptimizeCSSAssetsPlugin({
-            //     assetNameRegExp:  /\.css\.*(?!.*map)/g,
-            //     cssProcessor: require('cssnano'),
-            //     // cssProcessorOptions: cssnanoOptions,
-            //     cssProcessorPluginOptions: {
-            //         preset: [
-            //             'default', 
-            //             {
-            //                 discardComments: {
-            //                     removeAll: true,
-            //                 },
-            //                 normalizeUnicode: false,
-            //                 autoprefixer:  { 
-            //                     disable: true 
-            //                 },
-            //                 safe: true,
-            //             },
-            //         ],
-            //     },
-            //     canPrint: true
-            // }),
+            new OptimizeCSSAssetsPlugin({
+                assetNameRegExp:  /\.css\.*(?!.*map)/g,
+                cssProcessor: require('cssnano'),
+                // cssProcessorOptions: cssnanoOptions,
+                cssProcessorPluginOptions: {
+                    preset: [
+                        'default', 
+                        {
+                            discardComments: {
+                                removeAll: true,
+                            },
+                            normalizeUnicode: false,
+                            autoprefixer:  { 
+                                disable: true 
+                            },
+                            safe: true,
+                        },
+                    ],
+                },
+                canPrint: true
+            }),
         ],
     },
 };

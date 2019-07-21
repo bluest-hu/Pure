@@ -22,15 +22,15 @@ if (is_single()) {
 	wp_enqueue_script( 'pure-prism-js' );
 }
 
-wp_enqueue_script( 'pure-lazyload-js' );
+wp_enqueue_script( 'main-js' );
 
 wp_footer();
 ?>
 
 <script>
-	document.addEventListener('DOMContentLoaded', function () {
-    	lazyload(document.querySelectorAll(".post-entry img"));
-	}, false);
+	// document.addEventListener('DOMContentLoaded', function () {
+    // 	lazyload(document.querySelectorAll(".post-entry img"));
+	// }, false);
 
     // if ('serviceWorker' in navigator) {
     //     window.addEventListener('load', function() {
@@ -50,9 +50,7 @@ wp_footer();
 if (is_single()) {?>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        Prism.highlightAll();
-    }, false);
+   
 </script>
 <?php
 }
