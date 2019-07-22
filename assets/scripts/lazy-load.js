@@ -1,5 +1,3 @@
-import { runInThisContext } from "vm";
-
 class LazyLoad {
   constructor(selector) {
     this.targetElements = Array.from(document.querySelectorAll(selector));

@@ -9,7 +9,7 @@
 
 		v<?php echo esc_html($theme_info->display( 'Version' )); ?>
 
-		by<?php echo esc_html($theme_info->display( 'Author' )); ?>
+		by <?php echo $theme_info->display( 'Author' ); ?>
         <br>
     <?php if (get_option( 'zh_cn_l10n_icp_num' )){ ?>
         <a href="http://www.miitbeian.gov.cn" rel="nofollow"><?php echo esc_html(get_option( 'zh_cn_l10n_icp_num' ));?></a>
@@ -18,10 +18,6 @@
 </footer>
 
 <?php
-if (is_single()) {
-	wp_enqueue_script( 'pure-prism-js' );
-}
-
 wp_enqueue_script( 'main-js' );
 
 wp_footer();
