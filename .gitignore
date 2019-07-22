@@ -5,3 +5,4 @@ node_modules
 /assets/scss/*.css.map
 /assets/scss/*.css
 !/assets/scss/*.min.css
+/dist/
