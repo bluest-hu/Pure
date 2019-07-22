@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: hubery
@@ -6,8 +7,8 @@
  * Time: 12:15
  */
 
-get_header();?>
+get_header(); ?>
 <div class="post-wrap content-width">
-	<h1>404</h1>
+  <h1>404</h1>
 </div>
-<?php get_footer();?>
+<?php get_footer(); ?>

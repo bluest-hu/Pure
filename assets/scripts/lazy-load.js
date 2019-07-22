@@ -14,11 +14,11 @@ class LazyLoad {
             io.unobserve(image);
           }
         });
-      }, 
-      {
-        rootMargin: '50px 0px',
-        threshold: 0.01
-      });
+      },
+        {
+          rootMargin: '50px 0px',
+          threshold: 0.01
+        });
 
       this.targetElements.forEach((image) => {
         io.observe(image);
