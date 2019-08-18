@@ -9,6 +9,13 @@
  */
 
 /**
+ * 判断是否为 AMOP 模式
+ */
+function theme_pure_is_amp() {
+  return function_exists( 'is_amp_endpoint' ) && is_amp_endpoint();
+}
+
+/**
  * [my_avatar 将 Gavatar 的头像存储在本地，防止伟大的 GFW Fuck Gavatar，反强奸（很不幸已经被墙了）]
  *
  * @param    string $avatar []
@@ -116,7 +123,7 @@ function get_http_response_code($theURL)
 }
 
 // 替换原来的系统函数
-add_filter('get_avatar', 'my_avatar', 10, 5);
+// add_filter('get_avatar', 'my_avatar', 10, 5);
 
 // Register Top Menu
 add_action('init', function () {
@@ -323,7 +330,7 @@ function disable_emojis_remove_dns_prefetch($urls, $relation_type)
 }
 
 /**
- * 增加图片缩略图
+ * 增加图片懒加载
  *
  * @param $content
  *
@@ -332,7 +339,7 @@ function disable_emojis_remove_dns_prefetch($urls, $relation_type)
 function add_image_placeholders($content)
 {
   // Don't lazyload for feeds, previews, mobile
-  if (is_feed() || is_preview() || (function_exists('is_mobile') && is_mobile())) {
+  if (is_feed() || is_preview() || (function_exists('is_mobile') && is_mobile()) || theme_pure_is_amp()) {
     return $content;
   }
 

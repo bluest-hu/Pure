@@ -1,7 +1,6 @@
 @import "typo.css";
 
 * {
-  //font-family: "Arial", Sans-serif;
   -ms-word-wrap: break-word;
   word-wrap: break-word;
 }
@@ -464,6 +463,14 @@ $content_width: 700px;
   font-size: 17px;
   margin: 50px 0;
   word-break: break-word;
+
+  &:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    clear: both;
+  }
 
   a {
     color: inherit;
