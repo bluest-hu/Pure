@@ -465,7 +465,7 @@ $content_width: 700px;
   word-break: break-word;
 
   &:after {
-    content: '';
+    content: "";
     display: block;
     width: 0;
     height: 0;
@@ -1185,5 +1185,15 @@ $content_width: 700px;
     .main-header {
       margin-top: -46px;
     }
+  }
+}
+
+code {
+  .language-css .token.string,
+  .style .token.string,
+  .token.entity,
+  .token.operator,
+  .token.url {
+    background-color: transparent;
   }
 }

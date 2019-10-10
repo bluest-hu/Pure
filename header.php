@@ -12,7 +12,7 @@ if (!isset($content_width)) {
   $content_width = 900;
 }
 ?>
-<html <?php echo esc_html(get_language_attributes()); ?>>
+<html <?php echo get_language_attributes(); ?>>
 
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
@@ -27,6 +27,9 @@ if (!isset($content_width)) {
   <meta name="referrer" content="always">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="preload" as="image" href="<?php header_image(); ?>"/>
+  <link rel="dns-prefetch"  href="//www.google-analytics.com"/>
+  <link rel="prefetch"  href="//www.google-analytics.com"/>
   <?php
   wp_meta();
   wp_head();
@@ -34,12 +37,14 @@ if (!isset($content_width)) {
   <link rel="manifest" href="/wp-json/wp_theme_pure/v1/manifest.json">
   <link rel="alternate" hreflang="zh-Hans" href="<?php echo esc_url(home_url()); ?>">
   <?php if (is_singular() && pings_open(get_queried_object())) : ?>
-    <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
+  <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
   <?php endif; ?>
   <style>
+
     <?php
-    include(get_stylesheet_directory() . '/dist/main.min.css');
-    ?>.main-header .top-nav-container::before,
+      include(get_stylesheet_directory() . '/dist/main.min.css');
+    ?>
+    .main-header .top-nav-container::before,
     .main-header .custom-header-background-image {
       padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100; ?>%;
       background-image: url(<?php header_image(); ?>);

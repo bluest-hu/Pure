@@ -1,4 +1,4 @@
-class LazyLoad {
+export default class LazyLoad {
   constructor(selector) {
     this.targetElements = Array.from(document.querySelectorAll(selector));
 
@@ -52,5 +52,3 @@ class LazyLoad {
       (window.innerHeight - rect.height) / 2;
   }
 }
-
-export default LazyLoad;
