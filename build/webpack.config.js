@@ -2,6 +2,8 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 function replaceVersionCode() {
   let fs = require("fs");
@@ -36,7 +38,11 @@ module.exports = {
   },
   module: {
     rules: [
-      {},
+      {
+        test: /\.js$/,
+        include: [path.resolve(__dirname, '../assets')],
+        loader: 'babel-loader'
+      },
       {
         test: /\.[s]?css$/,
         use: [
@@ -60,7 +66,8 @@ module.exports = {
             },
           },
         ]
-      }
+      },
+      
     ]
   },
   plugins: [
@@ -68,7 +75,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].min.css",
       chunkFilename: "[id].css"
-    })
+    }),
+    new WebpackBundleAnalyzer(),
   ],
   performance: {
     hints: 'error',
@@ -91,6 +99,11 @@ module.exports = {
       }
     },
     minimizer: [
+      new UglifyJSPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: false // set to true if you want JS source maps
+      }),
       new OptimizeCSSAssetsPlugin({
         assetNameRegExp: /\.css\.*(?!.*map)/g,
         cssProcessor: require('cssnano'),

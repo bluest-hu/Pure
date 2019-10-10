@@ -12,7 +12,7 @@ if (!isset($content_width)) {
   $content_width = 900;
 }
 ?>
-<html <?php echo esc_html(get_language_attributes()); ?>>
+<html <?php echo get_language_attributes(); ?>>
 
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
@@ -28,6 +28,8 @@ if (!isset($content_width)) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta http-equiv="x-dns-prefetch-control" content="on">
   <link rel="preload" as="image" href="<?php header_image(); ?>"/>
+  <link rel="dns-prefetch"  href="//www.google-analytics.com"/>
+  <link rel="prefetch"  href="//www.google-analytics.com"/>
   <?php
   wp_meta();
   wp_head();

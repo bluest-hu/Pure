@@ -44,14 +44,11 @@ wp_footer();
 <?php
 
 if (is_single()) { ?>
-
   <script>
-
   </script>
 <?php
 }
 ?>
 </body>
 <!--total <?php echo esc_html(get_num_queries()); ?> query-->
-
 </html>
