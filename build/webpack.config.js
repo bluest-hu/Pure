@@ -40,7 +40,9 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        include: [path.resolve(__dirname, '../assets')],
+        include: [
+          path.resolve(__dirname, '../assets'),
+        ],
         loader: 'babel-loader'
       },
       {
@@ -67,7 +69,6 @@ module.exports = {
           },
         ]
       },
-      
     ]
   },
   plugins: [
@@ -76,7 +77,7 @@ module.exports = {
       filename: "[name].min.css",
       chunkFilename: "[id].css"
     }),
-    new WebpackBundleAnalyzer(),
+    // new WebpackBundleAnalyzer(),
   ],
   performance: {
     hints: 'error',

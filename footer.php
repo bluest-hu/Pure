@@ -42,7 +42,6 @@ wp_footer();
 </script>
 
 <?php
-
 if (is_single()) { ?>
   <script>
   </script>
