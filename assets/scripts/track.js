@@ -28,6 +28,11 @@
     sr: `${screen.width}x${screen.height}`, // screen resolution
     vp: `${screen.availWidth}x${screen.availHeight}`, // visuable part
   };
+
+  const errorHandler = () => {
+  };
+
+  window.addEventListener('error', errorHandler, false);
 })();
 
 

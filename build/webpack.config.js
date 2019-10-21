@@ -3,7 +3,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 function replaceVersionCode() {
   let fs = require("fs");
@@ -20,13 +21,14 @@ function replaceVersionCode() {
   console.log(`git hash code is ${gitCommitHashCode}`);
 }
 
-replaceVersionCode();
-
 const isDevMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   devtool: isDevMode ? 'source-map' : '',
-  entry: './assets/scripts/index.js',
+  entry: { 
+    main: './assets/scripts/index.js',
+    // sw: './assets/scripts/sw.js',
+  },
   resolve: {
     // modules: [path.resolve(__dirname, '../node_modules')],
     alias: {
@@ -78,6 +80,29 @@ module.exports = {
       chunkFilename: "[id].css"
     }),
     // new WebpackBundleAnalyzer(),
+    new WorkboxPlugin.GenerateSW({
+      importWorkboxFrom: 'local', 
+      // importsDirectory: '/',
+      runtimeCaching: [
+        {
+          urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+          handler: 'CacheFirst',
+          options: {
+            // Use a custom cache name.
+            // cacheName: 'images',
+
+            // Only cache 10 images.
+            // expiration: {
+            //   maxEntries: 10,
+            // },
+          },
+        },
+        {
+          urlPattern: /\.(?:html)$/,
+          handler: 'NetworkFirst',
+        }
+      ],
+    }),
   ],
   performance: {
     hints: 'error',
@@ -129,3 +154,5 @@ module.exports = {
     ],
   },
 };
+
+// replaceVersionCode();s
