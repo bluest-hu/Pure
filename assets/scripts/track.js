@@ -4,9 +4,8 @@
 
   let data = {
     v: 1,
-    de: document.characterSet,
-    tid: '', // traing id
-    cid: '', // cliend id
+    tid: '', // tracking id
+    cid: '', // client id
     uid: '', // user id
     uip: '', // user ip
     ul: navigator.language, // user language
@@ -19,14 +18,14 @@
     ds: 'web',
     dp: window.location.pathname,
     dclid: '', // 指定 Google 展示广告 ID
-    dl: encodeURIComponent(location.href), // docuemt location
+    dl: encodeURIComponent(location.href), // document location
     dt: document.title,
     dr: document.referrer, // referrer
     de: document.characterSet || document.charset || document.inputEncoding,
     gclid: '', // 指定 Google Ads ID
     sd: screen.colorDepth, // screen depth
     sr: `${screen.width}x${screen.height}`, // screen resolution
-    vp: `${screen.availWidth}x${screen.availHeight}`, // visuable part
+    vp: `${screen.availWidth}x${screen.availHeight}`, // visible part
   };
 
   const errorHandler = () => {

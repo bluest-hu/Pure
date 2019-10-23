@@ -27,14 +27,13 @@ const isDevMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   devtool: isDevMode ? 'source-map' : '',
-  entry: { 
+  entry: {
     main: './assets/scripts/index.js',
     'service-worker': './assets/scripts/service-worker.js',
   },
   resolve: {
-    // modules: [path.resolve(__dirname, '../node_modules')],
-    alias: {
-    }
+    modules: [path.resolve(__dirname, '../node_modules')],
+    alias: {}
   },
   output: {
     filename: '[name].js',
@@ -84,7 +83,7 @@ module.exports = {
     }),
     // new WebpackBundleAnalyzer(),
     new WorkboxPlugin.GenerateSW({
-      importWorkboxFrom: 'local', 
+      importWorkboxFrom: 'local',
       excludeChunks: ['main'],
       offlineGoogleAnalytics: true,
       cleanupOutdatedCaches: true,
@@ -119,17 +118,14 @@ module.exports = {
         {
           urlPattern: /\.(?:html)$/,
           handler: 'NetworkFirst',
-          options: {
-          },
+          options: {},
         },
         {
           urlPattern: /^http(s?):\/\/([0-9]|secure).gravatar.com\/avatar\/*/,
           handler: 'CacheFirst',
-          options: {
-          },
+          options: {},
         }
       ],
-     
     }),
   ],
   performance: {

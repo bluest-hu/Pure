@@ -497,6 +497,15 @@ $content_width: 700px;
   figure {
     margin-left: auto;
     margin-right: auto;
+    max-width: 100%;
+
+    &.alignleft {
+      margin-right: 10px;
+    }
+
+    &.alignright {
+      margin-left: 10px;
+    }
 
     a {
       text-decoration: none;

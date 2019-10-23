@@ -279,7 +279,7 @@ add_filter('upload_mimes', function ($mimes = array()) {
 function wpassist_remove_block_library_css(){
   wp_dequeue_style( 'wp-block-library' );
 } 
-add_action( 'wp_enqueue_scripts', 'wpassist_remove_block_library_css' );
+// add_action( 'wp_enqueue_scripts', 'wpassist_remove_block_library_css' );
 
 /**
  * Disable the emoji's
@@ -375,12 +375,12 @@ add_filter("pre_option_link_manager_enabled", "__return_true");
  */
 function deregister_scripts()
 {
-  // wp_deregister_script( 'wp-embed' );
+  wp_deregister_script( 'wp-embed' );
   wp_dequeue_script('devicepx');
 }
 
 
-add_filter('embed_oembed_discover', true);
+// add_filter('embed_oembed_discover', true);
 
 // add_filter( 'jetpack_implode_frontend_css', '__return_false' );
 
