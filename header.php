@@ -2,7 +2,7 @@
 <?php
 wp_register_script(
   'main-js',
-  get_template_directory_uri() . '/dist/main.js',
+  get_template_directory_uri() . '/dist/main.min.js',
   array(),
   null,
   true
