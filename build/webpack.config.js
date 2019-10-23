@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-// const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 function replaceVersionCode() {
@@ -23,11 +23,13 @@ function replaceVersionCode() {
 
 const isDevMode = process.env.NODE_ENV !== 'production';
 
+// console.log(process.env);
+
 module.exports = {
   devtool: isDevMode ? 'source-map' : '',
   entry: { 
     main: './assets/scripts/index.js',
-    // sw: './assets/scripts/sw.js',
+    'service-worker': './assets/scripts/service-worker.js',
   },
   resolve: {
     // modules: [path.resolve(__dirname, '../node_modules')],
@@ -37,6 +39,7 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, '../dist'),
+    publicPath: '/wp-content/themes/pure/dist/',
   },
   module: {
     rules: [
@@ -82,26 +85,51 @@ module.exports = {
     // new WebpackBundleAnalyzer(),
     new WorkboxPlugin.GenerateSW({
       importWorkboxFrom: 'local', 
-      // importsDirectory: '/',
+      excludeChunks: ['main'],
+      offlineGoogleAnalytics: true,
+      cleanupOutdatedCaches: true,
+      include: [
+        // /\.(?:png|jpg|jpeg|svg)$/,
+        // /\.js$/,
+        // /\.css$/,
+      ],
+      ignoreURLParametersMatching: [
+        /^\/wp-admin/
+      ],
+      cacheId: 'pure-theme-cache',
       runtimeCaching: [
         {
           urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
           handler: 'CacheFirst',
           options: {
-            // Use a custom cache name.
-            // cacheName: 'images',
-
-            // Only cache 10 images.
-            // expiration: {
-            //   maxEntries: 10,
-            // },
+            fetchOptions: {
+              mode: 'no-cors',
+            },
+          },
+        },
+        {
+          urlPattern: /\.(?:js|css)$/,
+          handler: 'CacheFirst',
+          options: {
+            matchOptions: {
+              ignoreSearch: false,
+            },
           },
         },
         {
           urlPattern: /\.(?:html)$/,
           handler: 'NetworkFirst',
+          options: {
+          },
+        },
+        {
+          urlPattern: /^http(s?):\/\/([0-9]|secure).gravatar.com\/avatar\/*/,
+          handler: 'CacheFirst',
+          options: {
+          },
         }
       ],
+     
     }),
   ],
   performance: {
