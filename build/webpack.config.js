@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 function replaceVersionCode() {
   let fs = require("fs");
@@ -20,13 +21,16 @@ function replaceVersionCode() {
   console.log(`git hash code is ${gitCommitHashCode}`);
 }
 
-replaceVersionCode();
-
 const isDevMode = process.env.NODE_ENV !== 'production';
+
+// console.log(process.env);
 
 module.exports = {
   devtool: isDevMode ? 'source-map' : '',
-  entry: './assets/scripts/index.js',
+  entry: { 
+    main: './assets/scripts/index.js',
+    'service-worker': './assets/scripts/service-worker.js',
+  },
   resolve: {
     // modules: [path.resolve(__dirname, '../node_modules')],
     alias: {
@@ -35,12 +39,15 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, '../dist'),
+    publicPath: '/wp-content/themes/pure/dist/',
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        include: [path.resolve(__dirname, '../assets')],
+        include: [
+          path.resolve(__dirname, '../assets'),
+        ],
         loader: 'babel-loader'
       },
       {
@@ -67,7 +74,6 @@ module.exports = {
           },
         ]
       },
-      
     ]
   },
   plugins: [
@@ -76,7 +82,55 @@ module.exports = {
       filename: "[name].min.css",
       chunkFilename: "[id].css"
     }),
-    new WebpackBundleAnalyzer(),
+    // new WebpackBundleAnalyzer(),
+    new WorkboxPlugin.GenerateSW({
+      importWorkboxFrom: 'local', 
+      excludeChunks: ['main'],
+      offlineGoogleAnalytics: true,
+      cleanupOutdatedCaches: true,
+      include: [
+        // /\.(?:png|jpg|jpeg|svg)$/,
+        // /\.js$/,
+        // /\.css$/,
+      ],
+      ignoreURLParametersMatching: [
+        /^\/wp-admin/
+      ],
+      cacheId: 'pure-theme-cache',
+      runtimeCaching: [
+        {
+          urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+          handler: 'CacheFirst',
+          options: {
+            fetchOptions: {
+              mode: 'no-cors',
+            },
+          },
+        },
+        {
+          urlPattern: /\.(?:js|css)$/,
+          handler: 'CacheFirst',
+          options: {
+            matchOptions: {
+              ignoreSearch: false,
+            },
+          },
+        },
+        {
+          urlPattern: /\.(?:html)$/,
+          handler: 'NetworkFirst',
+          options: {
+          },
+        },
+        {
+          urlPattern: /^http(s?):\/\/([0-9]|secure).gravatar.com\/avatar\/*/,
+          handler: 'CacheFirst',
+          options: {
+          },
+        }
+      ],
+     
+    }),
   ],
   performance: {
     hints: 'error',
@@ -128,3 +182,5 @@ module.exports = {
     ],
   },
 };
+
+// replaceVersionCode();s

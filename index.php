@@ -89,10 +89,17 @@
         comments_template();
       endif;
     endwhile;
-  } else {
+  } else { ?>
+    <article>
+      <div class="post-wrap content-width">
+        <h1>
+  <?php
     _e('Sorry, no posts matched your criteria.', '');
   }
   ?>
+      </h1>
+    </div>
+  </article>
 
   <nav class="pages-nav" id="pagesNav">
     <?php echo paginate_links(array(

@@ -276,6 +276,11 @@ add_filter('upload_mimes', function ($mimes = array()) {
   return $mimes;
 });
 
+function wpassist_remove_block_library_css(){
+  wp_dequeue_style( 'wp-block-library' );
+} 
+add_action( 'wp_enqueue_scripts', 'wpassist_remove_block_library_css' );
+
 /**
  * Disable the emoji's
  */
@@ -526,7 +531,7 @@ add_action('admin_menu', 'pure_setting_page');
  * @param array $sizeSet 尺寸合集
  * @return array
  */
-function get_theme_manifest($sizeSet = array(32, 120, 152, 167, 180, 192, 270, 512,))
+function get_theme_manifest($sizeSet = array(32, 120, 144, 152, 167, 180, 192, 270, 512,))
 {
   $icons = array();
 
@@ -576,7 +581,7 @@ add_action('custom_header_options', function () {
  *  注册接口
  */
 add_action('rest_api_init', function () {
-  register_rest_route('wp_theme_pure/v1', '/get_sw_js/', array(
+  register_rest_route('wp_theme_pure/v1', '/service-worker.js', array(
     'methods'  => WP_REST_Server::READABLE,
     'callback' => function () {
 
@@ -584,12 +589,18 @@ add_action('rest_api_init', function () {
       header('Content-Type: application/javascript');
       header('Service-Worker-Allowed: /');
 
-      return include "inc/sw.php";
+      $filePath = get_stylesheet_directory() . '/dist/service-worker.js';
+
+      if (file_exists($filePath)) {
+        return include $filePath;
+      }
+
+      return '';
     },
-  ));
+  ), true);
 
 
-  register_rest_route('wp_theme_pure/v1', '/manifest.json', array(
+  register_rest_route('/wp_theme_pure/v1', '/manifest.json', array(
     'methods'  => WP_REST_Server::READABLE,
     'callback' => function () {
       header('Content-Type: application/manifest+json');
