@@ -29,7 +29,7 @@ module.exports = {
   devtool: isDevMode ? 'source-map' : '',
   entry: {
     main: './assets/scripts/index.js',
-    'service-worker': './assets/scripts/service-worker.js',
+    // 'service-worker': './assets/scripts/service-worker.js',
   },
   resolve: {
     modules: [path.resolve(__dirname, '../node_modules')],
