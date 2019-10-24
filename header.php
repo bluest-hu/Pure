@@ -41,10 +41,7 @@ if (!isset($content_width)) {
   <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
   <?php endif; ?>
   <style>
-
-    <?php
-      include(get_stylesheet_directory() . '/dist/main.min.css');
-    ?>
+    <?php include(get_stylesheet_directory() . '/dist/main.min.css');?>
     .main-header .top-nav-container::before,
     .main-header .custom-header-background-image {
       padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100; ?>%;
@@ -113,6 +110,5 @@ if (!isset($content_width)) {
         ));
         ?>
       </nav>
-
     </div>
   </header>
