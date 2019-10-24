@@ -276,10 +276,10 @@ add_filter('upload_mimes', function ($mimes = array()) {
   return $mimes;
 });
 
-function wpassist_remove_block_library_css(){
+// 已经集成
+add_action( 'wp_enqueue_scripts', function () {
   wp_dequeue_style( 'wp-block-library' );
-} 
-// add_action( 'wp_enqueue_scripts', 'wpassist_remove_block_library_css' );
+});
 
 /**
  * Disable the emoji's
@@ -531,7 +531,7 @@ add_action('admin_menu', 'pure_setting_page');
  * @param array $sizeSet 尺寸合集
  * @return array
  */
-function get_theme_manifest($sizeSet = array(32, 120, 144, 152, 167, 180, 192, 270, 512,))
+function get_theme_manifest($sizeSet = array(120, 144, 152, 167, 180, 192, 512,))
 {
   $icons = array();
 

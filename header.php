@@ -35,6 +35,7 @@ if (!isset($content_width)) {
   wp_head();
   ?>
   <link rel="manifest" href="/wp-json/wp_theme_pure/v1/manifest.json">
+  <link rel="apple-touch-icon" href="<?php get_site_icon_url(192); ?>">
   <link rel="alternate" hreflang="zh-Hans" href="<?php echo esc_url(home_url()); ?>">
   <?php if (is_singular() && pings_open(get_queried_object())) : ?>
   <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">

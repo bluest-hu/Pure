@@ -84,7 +84,7 @@ module.exports = {
     // new WebpackBundleAnalyzer(),
     new WorkboxPlugin.GenerateSW({
       importWorkboxFrom: 'local',
-      excludeChunks: ['main'],
+      // excludeChunks: ['main'],
       offlineGoogleAnalytics: true,
       cleanupOutdatedCaches: true,
       include: [
@@ -92,17 +92,20 @@ module.exports = {
         // /\.js$/,
         // /\.css$/,
       ],
+      exclude: [
+        /^\/wp-content\/themes\/Pure\/dist\/main.js$/
+      ],
       ignoreURLParametersMatching: [
         /^\/wp-admin/
       ],
       cacheId: 'pure-theme-cache',
       runtimeCaching: [
         {
-          urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+          urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/,
           handler: 'CacheFirst',
           options: {
-            fetchOptions: {
-              mode: 'no-cors',
+            matchOptions: {
+              ignoreSearch: true,
             },
           },
         },
@@ -111,7 +114,7 @@ module.exports = {
           handler: 'CacheFirst',
           options: {
             matchOptions: {
-              ignoreSearch: false,
+              ignoreSearch: true,
             },
           },
         },
@@ -120,10 +123,64 @@ module.exports = {
           handler: 'NetworkFirst',
           options: {},
         },
+        // 缓存首页
         {
-          urlPattern: /^http(s?):\/\/([0-9]|secure).gravatar.com\/avatar\/*/,
+          urlPattern: /\/$/,
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          },
+        },
+        // 分类
+        {
+          urlPattern: /\/category\//,
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          },
+        },
+        // tag
+        {
+          urlPattern: /\/tag\//,
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          },
+        },
+
+        {
+          urlPattern: /\/page\/\d+/,
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheableResponse: {
+              statuses: [0, 200],
+            },
+          },
+        },
+        {
+          urlPattern: /https:\/\/static\.bluest\.xyz\/.*.(?:jpg|jpeg|gif|png|webp)'/,
+          handler: 'StaleWhileRevalidate',
+          options: {
+            fetchOptions: {
+              mode: 'no-cors',
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          }
+        },
+        // 缓存 Gavatr
+        {
+          urlPattern: /^https:\/\/([0-9]|secure).gravatar.com\/avatar\/*/,
           handler: 'CacheFirst',
-          options: {},
+          options: {
+          },
         }
       ],
     }),
