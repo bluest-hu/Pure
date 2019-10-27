@@ -102,7 +102,7 @@ module.exports = {
       cacheId: 'pure-theme-cache',
       runtimeCaching: [
         {
-          urlPattern: /\.(?:png|jpg|jpeg|svg|webp)|(\?*)$/,
+          urlPattern: /\.(?:png|jpg|jpeg|svg|webp)/,
           handler: 'CacheFirst',
           options: {
             matchOptions: {
@@ -111,7 +111,7 @@ module.exports = {
           },
         },
         {
-          urlPattern: /\.(?:js|css)|(\?*)$/,
+          urlPattern: /\.(?:js|css)(?:(|\?(?:[^\/]*)))$/,
           handler: 'CacheFirst',
           options: {
             matchOptions: {
@@ -126,7 +126,7 @@ module.exports = {
         },
         // 缓存首页
         {
-          urlPattern: /\/$/,
+          urlPattern: /^(|\/)$/,
           handler: 'StaleWhileRevalidate',
           options: {
             cacheableResponse: {
@@ -165,23 +165,19 @@ module.exports = {
           },
         },
         {
-          urlPattern: /^(http|https):\/\/static.bluest.xyz\/(?:([^?#]*)).(?:jpg|jpeg|png|gif|webp|mp3|svg)?[^\/]*$/g,
+          urlPattern: /^(?:http|https):\/\/static.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:jpg|jpeg|png|gif|webp|mp3|svg)(?:|\?(?:[^\/]*)))$/g,
           handler: 'CacheFirst',
           options: {
             fetchOptions: {
               mode: 'no-cors',
             },
-            // expiration: {
-              // maxEntries: 5,
-              // maxAgeSeconds: 60 * 60 * 24 * 7,
-            // },
             cacheableResponse: {
               statuses: [0, 200]
             }
           }
         },
         {
-          urlPattern: /^(http|https):\/\/static.bluest.xyz\/(?:([^?#]*)).(?:js|css)?[^\/]*$/g,
+          urlPattern: /^(?:http|https):\/\/static.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:js|css)(?:|\?(?:[^\/]*)))$/g,
           handler: 'StaleWhileRevalidate',
           options: {
             fetchOptions: {
