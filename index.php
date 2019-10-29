@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="main-content">
+<main class="main-content">
   <?php if (have_posts()) {
     while (have_posts()) : the_post();
       ?>
@@ -90,16 +90,14 @@
       endif;
     endwhile;
   } else { ?>
-    <article>
-      <div class="post-wrap content-width">
-        <h1>
-  <?php
-    _e('Sorry, no posts matched your criteria.', '');
-  }
-  ?>
-      </h1>
+  <article>
+    <div class="post-wrap content-width">
+      <h1><?php_e('Sorry, no posts matched your criteria.', ''); ?></h1>
     </div>
   </article>
+  <?php
+  }
+  ?>
 
   <nav class="pages-nav" id="pagesNav">
     <?php echo paginate_links(array(
@@ -114,6 +112,6 @@
       'after_page_number'  => ''
     )); ?>
   </nav>
-</div>
+</main>
 
 <?php get_footer(); ?>

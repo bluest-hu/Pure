@@ -87,12 +87,9 @@ module.exports = {
       // excludeChunks: ['main'],
       offlineGoogleAnalytics: true,
       cleanupOutdatedCaches: true,
+      // clientsClaim: true,
       // skipWaiting: true,
-      // clientsClaim: false,
       include: [
-        // /\.(?:png|jpg|jpeg|svg)$/,
-        // /\.js$/,
-        // /\.css$/,
       ],
       exclude: [
         /wp-admin\//
@@ -190,7 +187,7 @@ module.exports = {
         },
         // 缓存 Gavatar
         {
-          urlPattern: /\/\/([0-9]|secure).gravatar.com\/avatar\/*/,
+          urlPattern: /^(?:http|https):\/\/([0-9]|secure).gravatar.com\/avatar\//,
           handler: 'CacheFirst',
           options: {
           },
