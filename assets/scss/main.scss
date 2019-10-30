@@ -1,5 +1,5 @@
 @import "typo.css";
-// @import "../../../../../wp-includes/css/dist/block-library/style.min.css";
+@import "../../../../../wp-includes/css/dist/block-library/style.min.css";
 * {
   -ms-word-wrap: break-word;
   word-wrap: break-word;
@@ -41,10 +41,14 @@ figure.alignright {
 .gallery-caption {
 }
 
-@supports (-webkit-backdrop-filter: blur(20px)) or (backdrop-filter: blur(20px)) {
-  .main-header .top-nav-container:before {
-    display: none;
-  }
+// @supports (-webkit-backdrop-filter: blur(20px)) or (backdrop-filter: blur(20px)) {
+//   .main-header .top-nav-container:before {
+//     display: none;
+//   }
+// }
+
+.main-header .top-nav-container:before {
+  display: none;
 }
 
 .screen-reader-text {
@@ -246,7 +250,7 @@ $content_width: 700px;
     margin-top: -50px;
     overflow: hidden;
     -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
+    // backdrop-filter: blur(20px);
     background-color: rgba(0, 0, 0, 0.3);
     padding-left: 20px;
     padding-right: 20px;
@@ -554,8 +558,7 @@ $content_width: 700px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      line-clamp: 20;
-      //-webkit-line-clamp: 20;
+      -webkit-line-clamp: 20;
       -webkit-box-orient: vertical;
     }
 
@@ -1000,7 +1003,7 @@ $content_width: 700px;
 
       label {
         line-height: 1;
-        width: auto auto auto auto;
+        // width: auto;
         margin-left: 5px;
         font-size: 14px;
         color: #666;

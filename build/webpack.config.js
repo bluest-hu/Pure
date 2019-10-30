@@ -87,34 +87,32 @@ module.exports = {
       // excludeChunks: ['main'],
       offlineGoogleAnalytics: true,
       cleanupOutdatedCaches: true,
+      // clientsClaim: true,
+      // skipWaiting: true,
       include: [
-        // /\.(?:png|jpg|jpeg|svg)$/,
-        // /\.js$/,
-        // /\.css$/,
       ],
       exclude: [
-        /^\/wp-content\/themes\/Pure\/dist\/main.js$/
+        /wp-admin\//
       ],
       ignoreURLParametersMatching: [
-        /^\/wp-admin/
       ],
       cacheId: 'pure-theme-cache',
       runtimeCaching: [
         {
-          urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/,
+          urlPattern: /\.(?:png|jpg|jpeg|svg|webp)/,
           handler: 'CacheFirst',
           options: {
             matchOptions: {
-              ignoreSearch: true,
+              ignoreSearch: false,
             },
           },
         },
         {
-          urlPattern: /\.(?:js|css)$/,
+          urlPattern: /\.(?:js|css)(?:(|\?(?:[^\/]*)))$/,
           handler: 'CacheFirst',
           options: {
             matchOptions: {
-              ignoreSearch: true,
+              ignoreSearch: false,
             },
           },
         },
@@ -125,7 +123,7 @@ module.exports = {
         },
         // 缓存首页
         {
-          urlPattern: /\/$/,
+          urlPattern: /^(|\/)$/,
           handler: 'StaleWhileRevalidate',
           options: {
             cacheableResponse: {
@@ -164,7 +162,19 @@ module.exports = {
           },
         },
         {
-          urlPattern: /https:\/\/static\.bluest\.xyz\/.*.(?:jpg|jpeg|gif|png|webp)'/,
+          urlPattern: /^(?:http|https):\/\/static.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:jpg|jpeg|png|gif|webp|mp3|svg)(?:|\?(?:[^\/]*)))$/g,
+          handler: 'CacheFirst',
+          options: {
+            fetchOptions: {
+              mode: 'no-cors',
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          }
+        },
+        {
+          urlPattern: /^(?:http|https):\/\/static.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:js|css)(?:|\?(?:[^\/]*)))$/g,
           handler: 'StaleWhileRevalidate',
           options: {
             fetchOptions: {
@@ -175,9 +185,9 @@ module.exports = {
             }
           }
         },
-        // 缓存 Gavatr
+        // 缓存 Gavatar
         {
-          urlPattern: /^https:\/\/([0-9]|secure).gravatar.com\/avatar\/*/,
+          urlPattern: /^(?:http|https):\/\/([0-9]|secure).gravatar.com\/avatar\//,
           handler: 'CacheFirst',
           options: {
           },

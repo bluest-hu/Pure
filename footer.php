@@ -26,12 +26,20 @@ wp_footer();
 <script>
   if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/wp-json/wp_theme_pure/v1/service-worker.js', {scope: '/'})
-          .then(function(registration) {
-              console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          }).catch(function(err) {
-              console.log('ServiceWorker registration failed: ', err);
-          });
+        const isLogin = <?php echo is_user_logged_in() ? 'true' : 'false' ;?>;
+        const serviceWorker = navigator.serviceWorker
+        
+        serviceWorker.register('/wp-json/wp_theme_pure/v1/service-worker.js', {scope: '/'})
+        .then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            if (isLogin) {
+              registration.unregister().then(function (flag) {
+                console.log('user is login, ServiceWorker unregister ' + (flag ? 'success' : 'fail'));
+              });
+            }
+        }).catch(function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+        });
       });
   }
 </script>

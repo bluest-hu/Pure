@@ -16,7 +16,7 @@ if (!isset($content_width)) {
 
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
-  <meta http-equiv="content-type" content="charset=<?php bloginfo('charset'); ?>;<?php bloginfo('html_type') ?>>">
+  <!-- <meta http-equiv="content-type" content="<?php bloginfo('html_type')?>;charset=<?php bloginfo('charset'); ?>"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -25,7 +25,7 @@ if (!isset($content_width)) {
   <meta name="msapplication-TileColor" content="#1abc9c">
   <meta name="theme-color" content="#1abc9c">
   <meta name="referrer" content="always">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> -->
   <meta http-equiv="x-dns-prefetch-control" content="on">
   <link rel="preload" as="image" href="<?php header_image(); ?>"/>
   <link rel="dns-prefetch"  href="//www.google-analytics.com"/>
@@ -35,16 +35,13 @@ if (!isset($content_width)) {
   wp_head();
   ?>
   <link rel="manifest" href="/wp-json/wp_theme_pure/v1/manifest.json">
-  <link rel="apple-touch-icon" href="<?php get_site_icon_url(192); ?>">
+  <link rel="apple-touch-icon" href="<?php echo get_site_icon_url(192); ?>">
   <link rel="alternate" hreflang="zh-Hans" href="<?php echo esc_url(home_url()); ?>">
   <?php if (is_singular() && pings_open(get_queried_object())) : ?>
   <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
   <?php endif; ?>
   <style>
-
-    <?php
-      include(get_stylesheet_directory() . '/dist/main.min.css');
-    ?>
+    <?php include(get_stylesheet_directory() . '/dist/main.min.css');?>
     .main-header .top-nav-container::before,
     .main-header .custom-header-background-image {
       padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100; ?>%;
@@ -113,6 +110,5 @@ if (!isset($content_width)) {
         ));
         ?>
       </nav>
-
     </div>
   </header>
