@@ -426,7 +426,7 @@ function pure_setting_page()
 
 function pure_theme_settings()
 {
-  // include get_stylesheet_directory() . '/inc/form.php';
+  include get_stylesheet_directory() . '/inc/form.php';
 }
 
 
