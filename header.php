@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <?php
-wp_register_script(
-  'main-js',
-  get_template_directory_uri() . '/dist/main.min.js',
-  array(),
-  null,
-  true
-);
+// wp_register_script(
+//   'main-js',
+//   get_template_directory_uri() . '/dist/main.min.js',
+//   array(),
+//   null,
+//   true
+// );
 
 if (!isset($content_width)) {
   $content_width = 900;
@@ -21,9 +21,9 @@ if (!isset($content_width)) {
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="msapplication-starturl" content="/">
-  <meta name="msapplication-navbutton-color" content="#1abc9c">
-  <meta name="msapplication-TileColor" content="#1abc9c">
-  <meta name="theme-color" content="#1abc9c">
+  <meta name="msapplication-navbutton-color" content="#1a73e8">
+  <meta name="msapplication-TileColor" content="#1a73e8">
+  <meta name="theme-color" content="#1a73e8">
   <meta name="referrer" content="always">
   <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> -->
   <meta http-equiv="x-dns-prefetch-control" content="on">
@@ -112,3 +112,7 @@ if (!isset($content_width)) {
       </nav>
     </div>
   </header>
+
+  <noscript>
+     <h1 class="warning">页面部分功能依赖 Javascript ,请开启后再浏览</h1>
+   </noscript>

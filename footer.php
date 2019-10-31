@@ -18,8 +18,6 @@ $theme_info = wp_get_theme();
 </footer>
 
 <?php
-wp_enqueue_script('main-js');
-
 wp_footer();
 ?>
 
@@ -43,7 +41,7 @@ wp_footer();
       });
   }
 </script>
-
+<script src="<?php echo get_template_directory_uri() . '/dist/main.min.js?v=0.1';?>"></script>
 <?php
 if (is_single()) {
 }

@@ -124,12 +124,12 @@ function get_http_response_code($theURL)
 
 function new_avatar($avatar) {
   $replace_url = "https://cdn.v2ex.com/gravatar/";
-  $avatar = preg_replace("#^(?:http|https):\/\/(secure|\d).gravatar.com\/avatar\/#", $replace_url, $avatar);
+  $avatar = preg_replace("#(?:http|https):\/\/(secure|\d).gravatar.com\/avatar\/#", $replace_url, $avatar);
   return $avatar;
 }
 
 // 替换原来的系统函数
-// add_filter('get_avatar', 'new_avatar', 10, 5);
+add_filter('get_avatar', 'new_avatar', 10, 5);
 
 // Register Top Menu
 add_action('init', function () {
@@ -523,6 +523,18 @@ add_action('rest_api_init', function () {
       return $manifest;
     },
   ));
+
+  register_rest_route('wp_theme_pure/v1', '/track', array(
+    'methods'  => WP_REST_Server::READABLE,
+    'callback' => function () {
+
+      header_remove("Content-Type");
+      header('Content-Type: application/javascript');
+      return Array(
+        'code' => 0,
+      );
+    },
+  ), true);
 });
 
 

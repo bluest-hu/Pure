@@ -87,23 +87,40 @@ module.exports = {
       // excludeChunks: ['main'],
       offlineGoogleAnalytics: true,
       cleanupOutdatedCaches: true,
-      // clientsClaim: true,
-      // skipWaiting: true,
+      clientsClaim: true,
+      skipWaiting: true,
       include: [
       ],
       exclude: [
-        /wp-admin\//
+        /wp-admin/
       ],
       ignoreURLParametersMatching: [
       ],
       cacheId: 'pure-theme-cache',
       runtimeCaching: [
+        // {
+        //   urlPattern: /\.(?:txt)/,
+        //   handler: 'CacheFirst',
+        //   options: {
+        //     matchOptions: {
+        //       ignoreSearch: false,
+        //     },
+        //     cacheName: 'pure-theme-cache-txt',
+        //     expiration: {
+        //       maxAgeSeconds: 1,
+        //     },
+        //   },
+        // },
         {
           urlPattern: /\.(?:png|jpg|jpeg|svg|webp)/,
           handler: 'CacheFirst',
           options: {
             matchOptions: {
               ignoreSearch: false,
+            },
+            cacheName: 'pure-theme-cache-image',
+            expiration: {
+              maxAgeSeconds: 60 * 60 * 24 * 30,
             },
           },
         },
@@ -114,16 +131,30 @@ module.exports = {
             matchOptions: {
               ignoreSearch: false,
             },
+            cacheName: 'pure-theme-cache-js-css',
+            expiration: {
+              maxAgeSeconds: 60 * 60 * 24 * 7,
+            },
           },
         },
         {
           urlPattern: /\.(?:html)$/,
-          handler: 'NetworkFirst',
-          options: {},
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          },
+        },
+        {
+          urlPattern: /wp-admin/,
+          handler: 'NetworkOnly',
+          options: {
+          },
         },
         // 缓存首页
         {
-          urlPattern: /^(|\/)$/,
+          urlPattern: /(|\/)$/,
           handler: 'StaleWhileRevalidate',
           options: {
             cacheableResponse: {
@@ -170,7 +201,11 @@ module.exports = {
             },
             cacheableResponse: {
               statuses: [0, 200]
-            }
+            },
+            expiration: {
+              maxAgeSeconds: 60 * 60 * 24 * 30,
+            },
+            cacheName: 'pure-theme-cache-cdn-static',
           }
         },
         {
@@ -182,7 +217,7 @@ module.exports = {
             },
             cacheableResponse: {
               statuses: [0, 200]
-            }
+            },
           }
         },
         // 缓存 Gavatar
@@ -190,6 +225,20 @@ module.exports = {
           urlPattern: /^(?:http|https):\/\/([0-9]|secure).gravatar.com\/avatar\//,
           handler: 'CacheFirst',
           options: {
+            expiration: {
+              maxAgeSeconds: 60 * 60 * 24 * 30,
+            },
+            cacheName: 'pure-theme-cache-gavatar',
+          },
+        },
+        {
+          urlPattern: /^(?:http|https):\/\/cdn.v2ex.com\/gravatar\//,
+          handler: 'CacheFirst',
+          options: {
+            expiration: {
+              maxAgeSeconds: 60 * 60 * 24 * 30,
+            },
+            cacheName: 'pure-theme-cache-gavatar',
           },
         }
       ],

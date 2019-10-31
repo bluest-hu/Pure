@@ -5,6 +5,15 @@
   word-wrap: break-word;
 }
 
+a {
+  color: #1a73e8;
+  text-decoration-color: #1a73e8;
+}
+
+.typo a {
+  border-color: #1a73e8;
+}
+
 .alignleft {
   float: left;
 }
@@ -105,10 +114,10 @@ $content_width: 700px;
   margin-right: auto;
 }
 
-.admin-bar {
-  .main-header {
-  }
-}
+// .admin-bar {
+//   .main-header {
+//   }
+// }
 
 .main-header {
   position: relative;
@@ -376,6 +385,7 @@ $content_width: 700px;
       vertical-align: bottom;
       white-space: normal;
       display: inline-flex;
+      font-size: 20px;
       //justify-content:center;
       align-items: center;
       flex-wrap: wrap;
@@ -399,7 +409,12 @@ $content_width: 700px;
         display: inline-block;
         font-size: inherit;
         text-transform: capitalize;
-        margin: 0 5px;
+        margin: 5px 0;
+        border-radius: 20px;
+        background-color: #f0f8ff;
+        padding: 5px 10px;
+
+
         &:before {
           content: "#";
           display: inline;
@@ -1068,6 +1083,10 @@ $content_width: 700px;
       font-size: 18px;
       line-height: 1.2;
       max-width: 50%;
+
+      a {
+        font-weight: bold;
+      }
     }
 
     .next-nav-item {
