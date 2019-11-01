@@ -17,7 +17,9 @@ $theme_info = wp_get_theme();
   </div>
 </footer>
 
-<?php wp_footer(); ?>
+<?php
+wp_footer();
+?>
 
 <script>
   if ('serviceWorker' in navigator) {
@@ -38,13 +40,15 @@ $theme_info = wp_get_theme();
         });
       });
   }
+
+  
 </script>
 
-<script src="/wp-content/themes/pure/dist/main4fa948354f686c1225a2.js"></script>
-
+<script src="<%= htmlWebpackPlugin.files.js %>"></script>
 <?php
 if (is_single()) {
 }
 ?>
+</body>
 <!--total <?php echo esc_html(get_num_queries()); ?> query-->
-
+</html>

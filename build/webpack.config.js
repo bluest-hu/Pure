@@ -5,6 +5,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 function replaceVersionCode() {
   let fs = require("fs");
@@ -36,7 +37,7 @@ module.exports = {
     alias: {}
   },
   output: {
-    filename: '[name].min.js',
+    filename: '[name][contenthash].js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/wp-content/themes/pure/dist/',
   },
@@ -98,19 +99,15 @@ module.exports = {
       ],
       cacheId: 'pure-theme-cache',
       runtimeCaching: [
-        // {
-        //   urlPattern: /\.(?:txt)/,
-        //   handler: 'CacheFirst',
-        //   options: {
-        //     matchOptions: {
-        //       ignoreSearch: false,
-        //     },
-        //     cacheName: 'pure-theme-cache-txt',
-        //     expiration: {
-        //       maxAgeSeconds: 1,
-        //     },
-        //   },
-        // },
+        {
+          urlPattern: /\.(?:json)/,
+          handler: 'NetworkOnly',
+          options: {
+            matchOptions: {
+              ignoreSearch: false,
+            },
+          },
+        },
         {
           urlPattern: /\.(?:png|jpg|jpeg|svg|webp)/,
           handler: 'CacheFirst',
@@ -242,6 +239,12 @@ module.exports = {
           },
         }
       ],
+    }),
+    new HtmlWebpackPlugin({
+      filename: '../footer.php',
+      template: './inc/footer.php',
+      inject: false,
+      minify: true,
     }),
   ],
   performance: {
