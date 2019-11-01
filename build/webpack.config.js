@@ -37,7 +37,7 @@ module.exports = {
     alias: {}
   },
   output: {
-    filename: '[name][contenthash].js',
+    filename: '[name].[contenthash:8].min.js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/wp-content/themes/pure/dist/',
   },

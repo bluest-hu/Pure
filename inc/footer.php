@@ -17,34 +17,40 @@ $theme_info = wp_get_theme();
   </div>
 </footer>
 
-<?php
-wp_footer();
-?>
+<?php wp_footer(); ?>
 
 <script>
   if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         const isLogin = <?php echo is_user_logged_in() ? 'true' : 'false' ;?>;
         const serviceWorker = navigator.serviceWorker
-        
-        serviceWorker.register('/wp-json/wp_theme_pure/v1/service-worker.js', {scope: '/'})
-        .then(function(registration) {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            if (isLogin) {
-              registration.unregister().then(function (flag) {
-                console.log('user is login, ServiceWorker unregister ' + (flag ? 'success' : 'fail'));
-              });
-            }
-        }).catch(function(err) {
-            console.log('ServiceWorker registration failed: ', err);
-        });
+
+        if (!isLogin) {
+          serviceWorker.register('/wp-json/wp_theme_pure/v1/service-worker.js', {scope: '/'})
+          .then(function(registration) {
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+              if (isLogin) {
+                
+              }
+          }).catch(function(err) {
+              console.log('ServiceWorker registration failed: ', err);
+          });
+        } else {
+          serviceWorker.getRegistration('/').then(function(registration) {
+            registration.unregister().then(function (flag) {
+              console.log('user is login, ServiceWorker unregister ' + (flag ? 'success' : 'fail'));
+            });
+          });
+        }
       });
   }
 </script>
-
 <script src="<%= htmlWebpackPlugin.files.js %>"></script>
 <?php
 if (is_single()) {
+  if (get_option('pure_theme_single_ads_script') != '') {
+    echo trim(stripslashes(get_option('pure_theme_single_ads_script')));
+  }
 }
 ?>
 </body>
