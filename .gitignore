@@ -6,4 +6,3 @@ node_modules
 /assets/scss/*.css
 !/assets/scss/*.min.css
 /dist/
-footer.php

@@ -15,7 +15,6 @@ if (!isset($content_width)) {
     <meta name="msapplication-TileColor" content="#1a73e8">
     <meta name="theme-color" content="#1a73e8">
     <meta name="referrer" content="always">
-    <meta http-equiv="x-dns-prefetch-control" content="on">
     <link rel="preload" as="image" href="<?php header_image(); ?>"/>
     <link rel="dns-prefetch"  href="//www.google-analytics.com"/>
     <link rel="prefetch"  href="//www.google-analytics.com"/>
