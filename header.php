@@ -26,7 +26,7 @@ if (!isset($content_width)) {
   <meta name="theme-color" content="#1a73e8">
   <meta name="referrer" content="always">
   <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> -->
-  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <!-- <meta http-equiv="x-dns-prefetch-control" content="on"> -->
   <link rel="preload" as="image" href="<?php header_image(); ?>"/>
   <link rel="dns-prefetch"  href="//www.google-analytics.com"/>
   <link rel="prefetch"  href="//www.google-analytics.com"/>
@@ -115,4 +115,4 @@ if (!isset($content_width)) {
 
   <noscript>
      <h1 class="warning">页面部分功能依赖 Javascript ,请开启后再浏览</h1>
-   </noscript>
+  </noscript>

@@ -16,119 +16,17 @@ function theme_pure_is_amp() {
 }
 
 /**
- * [my_avatar 将 Gavatar 的头像存储在本地，防止伟大的 GFW Fuck Gavatar，反强奸（很不幸已经被墙了）]
+ * @param $avatar
  *
- * @param    string $avatar []
- * @param    mixed $id_or_email [id or email]
- * @param    string $size [头像大小]
- * @param    string $default [默认头像地址]
- * @param    boolean/string $alt    [alt文本]
- *
- * @return string    [html img 字符串]
+ * @return string|string[]|null
  */
-function my_avatar($avatar, $id_or_email, $size = '96', $default = '', $alt = false)
-{
-  $email = '';
-
-  if (is_numeric($id_or_email)) {
-    $id   = (int) $id_or_email;
-    $user = get_userdata($id);
-
-    if ($user) {
-      $email = $user->user_email;
-    }
-  } elseif (is_object($id_or_email)) {
-    $allowed_comment_types = apply_filters('get_avatar_comment_types', array('comment'));
-
-    if (!empty($id_or_email->comment_type) && !in_array($id_or_email->comment_type, (array) $allowed_comment_types)) {
-      return false;
-    }
-
-    if (!empty($id_or_email->user_id)) {
-      $id   = (int) $id_or_email->user_id;
-      $user = get_userdata($id);
-      if ($user) {
-        $email = $user->user_email;
-      }
-    }
-
-    if (!$email && !empty($id_or_email->comment_author_email)) {
-      $email = $id_or_email->comment_author_email;
-    }
-  } else {
-    $email = $id_or_email;
-  }
-
-
-  $FOLDER           = '/avatar/';
-  $email_md5        = md5(strtolower(trim($email))); // 对 email 进行 md5处理
-  $avatar_file_name = $email_md5 . "_" . $size . '.jpg';
-  $STORE_PATH       = ABSPATH . $FOLDER; //默认存储地址
-  $alt              = (false === $alt) ? '' : esc_attr($alt);
-  $avatar_url       = home_url() . $FOLDER . $avatar_file_name; // 猜测在博客的头像
-  $avatar_local     = ABSPATH . $FOLDER . $avatar_file_name; // 猜测本地绝对路径
-  $expire           = 604800 * 3; //设定 21 天, 单位:秒
-  $r                = get_option('avatar_rating');
-  $max_size         = 10240000;
-  // 默认的头像 在add_filter get_avatar 会默认传入默认的url;
-  $fix_default = get_stylesheet_directory_uri() . '/assets/image/default_avatar.jpg';
-
-  // 暂时判断目录存在，如果不存在创建，存放的文件夹
-  if (!is_dir($STORE_PATH)) {
-    if (!!mkdir($STORE_PATH)) {
-      return null;
-    }
-  }
-
-  // 判断在本地的头像文件 是否存在或者已经过期
-  if (!file_exists($avatar_local) || (time() - filemtime($avatar_local)) > $expire) {
-
-    // 如果不能存在 Gavatar 会返回你设置的地址的头像
-    $gavatar_uri = "https://secure.gravatar.com/avatar/" . $email_md5 . '?s=' . $size . '&r=' . $r;
-
-    $response_code = get_http_response_code($gavatar_uri);
-
-    if ((int) $response_code != 200) {
-      $gavatar_uri = $fix_default;
-    }
-
-    @copy($gavatar_uri, $avatar_local);
-
-    // 如果头像大于 10 MB 那么还用默认头像替代
-    if (filesize($avatar_local) > $max_size) {
-      @copy($fix_default, $avatar_local);
-    }
-  }
-
-  // 增加时间戳 强制 CDN 正确的回源
-  $file_make_time = filemtime($avatar_local);
-
-  $avatar = "<img title='{$alt}' 
-					alt='{$alt}' src='{$avatar_url}?t={$file_make_time}' 
-					class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' />";
-
-  return $avatar;
-}
-
-/**
- * @param string $theURL
- *
- * @return bool|string 
- */
-function get_http_response_code($theURL)
-{
-  $headers = get_headers($theURL);
-
-  return substr($headers[0], 9, 3);
-}
-
 function new_avatar($avatar) {
   $replace_url = "https://cdn.v2ex.com/gravatar/";
   $avatar = preg_replace("#(?:http|https):\/\/(secure|\d).gravatar.com\/avatar\/#", $replace_url, $avatar);
   return $avatar;
 }
 
-// 替换原来的系统函数
+// 替换原来的系统 avatar 函数
 add_filter('get_avatar', 'new_avatar', 10, 5);
 
 // Register Top Menu
@@ -187,9 +85,10 @@ add_action('wp_head', function () {
     $blog_keywords    = single_cat_title('', false);
     $blog_description = category_description();
   }
-  echo "<meta name=\"keywords\" content=\"{$blog_keywords}\">
-    <meta name=\"description\" content=\"{$blog_description}\">
-    <meta name=\"author\" content=\"{$blog_author}\">";
+  echo "
+<meta name=\"keywords\" content=\"{$blog_keywords}\">
+<meta name=\"description\" content=\"{$blog_description}\">
+<meta name=\"author\" content=\"{$blog_author}\">";
 });
 
 // Register Theme Features
@@ -284,6 +183,7 @@ add_filter('upload_mimes', function ($mimes = array()) {
 
 // 已经集成
 add_action( 'wp_enqueue_scripts', function () {
+  wp_dequeue_style( 'wp-block-library' );
   wp_dequeue_style( 'wp-block-library' );
 });
 
@@ -387,6 +287,7 @@ function remove_duplicate_id_attribute($content) {
 add_filter('the_content', 'add_image_placeholders', 99);
 add_filter('the_content', 'remove_duplicate_id_attribute', 100);
 
+// 恢复友情链接功能
 add_filter("pre_option_link_manager_enabled", "__return_true");
 
 /**
@@ -395,18 +296,12 @@ add_filter("pre_option_link_manager_enabled", "__return_true");
 function deregister_scripts()
 {
   wp_deregister_script( 'wp-embed' );
-  wp_dequeue_script('devicepx');
 }
 
-
-// add_filter('embed_oembed_discover', true);
-
-// add_filter( 'jetpack_implode_frontend_css', '__return_false' );
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
 
 add_action('wp_enqueue_scripts', 'deregister_scripts', 99);
-
-// remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
-
 
 function pure_setting_page()
 {

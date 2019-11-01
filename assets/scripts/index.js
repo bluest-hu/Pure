@@ -1,3 +1,4 @@
+import '../../../../../wp-includes/js/wp-embed.js';
 import Prism from 'prismjs';
 import LazyLoad from "./lazy-load.js";
 import Track from './track.js';

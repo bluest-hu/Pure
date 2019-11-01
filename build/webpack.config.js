@@ -147,6 +147,12 @@ module.exports = {
           },
         },
         {
+          urlPattern:/\.php/,
+          handler: 'NetworkOnly',
+          options: {
+          },
+        },
+        {
           urlPattern: /wp-admin/,
           handler: 'NetworkOnly',
           options: {

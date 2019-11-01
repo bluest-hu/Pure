@@ -259,12 +259,11 @@ $content_width: 700px;
     margin-top: -50px;
     overflow: hidden;
     -webkit-backdrop-filter: blur(20px);
-    // backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     background-color: rgba(0, 0, 0, 0.3);
     padding-left: 20px;
     padding-right: 20px;
     box-sizing: border-box;
-    //font-family: Montserrat, "Helvetica Neue", sans-serif;
 
     &::before {
       content: "";
@@ -1230,4 +1229,8 @@ code {
   .token.url {
     background-color: transparent;
   }
+}
+
+code[class*="language-"], pre[class*="language-"] {
+  text-shadow: none;
 }
