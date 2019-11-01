@@ -40,8 +40,6 @@ wp_footer();
         });
       });
   }
-
-  
 </script>
 
 <script src="<%= htmlWebpackPlugin.files.js %>"></script>
