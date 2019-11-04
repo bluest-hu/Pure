@@ -14,25 +14,30 @@
    3. 分类页面获取分类描述
 3. 移动端展示优化
 4. 支持添加自定义代码，如统计代码等
+5. 支持内页添加广告代码
 
 ## 特点
 
 ### 轻量
 
-**建议配合 WP Super Cache、memcached 与 CDN 使用。**
+
 
 - 优化 JavaScript 与 CSS 引入，优化关键渲染路径阻塞。lighthouse 100 分！
 - 文章图片支持 lazyload。
 - <s>使用 公共前端 CDN 库</s>
 - 去除无效 WordPress 资源加载
    - 去除 WordPress Emoji😭
-- 添加 Gavatar 本地存储，便于使用本地 CDN
+- <s>添加 Gavatar 本地存储，便于使用本地 CDN</s>
+- 替换 Gavatar 使用 V2EX Gavatar CDN 加速国内访问速度
+
+> **建议配合 WP Super Cache、Memcached、PageSpeed Module 与 CDN 使用。**
 
 ### PWA 支持
-进行中
 
-1. 请修改 `manifest.json`
-
+1. 支持生成 `manifest.json`
+2. 引入 Workbox 启用离线缓存，添加新的离线规则需要
+   1. Google Analytics 
+   2. Gavatar/ V2EX 头像服务
 
 ## 致谢
 
@@ -41,6 +46,6 @@
 1. [normalize.css](https://github.com/necolas/normalize.css)
 2. [typo](https://typo.sofi.sh/)
 3. <s>jQuery</s>
-4. [jquery_lazyload](https://github.com/tuupola/jquery_lazyload)
+4. <s>[jquery_lazyload](https://github.com/tuupola/jquery_lazyload)</s>
 5. [PrismJS](http://prismjs.com)
 6. [WordPress]()

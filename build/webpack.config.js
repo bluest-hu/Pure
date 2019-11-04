@@ -5,6 +5,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 function replaceVersionCode() {
   let fs = require("fs");
@@ -29,14 +30,13 @@ module.exports = {
   devtool: isDevMode ? 'source-map' : '',
   entry: {
     main: './assets/scripts/index.js',
-    // 'service-worker': './assets/scripts/service-worker.js',
   },
   resolve: {
     modules: [path.resolve(__dirname, '../node_modules')],
     alias: {}
   },
   output: {
-    filename: '[name].min.js',
+    filename: '[name].[contenthash:8].min.js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/wp-content/themes/pure/dist/',
   },
@@ -54,7 +54,7 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader', // 将 CSS 转化成 CommonJS 模块
+            loader: 'css-loader', // 将 CSS 转化成 CommonJS 模块
             options: {
               sourceMap: true,
             },
@@ -87,23 +87,36 @@ module.exports = {
       // excludeChunks: ['main'],
       offlineGoogleAnalytics: true,
       cleanupOutdatedCaches: true,
-      // clientsClaim: true,
-      // skipWaiting: true,
+      clientsClaim: true,
+      skipWaiting: true,
       include: [
       ],
       exclude: [
-        /wp-admin\//
+        /wp-admin/
       ],
       ignoreURLParametersMatching: [
       ],
       cacheId: 'pure-theme-cache',
       runtimeCaching: [
         {
+          urlPattern: /\.(?:json)/,
+          handler: 'NetworkOnly',
+          options: {
+            matchOptions: {
+              ignoreSearch: false,
+            },
+          },
+        },
+        {
           urlPattern: /\.(?:png|jpg|jpeg|svg|webp)/,
           handler: 'CacheFirst',
           options: {
             matchOptions: {
               ignoreSearch: false,
+            },
+            cacheName: 'pure-theme-cache-image',
+            expiration: {
+              maxAgeSeconds: 60 * 60 * 24 * 30,
             },
           },
         },
@@ -114,16 +127,36 @@ module.exports = {
             matchOptions: {
               ignoreSearch: false,
             },
+            cacheName: 'pure-theme-cache-js-css',
+            expiration: {
+              maxAgeSeconds: 60 * 60 * 24 * 7,
+            },
           },
         },
         {
           urlPattern: /\.(?:html)$/,
-          handler: 'NetworkFirst',
-          options: {},
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          },
+        },
+        {
+          urlPattern:/\.php/,
+          handler: 'NetworkOnly',
+          options: {
+          },
+        },
+        {
+          urlPattern: /wp-admin/,
+          handler: 'NetworkOnly',
+          options: {
+          },
         },
         // 缓存首页
         {
-          urlPattern: /^(|\/)$/,
+          urlPattern: /(|\/)$/,
           handler: 'StaleWhileRevalidate',
           options: {
             cacheableResponse: {
@@ -151,7 +184,7 @@ module.exports = {
             }
           },
         },
-
+        // 分页
         {
           urlPattern: /\/page\/\d+/,
           handler: 'StaleWhileRevalidate',
@@ -161,6 +194,7 @@ module.exports = {
             },
           },
         },
+        // CDN 图片
         {
           urlPattern: /^(?:http|https):\/\/static.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:jpg|jpeg|png|gif|webp|mp3|svg)(?:|\?(?:[^\/]*)))$/g,
           handler: 'CacheFirst',
@@ -170,7 +204,11 @@ module.exports = {
             },
             cacheableResponse: {
               statuses: [0, 200]
-            }
+            },
+            expiration: {
+              maxAgeSeconds: 60 * 60 * 24 * 30,
+            },
+            cacheName: 'pure-theme-cache-cdn-static',
           }
         },
         {
@@ -182,7 +220,7 @@ module.exports = {
             },
             cacheableResponse: {
               statuses: [0, 200]
-            }
+            },
           }
         },
         // 缓存 Gavatar
@@ -190,9 +228,29 @@ module.exports = {
           urlPattern: /^(?:http|https):\/\/([0-9]|secure).gravatar.com\/avatar\//,
           handler: 'CacheFirst',
           options: {
+            expiration: {
+              maxAgeSeconds: 60 * 60 * 24 * 30,
+            },
+            cacheName: 'pure-theme-cache-gavatar',
+          },
+        },
+        {
+          urlPattern: /^(?:http|https):\/\/cdn.v2ex.com\/gravatar\//,
+          handler: 'CacheFirst',
+          options: {
+            expiration: {
+              maxAgeSeconds: 60 * 60 * 24 * 30,
+            },
+            cacheName: 'pure-theme-cache-gavatar',
           },
         }
       ],
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'footer_script.html',
+      template: './template/footer_script.html',
+      inject: false,
+      minify: true,
     }),
   ],
   performance: {
@@ -224,7 +282,6 @@ module.exports = {
       new OptimizeCSSAssetsPlugin({
         assetNameRegExp: /\.css\.*(?!.*map)/g,
         cssProcessor: require('cssnano'),
-        // cssProcessorOptions: cssnanoOptions,
         cssProcessorPluginOptions: {
           preset: [
             'default',

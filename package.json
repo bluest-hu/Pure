@@ -44,12 +44,11 @@
     "webpack": "^4.41.0",
     "webpack-bundle-analyzer": "^3.5.2",
     "webpack-cli": "^3.3.9",
-    "workbox-sw": "^4.3.1",
     "workbox-webpack-plugin": "^4.3.1"
   },
   "dependencies": {
+    "html-webpack-plugin": "^3.2.0",
     "prismjs": "^1.16.0",
-    "typo.css": "^2.1.2",
-    "upgrade": "^1.1.0"
+    "typo.css": "^2.1.2"
   }
 }
