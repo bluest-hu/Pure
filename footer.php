@@ -18,20 +18,17 @@
           const isLogin = (<?php echo is_user_logged_in() ? 'true' : 'false' ;?>);
           const serviceWorker = navigator.serviceWorker;
 
-          if (!isLogin) {
-            serviceWorker.register('/wp-json/wp_theme_pure/v1/service-worker.js', {scope: '/'})
+          serviceWorker.register('/wp-json/wp_theme_pure/v1/service-worker.js', {scope: '/'})
             .then(function(registration) {
                 console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                if (isLogin) {
+                  registration.unregister().then(function (flag) {
+                    console.log('user is login, ServiceWorker unregister ' + (flag ? 'success' : 'fail'));
+                  });
+                }
             }).catch(function(err) {
                 console.log('ServiceWorker registration failed: ', err);
             });
-          } else {
-            serviceWorker.getRegistration('/').then(function(registration) {
-              registration.unregister().then(function (flag) {
-                console.log('user is login, ServiceWorker unregister ' + (flag ? 'success' : 'fail'));
-              });
-            });
-          }
         });
     }
   </script>

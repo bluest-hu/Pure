@@ -1,9 +1,9 @@
 @import "typo.css";
 @import "../../../../../wp-includes/css/dist/block-library/style.min.css";
-* {
+// * {
   // -ms-word-wrap: break-word;
   // word-wrap: break-word;
-}
+// }
 
 a {
   color: #1a73e8;
@@ -317,7 +317,7 @@ $content_width: 700px;
 
     a {
       display: block;
-      color: #999;
+      color: #757575;
     }
   }
 }
@@ -494,11 +494,15 @@ $content_width: 700px;
     color: inherit;
 
     &:hover {
-      color: #1abc9c;
-      border-bottom-color: #1abc9c;
+      color: #1a73e8;
+      border-bottom-color: #1a73e8;
     }
   }
 
+  blockquote {
+    color: #666;
+    border-left-width: 3px;
+  }
 
   video,
   audio {
@@ -1113,7 +1117,7 @@ $content_width: 700px;
   background-color: rgba(0, 0, 0, 0.03);
   padding: 50px 0;
   font-size: 12px;
-  color: #999;
+  color: #757575;
 
   .footer-content {
     //max-width: $content_width;

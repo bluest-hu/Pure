@@ -30,7 +30,6 @@ module.exports = {
   devtool: isDevMode ? 'source-map' : '',
   entry: {
     main: './assets/scripts/index.js',
-    // 'service-worker': './assets/scripts/service-worker.js',
   },
   resolve: {
     modules: [path.resolve(__dirname, '../node_modules')],
@@ -55,7 +54,7 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader', // 将 CSS 转化成 CommonJS 模块
+            loader: 'css-loader', // 将 CSS 转化成 CommonJS 模块
             options: {
               sourceMap: true,
             },
@@ -185,7 +184,7 @@ module.exports = {
             }
           },
         },
-
+        // 分页
         {
           urlPattern: /\/page\/\d+/,
           handler: 'StaleWhileRevalidate',
@@ -195,6 +194,7 @@ module.exports = {
             },
           },
         },
+        // CDN 图片
         {
           urlPattern: /^(?:http|https):\/\/static.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:jpg|jpeg|png|gif|webp|mp3|svg)(?:|\?(?:[^\/]*)))$/g,
           handler: 'CacheFirst',
@@ -282,7 +282,6 @@ module.exports = {
       new OptimizeCSSAssetsPlugin({
         assetNameRegExp: /\.css\.*(?!.*map)/g,
         cssProcessor: require('cssnano'),
-        // cssProcessorOptions: cssnanoOptions,
         cssProcessorPluginOptions: {
           preset: [
             'default',
