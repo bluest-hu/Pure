@@ -1,13 +1,9 @@
 @import "typo.css";
-<<<<<<< HEAD
-@import "../../../../../wp-includes/css/dist/block-library/style.css";
-=======
 @import "../../../../../wp-includes/css/dist/block-library/style.min.css";
 // * {
   // -ms-word-wrap: break-word;
   // word-wrap: break-word;
 // }
->>>>>>> 77e58806a211062b3cbff44339a6edf374743944
 
 a {
   color: #1a73e8;
@@ -420,7 +416,7 @@ $content_width: 700px;
         background-color: #e8f0fe;
         padding: 5px 10px;
         color: #1967d2;
-        font-size: 16px;
+        font-size: 14px;
 
         &:before {
           content: "#";
@@ -875,7 +871,7 @@ $content_width: 700px;
       font-size: 15px;
       display: block;
       text-decoration: none;
-      color: #999;
+      color: #757575;
       padding: 0 5px;
       min-width: 30px;
       line-height: 30px;
@@ -1131,15 +1127,19 @@ $content_width: 700px;
 }
 
 .main-footer {
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: #f9f9f9;
   padding: 50px 0;
   font-size: 12px;
-  color: #757575;
+  color: #666;
 
   .footer-content {
-    //max-width: $content_width;
     margin: 0 auto;
     text-align: center;
+    font-size: 14px;
+  }
+
+  a {
+    color: #1967d2;
   }
 }
 
