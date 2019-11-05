@@ -257,8 +257,8 @@ module.exports = {
       ],
     }),
     new HtmlWebpackPlugin({
-      filename: 'footer_script.html',
-      template: './template/footer_script.html',
+      filename: 'footer_script.php',
+      template: './template/footer_script.php',
       inject: false,
       minify: true,
     }),

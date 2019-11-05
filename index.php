@@ -56,7 +56,7 @@
 
       <footer class="entry-footer">
         <div class="post-meta post-tags-wrap">
-          <?php the_tags('', '、', ''); ?>
+          <?php the_tags('', '', ''); ?>
         </div>
       </footer>
     </div>
