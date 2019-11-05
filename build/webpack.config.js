@@ -243,6 +243,16 @@ module.exports = {
             },
             cacheName: 'pure-theme-cache-gavatar',
           },
+        },
+        {
+          urlPattern: /^(?:http|https):\/\/gravatar.loli.net\/avatar\//,
+          handler: 'CacheFirst',
+          options: {
+            expiration: {
+              maxAgeSeconds: 60 * 60 * 24 * 30,
+            },
+            cacheName: 'pure-theme-cache-gavatar',
+          },
         }
       ],
     }),

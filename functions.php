@@ -21,7 +21,7 @@ function theme_pure_is_amp() {
  * @return string|string[]|null
  */
 function new_avatar($avatar) {
-  $replace_url = "https://cdn.v2ex.com/gravatar/";
+  $replace_url = "https://gravatar.loli.net/avatar/";
   $avatar = preg_replace("#(?:http|https):\/\/(secure|\d).gravatar.com\/avatar\/#", $replace_url, $avatar);
   return $avatar;
 }
