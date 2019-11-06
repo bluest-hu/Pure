@@ -15,6 +15,12 @@
   <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
+          // 防止爬虫在抓抓取的时候 sw 注册失败产生错误
+          if (location.protocol !=== 'https' && 
+            (location.hostname !== '127.0.0.1' || location.hostname !== 'localhost')) {
+            return false;
+          }
+
           const isLogin = (<?php echo is_user_logged_in() ? 'true' : 'false' ;?>);
           const serviceWorker = navigator.serviceWorker;
 

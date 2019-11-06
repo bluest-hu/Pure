@@ -37,12 +37,11 @@
 })();
 
 function genGaTimingData() {
-  const t = window.performance.timing;
-
   if (!window.performance || !window.performance.timing) {
     return null;
   }
 
+  const t = window.performance.timing;
   let times = {};
 
   // 页面加载完成的时间
@@ -73,7 +72,7 @@ function genGaTimingData() {
 
   let ga_data = {
     // 这里 plt 统计的是到 load 事件开始的时间
-    plt:t.loadEventStart - t.navigationStart,
+    plt: t.loadEventStart - t.navigationStart,
     dns: times.DNSTime,
     pdt: times.PageDownloadTime,
     rrt: times.RedirectTime,

@@ -352,15 +352,22 @@ function get_theme_manifest($sizeSet = array(120, 144, 152, 167, 180, 192, 512,)
     }
   }
 
+  $color = get_background_color();
+  if (empty($color)) {
+    $color = "#1abc9c";
+  } else {
+    $color = "#" . $color;
+  }
+
   $res = array(
     "name"                        => get_bloginfo('blogname'),
     "short_name"                  => substr(get_bloginfo('blogname'), 0, 12),
     "description"                 => get_bloginfo('description'),
     "lang"                        => get_bloginfo('language'),
-    "dir"                         => is_rtl() ? "rtl" : "",
+    "dir"                         => is_rtl() ? "rtl" : "ltr",
     "start_url"                   => get_home_url(),
-    "background_color"            => get_background_color() || "#1abc9c",
-    "theme_color"                 => get_background_color() || "#1abc9c",
+    "background_color"            => $color,
+    "theme_color"                 => $color,
     "display"                     => "standalone",
     "prefer_related_applications" => false,
     "orientation"                 => "portrait",
