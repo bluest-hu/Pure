@@ -11,8 +11,9 @@
 /**
  * 判断是否为 AMOP 模式
  */
-function theme_pure_is_amp() {
-  return function_exists( 'is_amp_endpoint' ) && is_amp_endpoint();
+function theme_pure_is_amp()
+{
+  return function_exists('is_amp_endpoint') && is_amp_endpoint();
 }
 
 /**
@@ -20,7 +21,8 @@ function theme_pure_is_amp() {
  *
  * @return string|string[]|null
  */
-function new_avatar($avatar) {
+function new_avatar($avatar)
+{
   $replace_url = "https://gravatar.loli.net/avatar/";
   $avatar = preg_replace("#(?:http|https):\/\/(secure|\d).gravatar.com\/avatar\/#", $replace_url, $avatar);
   return $avatar;
@@ -174,6 +176,8 @@ add_action('after_setup_theme', function () {
   add_theme_support('title-tag');
 
   add_theme_support('customize-selective-refresh-widgets');
+
+//  load_theme_textdomain( 'text_domain', get_template_directory() . '/language' );
 });
 
 add_filter('upload_mimes', function ($mimes = array()) {
@@ -182,9 +186,8 @@ add_filter('upload_mimes', function ($mimes = array()) {
 });
 
 // 已经集成
-add_action( 'wp_enqueue_scripts', function () {
-  wp_dequeue_style( 'wp-block-library' );
-  wp_dequeue_style( 'wp-block-library' );
+add_action('wp_enqueue_scripts', function () {
+  wp_dequeue_style('wp-block-library');
 });
 
 /**
@@ -271,14 +274,20 @@ function add_image_placeholders($content)
   return $content;
 }
 
-function remove_duplicate_id_attribute($content) {
+/**
+ * @param $content
+ *
+ * @return string|string[]|null
+ */
+function remove_duplicate_id_attribute($content)
+{
   if (is_single()) {
     return $content;
   }
 
   $content = preg_replace(
-    '#<h([1-6])([^>]*?)(id="toc_\d+")([^>]*)>([\s\S]*?)</h[1-6]>#', 
-    '<h${1}${2}${4}>${5}</h${1}>', 
+    '#<h([1-6])([^>]*?)(id="toc_\d+")([^>]*)>([\s\S]*?)</h[1-6]>#',
+    '<h${1}${2}${4}>${5}</h${1}>',
     $content
   );
   return $content;
@@ -295,11 +304,11 @@ add_filter("pre_option_link_manager_enabled", "__return_true");
  */
 function deregister_scripts()
 {
-  wp_deregister_script( 'wp-embed' );
+  wp_deregister_script('wp-embed');
 }
 
-remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-remove_action( 'wp_print_styles', 'print_emoji_styles' );
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_print_styles', 'print_emoji_styles');
 
 add_action('wp_enqueue_scripts', 'deregister_scripts', 99);
 
@@ -365,7 +374,7 @@ function get_theme_manifest($sizeSet = array(120, 144, 152, 167, 180, 192, 512,)
     "description"                 => get_bloginfo('description'),
     "lang"                        => get_bloginfo('language'),
     "dir"                         => is_rtl() ? "rtl" : "ltr",
-    "start_url"                   => get_home_url(),
+    "start_url"                   => esc_url(home_url()),
     "background_color"            => $color,
     "theme_color"                 => $color,
     "display"                     => "standalone",
@@ -389,7 +398,7 @@ add_action('custom_header_options', function () {
 
 
 /**
- *  注册接口
+ *  支持 service worker
  */
 add_action('rest_api_init', function () {
   register_rest_route('wp_theme_pure/v1', '/service-worker.js', array(
@@ -410,7 +419,9 @@ add_action('rest_api_init', function () {
     },
   ), true);
 
-
+  /**
+   * PWA 支持 manifest
+   */
   register_rest_route('/wp_theme_pure/v1', '/manifest.json', array(
     'methods'  => WP_REST_Server::READABLE,
     'callback' => function () {
@@ -432,7 +443,7 @@ add_action('rest_api_init', function () {
 
       header_remove("Content-Type");
       header('Content-Type: application/javascript');
-      return Array(
+      return array(
         'code' => 0,
       );
     },
@@ -441,4 +452,4 @@ add_action('rest_api_init', function () {
 
 
 //add_option('pure_theme_pwa_cache_version', get_option('pure_theme_pwa_cache_version') + 0);
-add_option('pure_theme_pwa_cache_version', 1);
+// add_option('pure_theme_pwa_cache_version', 1);

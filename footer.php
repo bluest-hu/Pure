@@ -38,7 +38,7 @@
         });
     }
   </script>
-  <?php include(get_stylesheet_directory() .'/dist/footer_script.php'); ?>
+  <?php get_template_part('dist/footer_script'); ?>
   <?php
   if (is_single()) {
     if (get_option('pure_theme_single_ads_script') != '') {
