@@ -21,6 +21,10 @@ function toc () {
   const tocDom = document.getElementById('jsToc');
   const titleDom = document.querySelectorAll('.post-title.entry-title')[0];
 
+  if (!tocDom) {
+    return false;
+  }
+
   let shouldPassScroll = false;
   let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 
