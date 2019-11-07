@@ -2,7 +2,7 @@ import { raf } from "./raf.js";
 class LazyLoad {
   constructor(selector) {
     this.targetElements = Array.from(document.querySelectorAll(selector));
-    
+
     if (window.IntersectionObserver) {
       const io = new IntersectionObserver(
         changes => {
@@ -18,7 +18,7 @@ class LazyLoad {
           });
         },
         {
-          rootMargin: "0px 0px 0px 0px",
+          rootMargin: "0px 0px 0px 0px"
           // threshold: 0.01
         }
       );
@@ -28,16 +28,20 @@ class LazyLoad {
       });
     } else {
       let shouldPass = false;
-      window.addEventListener("scroll", () => {
-        if (shouldPass) {
-          return false;
-        }
-        shouldPass = true;
-        raf(() => {
-          shouldPass = false;
-          this.check();
-        });
-      }, {passive: true});
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (shouldPass) {
+            return false;
+          }
+          shouldPass = true;
+          raf(() => {
+            shouldPass = false;
+            this.check();
+          });
+        },
+        { passive: true }
+      );
       this.check();
     }
   }
@@ -58,7 +62,8 @@ class LazyLoad {
     return (
       rect.top >= 0 &&
       rect.left >= 0 &&
-      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && 
+      rect.bottom <=
+        (window.innerHeight || document.documentElement.clientHeight) &&
       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
   }

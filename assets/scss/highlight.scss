@@ -1,21 +1,21 @@
 @import "../styles/Prism.css";
 
 code {
-    .language-css .token.string,
-    .style .token.string,
-    .token.entity,
-    .token.operator,
-    .token.url {
-        background-color: transparent;
-    }
+  .language-css .token.string,
+  .style .token.string,
+  .token.entity,
+  .token.operator,
+  .token.url {
+    background-color: transparent;
+  }
 }
 
-code[class*="language-"], 
+code[class*="language-"],
 pre[class*="language-"] {
-    text-shadow: none;
+  text-shadow: none;
 }
 
-:not(pre)>code[class*=language-], 
-pre[class*=language-] {
-    background: rgba(245, 242, 240, 0.2) !important;
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: rgba(245, 242, 240, 0.2) !important;
 }

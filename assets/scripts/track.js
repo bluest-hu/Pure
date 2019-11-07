@@ -1,39 +1,38 @@
 (() => {
-  const collectURL = '//www.google-analytics.com/collect';
+  const collectURL = "//www.google-analytics.com/collect";
 
   let screen = window.screen;
   let date = new Date();
 
   let data = {
     v: 1,
-    tid: '', // tracking id
-    cid: '', // client id
-    uid: '', // user id
+    tid: "", // tracking id
+    cid: "", // client id
+    uid: "", // user id
     // uip: '', // user ip
     ul: navigator.language, // user language
     z: date * 1,
-    t: 'pageview', // “pageview”、“screenview”、“event”、“transaction”、“item”、“social”、“exception”、“timing”
-    fl: '',  // flash version
-    je: 0,  // java version
+    t: "pageview", // “pageview”、“screenview”、“event”、“transaction”、“item”、“social”、“exception”、“timing”
+    fl: "", // flash version
+    je: 0, // java version
     ua: navigator.userAgent, // user agent
     dh: location.host, // document host
-    ds: 'web',
+    ds: "web",
     dp: window.location.pathname,
-    dclid: '', // 指定 Google 展示广告 ID
+    dclid: "", // 指定 Google 展示广告 ID
     dl: encodeURIComponent(location.href), // document location
     dt: document.title,
     dr: document.referrer, // referrer
     de: document.characterSet || document.charset || document.inputEncoding,
-    gclid: '', // 指定 Google Ads ID
+    gclid: "", // 指定 Google Ads ID
     sd: screen.colorDepth, // screen depth
     sr: `${screen.width}x${screen.height}`, // screen resolution
-    vp: `${screen.availWidth}x${screen.availHeight}`, // visible part
+    vp: `${screen.availWidth}x${screen.availHeight}` // visible part
   };
 
-  const errorHandler = () => {
-  };
+  const errorHandler = () => {};
 
-  window.addEventListener('error', errorHandler, false);
+  window.addEventListener("error", errorHandler, false);
 })();
 
 function genGaTimingData() {
@@ -79,13 +78,11 @@ function genGaTimingData() {
     tcp: times.TCPTime,
     srt: times.ServerResponseTime,
     dit: times.DOMInteractiveTime,
-    clt: times.ContentLoadingTime,
-  }
+    clt: times.ContentLoadingTime
+  };
   return ga_data;
 }
 
 export default {
-  timing: genGaTimingData,
+  timing: genGaTimingData
 };
-
-

@@ -1,51 +1,55 @@
-@import 'tocbot/src/scss/tocbot.scss';
+@import "tocbot/src/scss/tocbot.scss";
 
 .js-toc {
-    padding-right: 10px;
-    position: absolute;
-    top: 40px;
-    // top: calc(50vh - 50%);
-    left: calc(50% + 350px);
-    // background-color: #FFF;
-    color: #999;
-    // max-height: 50vh;
-    // overflow: scroll;
-    overflow: hidden;
-    // background-color: #333;
+  padding-right: 10px;
+  position: absolute;
+  top: 40px;
+  left: calc(50% + 360px);
+  color: #999;
+  overflow: hidden;
 
-    &.fixed {
-        top: 10px;
-        position: fixed;
-    }
+  .toc-link:before {
+    background-color: #efefef;
+  }
 
-    .toc-list  {
-    }
+  .is-active-link:before {
+    background-color: #54bc4b;
+  }
 
-    &:hover {
-        color: #333;
-    }
+  &.fixed {
+    top: 10px;
+    position: fixed;
+  }
 
-    .node-name--H1 {
-        font-size: 17px;
-    }
-    
-    .node-name--H2 {
-        font-size: 16px;
-    }
-    
-    .node-name--H3 {
-        font-size: 15px;
-    }
-    
-    .node-name--H4 {
-        font-size: 14px;
-    }
-    
-    .node-name--H5 {
-        font-size: 13px;
-    }
-    
-    .node-name--H6 {
-        font-size: 12px;
-    }
+  .is-active-link {
+    color: #555;
+  }
+
+  &:hover {
+    color: #666;
+  }
+
+  .node-name--H1 {
+    font-size: 17px;
+  }
+
+  .node-name--H2 {
+    font-size: 16px;
+  }
+
+  .node-name--H3 {
+    font-size: 15px;
+  }
+
+  .node-name--H4 {
+    font-size: 14px;
+  }
+
+  .node-name--H5 {
+    font-size: 13px;
+  }
+
+  .node-name--H6 {
+    font-size: 12px;
+  }
 }

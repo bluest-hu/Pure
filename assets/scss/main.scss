@@ -3,12 +3,10 @@
 @import "./highlight.scss";
 // @import "../../../../../wp-includes/css/dist/block-library/style.min.css";
 
-
 a {
   color: #1a73e8;
   text-decoration-color: #1a73e8;
 }
-
 
 main {
   position: relative;
@@ -276,8 +274,8 @@ $content_width: 700px;
       bottom: 0;
       left: 0;
       margin: -30px;
-      -webkit-filter: blur(20px);
-      filter: blur(20px);
+      -webkit-filter: blur(5px);
+      filter: blur(5px);
     }
   }
 
@@ -350,11 +348,21 @@ $content_width: 700px;
     align-items: center;
     justify-content: center;
 
+    a {
+      color: #5f6368;
+    }
+
     .post-meta-item {
       font-size: 14px;
       line-height: 1;
       display: inline-block;
       white-space: nowrap;
+    }
+
+    .post-author {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .avatar {
@@ -374,12 +382,17 @@ $content_width: 700px;
     }
 
     .publish-time {
-      color: #5f6368;
+      font-size: 12px;
+      color: #757575;
+      line-height: 1;
+      margin-top: 2px;
     }
 
     .author-name {
       font-size: 18px;
-      padding-bottom: 8px;
+      margin-bottom: 2px;
+      padding-top: 2px;
+      // padding-bottom: 5px;
     }
 
     .category-list {
@@ -490,7 +503,12 @@ $content_width: 700px;
   margin: 50px 0;
   // word-break: break-word;
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: bolder;
   }
 
@@ -676,7 +694,7 @@ $content_width: 700px;
     border-radius: 4px;
     color: #1a73e8;
     font-weight: bold;
-    transition: background-color .3s ease;
+    transition: background-color 0.3s ease;
 
     &:hover {
       border-color: #dadce0;
@@ -687,8 +705,8 @@ $content_width: 700px;
     &:focus {
       border-color: #174ea6;
       color: #174ea6;
-      box-shadow: 1px 2px 0 rgba(60,64,67,0.3), 
-                  0 2px 6px 2px rgba(60,64,67,0.15);
+      box-shadow: 1px 2px 0 rgba(60, 64, 67, 0.3),
+        0 2px 6px 2px rgba(60, 64, 67, 0.15);
     }
   }
 
@@ -904,8 +922,6 @@ $content_width: 700px;
       margin: 15px 0;
     }
   }
-
-  
 
   .comments-title {
     font-size: 30px;
@@ -1275,11 +1291,12 @@ code {
   }
 }
 
-code[class*="language-"], pre[class*="language-"] {
+code[class*="language-"],
+pre[class*="language-"] {
   text-shadow: none;
 }
 
-:not(pre)>code[class*=language-], 
-pre[class*=language-] {
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
   background: rgba(245, 242, 240, 0.2) !important;
 }
