@@ -1,13 +1,21 @@
-import '../../../../../wp-includes/js/wp-embed.js';
 import Prism from 'prismjs';
+import '../../../../../wp-includes/js/wp-embed.js';
+import loadLanguages from 'prismjs/components/';
 import LazyLoad from "./lazy-load.js";
-import Track from './track.js';
+// import Track from './track.js';
+import toc from './toc.js';
 import '../scss/main.scss';
-import '../styles/Prism.css';
+
+console.log(loadLanguages);
 
 document.addEventListener('DOMContentLoaded', () => {
+  // lazy load 
   new LazyLoad('.post-entry img');
+  // hightlight
   Prism.highlightAll();
+
+  // gen TOC
+  toc();
 });
 
 window.addEventListener('load', () => {

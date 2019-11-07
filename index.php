@@ -63,6 +63,11 @@
   </article>
       <?php
       if (is_single()): ?>
+
+  <nav class="toc">
+    <div id="jsToc" class="js-toc no-serif"></div>
+  </nav>
+
   <nav id="relativePostNav" class="relative-post-nav content-width">
     <ul class="nav-list">
       <?php if (get_previous_post_link()) { ?>
@@ -104,3 +109,5 @@
 </main>
 
 <?php get_footer(); ?>
+
+

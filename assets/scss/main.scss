@@ -1,13 +1,17 @@
 @import "typo.css";
+@import "./toc.scss";
+@import "./highlight.scss";
 // @import "../../../../../wp-includes/css/dist/block-library/style.min.css";
-// * {
-  // -ms-word-wrap: break-word;
-  // word-wrap: break-word;
-// }
+
 
 a {
   color: #1a73e8;
   text-decoration-color: #1a73e8;
+}
+
+
+main {
+  position: relative;
 }
 
 .typo a {
@@ -1277,5 +1281,5 @@ code[class*="language-"], pre[class*="language-"] {
 
 :not(pre)>code[class*=language-], 
 pre[class*=language-] {
-  background: rgba(245, 242, 240, 0.2);
+  background: rgba(245, 242, 240, 0.2) !important;
 }

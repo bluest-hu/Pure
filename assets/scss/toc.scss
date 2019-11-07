@@ -1,0 +1,51 @@
+@import 'tocbot/src/scss/tocbot.scss';
+
+.js-toc {
+    padding-right: 10px;
+    position: absolute;
+    top: 40px;
+    // top: calc(50vh - 50%);
+    left: calc(50% + 350px);
+    // background-color: #FFF;
+    color: #999;
+    // max-height: 50vh;
+    // overflow: scroll;
+    overflow: hidden;
+    // background-color: #333;
+
+    &.fixed {
+        top: 10px;
+        position: fixed;
+    }
+
+    .toc-list  {
+    }
+
+    &:hover {
+        color: #333;
+    }
+
+    .node-name--H1 {
+        font-size: 17px;
+    }
+    
+    .node-name--H2 {
+        font-size: 16px;
+    }
+    
+    .node-name--H3 {
+        font-size: 15px;
+    }
+    
+    .node-name--H4 {
+        font-size: 14px;
+    }
+    
+    .node-name--H5 {
+        font-size: 13px;
+    }
+    
+    .node-name--H6 {
+        font-size: 12px;
+    }
+}
