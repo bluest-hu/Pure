@@ -1,3 +1,6 @@
+
+const raf =  window.requestAnimationFrame || (callBack => setTimeout(callBack, 1000 / 60));
+const cancalRaf = window.cancelAnimationFrame || (id => clearTimeout(id));
 class LazyLoad {
   constructor(selector) {
     this.targetElements = Array.from(document.querySelectorAll(selector));
@@ -17,8 +20,8 @@ class LazyLoad {
           });
         },
         {
-          rootMargin: "50px 0px",
-          threshold: 0.01
+          rootMargin: "0px 0px 0px 0px",
+          // threshold: 0.01
         }
       );
 
@@ -26,20 +29,25 @@ class LazyLoad {
         io.observe(image);
       });
     } else {
-      let timer = null;
+      let shouldPass = false;
       window.addEventListener("scroll", () => {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
+        if (shouldPass) {
+          return false;
+        }
+        shouldPass = true;
+        raf(() => {
+          shouldPass = false;
           this.check();
-        }, 100);
-      });
+        });
+      }, {passive: true});
       this.check();
     }
   }
 
   check() {
+    const self = this;
     this.targetElements.forEach((image, index) => {
-      if (this.isInSight(image)) {
+      if (self.isInSight(image)) {
         const { src } = image.dataset;
         image.src = src;
         this.targetElements.splice(index, 1);
@@ -50,9 +58,10 @@ class LazyLoad {
   isInSight(el) {
     const rect = el.getBoundingClientRect();
     return (
-      rect.left + rect.width / 2 - window.innerWidth / 2 <=
-        window.innerWidth / 2 - rect.width / 2 ||
-      (window.innerHeight - rect.height) / 2
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && 
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
   }
 }
