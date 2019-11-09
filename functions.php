@@ -7,6 +7,8 @@
  * Time: 18:22
  * charset: utf-8
  */
+const PURE_THEME_MANIFEST_KEY = 'KEY_theme_pure_manifest';
+
 
 /**
  * 判断是否为 AMOP 模式
@@ -386,14 +388,9 @@ function get_theme_manifest($sizeSet = array(120, 144, 152, 167, 180, 192, 512,)
   return $res;
 }
 
-const PURE_THEME_MANIFEST_KEY = 'KEY_theme_pure_manifest';
-$c = 0;
-
 add_action('custom_header_options', function () {
-  global $c;
-  echo $c += 1;
-  $res = wp_cache_get(PURE_THEME_MANIFEST_KEY);
-  wp_cache_set('theme_pure_manifest', $res);
+  $manifest = get_theme_manifest();
+  wp_cache_set(PURE_THEME_MANIFEST_KEY, $manifest);
 });
 
 
@@ -431,7 +428,7 @@ add_action('rest_api_init', function () {
       if (!$manifest) {
         $manifest = get_theme_manifest();
         wp_cache_set(PURE_THEME_MANIFEST_KEY, $manifest);
-      }
+      } 
 
       return $manifest;
     },
