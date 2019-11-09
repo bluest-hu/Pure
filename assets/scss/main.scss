@@ -3,9 +3,14 @@
 @import "./highlight.scss";
 // @import "../../../../../wp-includes/css/dist/block-library/style.min.css";
 
+
+$text-not-primary-color: #5f6368;
+$border-color: #eaeaea;
+$link-primary-color: #1a73e8;
+
 a {
-  color: #1a73e8;
-  text-decoration-color: #1a73e8;
+  color: $link-primary-color;
+  text-decoration-color: $link-primary-color;
 }
 
 main {
@@ -13,7 +18,20 @@ main {
 }
 
 .typo a {
-  border-color: #1a73e8;
+  border-color: $link-primary-color;
+}
+
+.typo-table thead th, 
+.typo table thead th {
+  border-color: $border-color;
+  background: rgba(245,242,240,.2)!important;
+}
+
+.typo table {
+  table {
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
 }
 
 .alignleft {
@@ -229,7 +247,7 @@ $content_width: 700px;
       box-sizing: border-box;
 
       &:hover {
-        color: #eaeaea;
+        color: $border-color;
       }
 
       .blog-title {
@@ -343,13 +361,13 @@ $content_width: 700px;
     text-align: center;
     margin: 0 auto;
     font-size: 0;
-    color: #5f6368;
+    color: $text-not-primary-color;
     display: flex;
     align-items: center;
     justify-content: center;
 
     a {
-      color: #5f6368;
+      color: inherit;
     }
 
     .post-meta-item {
@@ -382,8 +400,7 @@ $content_width: 700px;
     }
 
     .publish-time {
-      font-size: 12px;
-      color: #757575;
+      font-size: 14px;
       line-height: 1;
       margin-top: 2px;
     }
@@ -431,7 +448,7 @@ $content_width: 700px;
         margin: 5px;
         border-radius: 20px;
         background-color: #e8f0fe;
-        padding: 5px 10px;
+        padding: 3px 10px;
         color: #1967d2;
         font-size: 14px;
 
@@ -448,7 +465,7 @@ $content_width: 700px;
 
   .post {
     margin: 50px 0;
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid $border-color;
 
     &.last-child {
       border-bottom: none;
@@ -522,10 +539,11 @@ $content_width: 700px;
 
   a {
     color: inherit;
+    border-color: #333;
 
     &:hover {
-      color: #1a73e8;
-      border-bottom-color: #1a73e8;
+      color: $link-primary-color;
+      border-bottom-color: $link-primary-color;
     }
   }
 
@@ -570,6 +588,7 @@ $content_width: 700px;
   }
 
   iframe {
+    max-width: 100%;
     display: block;
   }
 
@@ -654,7 +673,7 @@ $content_width: 700px;
   }
 
   table {
-    font-size: 80%;
+    font-size: 90%;
     width: 100%;
   }
 
@@ -670,16 +689,18 @@ $content_width: 700px;
       border: unset;
       background: unset;
       border-radius: unset;
+      box-shadow: none;
     }
   }
 
   code {
-    padding: 1px 5px;
+    padding: 0px 5px;
     //margin: 0 2px;
     box-sizing: border-box;
     border-radius: 4px;
-    background-color: #f8f8f8;
+    background-color: rgba(245,242,240,.2);
     border: 1px solid #eee;
+    box-sizing: border-box;
     // word-break: break-word;
   }
 
@@ -692,7 +713,7 @@ $content_width: 700px;
     font-size: 16px;
     text-decoration: none;
     border-radius: 4px;
-    color: #1a73e8;
+    color: $link-primary-color;
     font-weight: bold;
     transition: background-color 0.3s ease;
 
@@ -800,11 +821,11 @@ $content_width: 700px;
       &:nth-child(odd) {
         align-self: flex-start;
         border-top-left-radius: 0;
-        box-shadow: 0 0 1px #eaeaea;
-        background-color: lighten(#eaeaea, 5);
+        box-shadow: 0 0 1px $border-color;
+        background-color: lighten($border-color, 5);
         margin-left: $triangle-width;
         &:after {
-          border-right-color: lighten(#eaeaea, 5);
+          border-right-color: lighten($border-color, 5);
           left: -$triangle-width * 2;
         }
 
@@ -840,9 +861,9 @@ $content_width: 700px;
       font-size: 20px;
       position: relative;
       display: block;
-      border: 2px dashed #eaeaea;
+      border: 2px dashed $border-color;
       text-align: center;
-      background: lighten(#eaeaea, 5);
+      background: lighten($border-color, 5);
       padding: 25px 0;
       border-radius: 5px;
 
@@ -860,7 +881,7 @@ $content_width: 700px;
   .post-entry {
     > * {
       display: block;
-      background-color: lighten(#eaeaea, 5);
+      background-color: lighten($border-color, 5);
     }
   }
 }
@@ -926,20 +947,20 @@ $content_width: 700px;
   .comments-title {
     font-size: 30px;
     padding: 10px 0;
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid $border-color;
   }
 
   .comment {
     position: relative;
-    margin: 30px 0;
-    border-bottom: 1px solid #eaeaea;
+    margin: 30px 0 0 0;
+    border-bottom: 1px solid $border-color;
 
     &.bypostauthor {
       font-size: inherit;
     }
 
     .comment-body {
-      margin: 10px 0;
+      margin: 10px 0 0 0;
     }
 
     .reply {
@@ -995,16 +1016,22 @@ $content_width: 700px;
       .fn,
       .says {
         height: inherit;
-        font-size: 20px;
+        font-size: 18px;
         line-height: 20px;
         display: inline-block;
-        color: #666;
+        color: $text-not-primary-color;
+        transform: translateY(4px);
+
+        a {
+          color: inherit;
+        }
       }
 
       .says {
         margin-left: 5px;
-        font-size: 14px;
-        color: #999;
+        font-size: 12px;
+        color: #666666;
+        vertical-align: baseline;
       }
 
       .avatar {
@@ -1024,11 +1051,12 @@ $content_width: 700px;
       line-height: 1;
       a,
       time {
-        font-size: inherit;
+        font-size: 12px;
         line-height: inherit;
         height: inherit;
-        color: #999;
+        color: $text-not-primary-color;
         margin-right: 5px;
+        vertical-align: text-bottom;
       }
     }
   }
@@ -1037,15 +1065,15 @@ $content_width: 700px;
     .comment-reply-title {
       font-size: 30px;
       padding: 10px 0;
-      border-bottom: 1px solid #eaeaea;
+      border-bottom: 1px solid $border-color;
       margin: 30px 0;
     }
   }
 
   .comment-form {
     .comment-notes {
-      font-size: 15px;
-      color: #666;
+      font-size: 13px;
+      color: $text-not-primary-color;
     }
 
     .comment-form-author,
@@ -1105,10 +1133,11 @@ $content_width: 700px;
       width: 100%;
       display: block;
       border-radius: 4px;
-      border: 1px solid #eaeaea;
+      border: 1px solid $border-color;
       flex-grow: 1;
       box-sizing: border-box;
       text-indent: 0.5em;
+      appearance: none;
 
       &:focus {
         outline: none;
@@ -1135,7 +1164,7 @@ $content_width: 700px;
     color: #999;
 
     .nav-item {
-      font-size: 18px;
+      font-size: 20px;
       line-height: 1.2;
       max-width: 50%;
       display: flex;
@@ -1313,4 +1342,9 @@ pre[class*="language-"] {
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
   background: rgba(245, 242, 240, 0.2) !important;
+}
+
+
+header {
+  background-color: transparent !important;
 }
