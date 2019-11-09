@@ -401,7 +401,7 @@ add_action('rest_api_init', function () {
   register_rest_route('wp_theme_pure/v1', '/service-worker.js', array(
     'methods'  => WP_REST_Server::READABLE,
     'callback' => function () {
-
+      ob_start(); 
       header_remove("Content-Type");
       header('Content-Type: application/javascript');
       header('Service-Worker-Allowed: /');
@@ -413,6 +413,8 @@ add_action('rest_api_init', function () {
       }
 
       return '';
+
+      ob_end_flush();
     },
   ), true);
 
