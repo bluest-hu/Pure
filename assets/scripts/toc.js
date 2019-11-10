@@ -1,8 +1,6 @@
 import * as tocbot from "tocbot";
 import { raf } from "./raf.js";
 
-console.log(raf);
-
 function toc() {
   // TOC Gen
   tocbot.init({
@@ -26,7 +24,8 @@ function toc() {
   }
 
   let shouldPassScroll = false;
-  let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+  let preCalResult  = null;
+  // let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 
   if (window.IntersectionObserver === null) {
   } else {
@@ -41,11 +40,12 @@ function toc() {
         raf(() => {
           shouldPassScroll = false;
           // scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-          if (titleDom.getBoundingClientRect().top <= 0) {
-            tocDom.classList.add("fixed");
-          } else {
-            tocDom.classList.remove("fixed");
+          const needFixed = titleDom.getBoundingClientRect().top <= 0;
+
+          if (needFixed !== preCalResult) {
+            needFixed ?  tocDom.classList.add("fixed") :  tocDom.classList.remove("fixed");
           }
+          preCalResult = needFixed;
         });
       },
       { passive: true }

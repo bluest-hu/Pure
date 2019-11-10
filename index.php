@@ -61,6 +61,11 @@
           </div>
 
           <footer class="entry-footer">
+            <?php if (is_single()) : ?>
+              <div class="end">
+                <span class="eof">EOF</span>
+              </div>
+            <?php endif ?>
             <div class="post-meta post-tags-wrap">
               <?php the_tags('', '', ''); ?>
             </div>
@@ -74,9 +79,8 @@
             <li class="nav-item next-nav-item"><?php next_post_link('%link <span class="arrow">&raquo;</span>'); ?></li>
           </ul>
         </nav>
-
       <?php endif ?>
-      <?php
+    <?php
         if (comments_open() || get_comments_number()) :
           comments_template();
         endif;
@@ -88,7 +92,7 @@
       </div>
     </article>
   <?php endif; ?>
-  
+
   <nav class="pages-nav" id="pagesNav">
     <?php echo paginate_links(array(
       'type'               => 'list',
