@@ -1284,144 +1284,152 @@ figure.alignright {
 .page {
   &.page-template-firends {
     .friend-list {
-      .friend-list_item {
+      display: flex;
+      .friend-list-item {
+        box-shadow: 0 1px 10px rgba($color: #000000, $alpha: .1);
+        border-radius: 3px;
+        border: 1px solid $border-color;
+        margin: 20px;
+        width: 300px;
+        height: 400px;
+        overflow: hidden;
         display: block;
       }
     }
   }
-}
 
-.page-template {
-  &.page-template-archieve {
-    .main-content {
-      .post {
-        border-bottom: none;
-        margin-bottom: 0;
+  &.page-template {
+    &.page-template-archieve {
+      .main-content {
+        .post {
+          border-bottom: none;
+          margin-bottom: 0;
 
-        ul,
-        ol,
-        li {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-
-        .month-title,
-        .year-title {
-          margin: 0;
-          width: 75px;
-          text-align: right;
-          font-weight: bold;
-          line-height: 40px;
-          height: 40px;
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
-          justify-self: center;
-
-          .unit {
-            margin-left: 2px;
-            font-size: 14px;
-            font-weight: normal;
-            line-height: inherit;
-            vertical-align: middle;
-            color: $text-not-primary-color;
-          }
-        }
-
-        .month-list {
-          .month-list-item {
-            margin-bottom: 10px;
+          ul,
+          ol,
+          li {
+            list-style: none;
+            padding: 0;
+            margin: 0;
           }
 
-          // margin-left: 20px;
-          .month-title {
-            font-size: 20px;
-          }
-        }
-
-        .year-list {
-          .year-list-item {
-            margin-bottom: 20px;
-          }
-
+          .month-title,
           .year-title {
-            font-size: 28px;
-          }
-        }
-
-        .post-list {
-          position: relative;
-          margin-bottom: 15px;
-
-          .post-list-item {
-            margin-left: 90px;
-            font-size: 16px;
+            margin: 0;
+            width: 75px;
+            text-align: right;
+            font-weight: bold;
             line-height: 40px;
-            position: relative;
+            height: 40px;
             display: flex;
-            align-content: center;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
+            justify-self: center;
 
-            &::before {
-              position: absolute;
-              content: "";
-              background-color: $border-color;
-              width: 5px;
-              height: 5px;
-              border-radius: 50%;
-              top: 17px;
-              // transform: translateY(-50%);
-              left: -10px;
-            }
-
-            &:first-child {
-              margin-top: -40px;
-            }
-
-            .line {
-              display: block;
-              height: 0;
-              flex: 1 0 0;
-              font-size: 0;
-              border-bottom: 1px dotted $border-color;
-            }
-
-            a {
-              border-bottom: none;
-              text-decoration: none;
-              &:hover {
-                color: $text-color;
-              }
-            }
-
-            .comments {
-              margin-left: 5px;
+            .unit {
+              margin-left: 2px;
               font-size: 14px;
-            }
-
-            .title {
-              text-overflow: ellipsis;
-              overflow: hidden;
-              white-space: nowrap;
-              margin: 0 5px;
-              font-weight: 500;
-            }
-
-            .comments,
-            .publish-time {
-              flex-shrink: 0;
-              font-size: 12px;
+              font-weight: normal;
+              line-height: inherit;
+              vertical-align: middle;
               color: $text-not-primary-color;
+            }
+          }
+
+          .month-list {
+            .month-list-item {
+              margin-bottom: 10px;
+            }
+
+            // margin-left: 20px;
+            .month-title {
+              font-size: 20px;
+            }
+          }
+
+          .year-list {
+            .year-list-item {
+              margin-bottom: 20px;
+            }
+
+            .year-title {
+              font-size: 28px;
+            }
+          }
+
+          .post-list {
+            position: relative;
+            margin-bottom: 15px;
+
+            .post-list-item {
+              margin-left: 90px;
+              font-size: 16px;
+              line-height: 40px;
+              position: relative;
+              display: flex;
+              align-content: center;
+              justify-content: center;
+              align-items: center;
+
+              &::before {
+                position: absolute;
+                content: "";
+                background-color: $border-color;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                top: 17px;
+                // transform: translateY(-50%);
+                left: -10px;
+              }
+
+              &:first-child {
+                margin-top: -40px;
+              }
+
+              .line {
+                display: block;
+                height: 0;
+                flex: 1 0 0;
+                font-size: 0;
+                border-bottom: 1px dotted $border-color;
+              }
+
+              a {
+                border-bottom: none;
+                text-decoration: none;
+                &:hover {
+                  color: $text-color;
+                }
+              }
+
+              .comments {
+                margin-left: 5px;
+                font-size: 14px;
+              }
+
+              .title {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                margin: 0 5px;
+                font-weight: 500;
+              }
+
+              .comments,
+              .publish-time {
+                flex-shrink: 0;
+                font-size: 12px;
+                color: $text-not-primary-color;
+              }
             }
           }
         }
       }
-    }
 
-    #pagesNav {
-      display: none;
+      #pagesNav {
+        display: none;
+      }
     }
   }
 }

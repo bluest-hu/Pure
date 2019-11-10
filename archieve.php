@@ -8,7 +8,7 @@
 
 <?php get_header(); ?>
 
-<div class="main-content">
+<main class="main-content">
   <div class="post-wrap content-width">
     <article <?php post_class('post h-entry'); ?>>
       <header class="entry-header">
