@@ -29,13 +29,13 @@
             'cache_results' => true,
           );
           $the_query = new WP_Query($args);
-          
+
           while ($the_query->have_posts()) {
             $the_query->the_post();
             $post_year = get_the_time('Y');
             $post_mon = get_the_time('m');
             $post_day = get_the_time('d');
-  
+
             $result[$post_year][$post_mon][] = array(
               'title' => get_the_title(),
               'publish_date' => get_post_time('d'),
@@ -60,16 +60,16 @@
                 <?php foreach ($year_value as $month => $month_value) : ?>
                   <li class="month-list-item">
                     <h3 class="month-title"><?php echo $month; ?><span class="unit">月</span></h2>
-                    <ol class="post-list">
-                      <?php foreach ($month_value as $post => $post_value) : ?>
-                        <li class="post-list-item">
-                          <time class="publish-time"><?php echo $post_value['publish_date']; ?>日</time>
-                          <a class="title" title="<?php echo $post_value['permalink']; ?>" href="<?php echo $post_value['permalink']; ?>"><?php echo $post_value['title'];?></a>
-                          <span class="line"></span>
-                          <a class="comments" href="<?php echo $post_value['permalink'];?>#comments"><?php echo $post_value['comments']; ?> reply</a>
-                        </li>
-                      <?php endforeach ?>
-                    </ol>
+                      <ol class="post-list">
+                        <?php foreach ($month_value as $post => $post_value) : ?>
+                          <li class="post-list-item">
+                            <time class="publish-time"><?php echo $post_value['publish_date']; ?>日</time>
+                            <a class="title" title="<?php echo $post_value['title']; ?>" href="<?php echo $post_value['permalink']; ?>"><?php echo $post_value['title']; ?></a>
+                            <span class="line"></span>
+                            <a class="comments" href="<?php echo $post_value['permalink']; ?>#comments" title=" echo $post_value['comments']; ?> 条评论"><?php echo $post_value['comments']; ?> reply</a>
+                          </li>
+                        <?php endforeach ?>
+                      </ol>
                   </li>
                 <?php endforeach ?>
               </ol>
@@ -78,8 +78,8 @@
         </ol>
 
         <div class="end">
-           <span class="eof">EOF</span> 
-        </div> 
+          <span class="eof">EOF</span>
+        </div>
       </div>
     </article>
   </div>
