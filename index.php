@@ -88,7 +88,7 @@
       </div>
     </article>
   <?php endif; ?>
-
+  
   <nav class="pages-nav" id="pagesNav">
     <?php echo paginate_links(array(
       'type'               => 'list',

@@ -46,7 +46,8 @@
     }
   }
   ?>
-  <!--total <?php echo esc_html(get_num_queries()); ?> query-->
   <?php wp_footer(); ?>
   </body>
 </html>
+<!--total <?php echo esc_html(get_num_queries()); ?> query-->
+<!--using <?php echo esc_html(number_format(memory_get_peak_usage() / 1024 / 1024, 2, '.', '')); ?>MB memory-->
