@@ -517,12 +517,11 @@ add_action('rest_api_init', function () {
 
       if ($err) {
         return array(
-          'code' => -1,
+          'msg' => 'bad req',
         );
       } else {
         return array(
-          'code' => 1,
-          'msg'  => 'ok',
+          'msg'  => 'ok'
         );
       }
     },

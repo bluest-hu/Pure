@@ -1,6 +1,14 @@
 const TRACK_URL = "/wp-json/wp_theme_pure/v1/ga";
 
+/**
+ * 借助 worpdress 转发到 Measurement Protocol，解决 Google 统计容易被屏蔽的问题
+ * https://developers.google.com/analytics/devguides/collection/protocol/v1
+ */
 class Track {
+  /**
+   * 初始化配置，默认发送 pageView、timing、exception
+   * @param {*} config 
+   */
   constructor(config = {}) {
     this.logexception = config.logexception === false ? false : true;
     this.logTiming = config.logTiming === false ? false : true;
@@ -26,11 +34,14 @@ class Track {
   }
 
   /**
-   *
+   * 获取 组合好的 FormData 
+   * 不支持 IE
    * @param {*} data
    */
   genFormData(data) {
     const screen = window.screen;
+    //基本数据，每次请求都会发送
+    // https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
     const basicDataPackage = {
       v: 1,
       // z: new Date() * 1,
@@ -73,14 +84,28 @@ class Track {
     return payload;
   }
 
+  /**
+   * 发送数据，如果不支持 sendBeacon 会降级到 XMLHttpRequest 
+   * @param {*} data 
+   */
   send(data) {
     const payload = this.genFormData(data);
 
     if (navigator.sendBeacon) {
       navigator.sendBeacon(`${TRACK_URL}?t=${new Date() * 1}`, payload);
+    } else {
+     
+      const xhr = new XMLHttpRequest();
+
+      xhr.open('post', TRACK_URL);
+      // xhr.onload = () => {};
+      xhr.send(payload);
     }
   }
 
+  /**
+   * 获取页面性能信息
+   */
   static getTimingData() {
     if (!window.performance || !window.performance.timing) {
       return null;
