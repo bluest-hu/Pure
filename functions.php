@@ -492,9 +492,9 @@ add_action('rest_api_init', function () {
       $post_data .= ('z=' . time());
       $url = 'https://www.google-analytics.com/collect';
 
-      // if (function_exists("fastcgi_finish_request")) {
-      //   fastcgi_finish_request(); // 对于 fastcgi 会提前返回请求结果，提高响应速度。
-      // }
+      if (function_exists("fastcgi_finish_request")) {
+        fastcgi_finish_request(); // 对于 fastcgi 会提前返回请求结果，提高响应速度。
+      }
      
       $curl = curl_init();
       curl_setopt_array($curl, array(
@@ -506,6 +506,7 @@ add_action('rest_api_init', function () {
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS => $post_data,
+        CURLOPT_TCP_FASTOPEN => true,
         CURLOPT_HTTPHEADER => array(
         ),
       ));
