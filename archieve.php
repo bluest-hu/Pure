@@ -45,7 +45,7 @@
             );
           }
           wp_reset_postdata();
-          wp_cache_set(PURE_THEME_MANIFEST_KEY, $result);
+          wp_cache_set(PURE_THEME_CACHE_FLAG, $result);
         }
 
         add_action('save_post', function () {
