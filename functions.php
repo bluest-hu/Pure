@@ -9,7 +9,7 @@
  */
 const PURE_THEME_MANIFEST_KEY = 'KEY_theme_pure_manifest';
 
-
+const PURE_THEME_TRACK_UUID_KEY = 'track_uuid';
 /**
  * 判断是否为 AMOP 模式
  */
@@ -440,15 +440,90 @@ add_action('rest_api_init', function () {
     },
   ));
 
-  register_rest_route('wp_theme_pure/v1', '/track', array(
-    'methods'  => WP_REST_Server::READABLE,
-    'callback' => function () {
+  function create_uuid(){$str = md5(uniqid(mt_rand(), true));
+    $uuid = substr($str,0,8) . '-';
+    $uuid .= substr($str,8,4) . '-';
+    $uuid .= substr($str,12,4) . '-';
+    $uuid .= substr($str,16,4) . '-';
+    $uuid .= substr($str,20,12);
+    return $uuid;
+  }
 
-      header_remove("Content-Type");
-      header('Content-Type: application/javascript');
-      return array(
-        'code' => 0,
-      );
+  function get_real_ip() {
+    static $ip = '';
+    $ip = $_SERVER['REMOTE_ADDR'];
+    if(isset($_SERVER['HTTP_CDN_SRC_IP'])) {
+      $ip = $_SERVER['HTTP_CDN_SRC_IP'];
+    } elseif (isset($_SERVER['HTTP_CLIENT_IP']) && preg_match('/^([0-9]{1,3}\.){3}[0-9]{1,3}$/', $_SERVER['HTTP_CLIENT_IP'])) {
+      $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR']) AND preg_match_all('#\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}#s', $_SERVER['HTTP_X_FORWARDED_FOR'], $matches)) {
+      foreach ($matches[0] AS $xip) {
+        if (!preg_match('#^(10|172\.16|192\.168)\.#', $xip)) {
+          $ip = $xip;
+          break;
+        }
+      }
+    }
+    return $ip;
+  }
+
+  register_rest_route('wp_theme_pure/v1', '/ga', array(
+    'methods'  => WP_REST_Server::ALLMETHODS,
+    'callback' => function () {
+      ob_start();
+      header('cache-control: no-cache, no-store, must-revalidate');
+      header("Pragma: no-cache");
+
+      if (!isset($_COOKIE[PURE_THEME_TRACK_UUID_KEY])) {
+        $uuid = uniqid();
+        setcookie(PURE_THEME_TRACK_UUID_KEY, $uuid , time()+368400000);
+      }else{
+        $uuid = $_COOKIE[PURE_THEME_TRACK_UUID_KEY];
+      }
+
+      $_REQUEST['tid'] = 'UA-22609002-2';
+      $_REQUEST['cid'] = $uuid;
+      $_REQUEST['ip'] = get_real_ip();
+
+      $post_data = '';
+      foreach($_REQUEST as $key => $value) {
+        $post_data .= ($key . '=' . rawurlencode(rawurldecode($value)) . '&');
+      }
+      $post_data .= ('z=' . time());
+      $url = 'https://www.google-analytics.com/collect';
+
+      // if (function_exists("fastcgi_finish_request")) {
+      //   fastcgi_finish_request(); // 对于 fastcgi 会提前返回请求结果，提高响应速度。
+      // }
+     
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        // CURLOPT_MAXREDIRS => 10,
+        // CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => $post_data,
+        CURLOPT_HTTPHEADER => array(
+        ),
+      ));
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+      curl_close($curl);
+
+      if ($err) {
+        return array(
+          'code' => -1,
+        );
+      } else {
+        return array(
+          'code' => 1,
+          'msg'  => 'ok',
+        );
+      }
     },
   ), true);
 });
