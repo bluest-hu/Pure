@@ -45,11 +45,8 @@ if (!isset($content_width)) {
       }
     </style>
     <?php
-    add_editor_style();
-
-    if (get_option('pure_theme_analytics') != '') {
-      echo trim(stripslashes(get_option('pure_theme_analytics')));
-    }; ?>
+    add_editor_style(); 
+    ?>
   </head>
 
   <body <?php body_class('serif'); ?>>

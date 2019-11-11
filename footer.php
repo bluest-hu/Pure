@@ -45,6 +45,10 @@
       echo trim(stripslashes(get_option('pure_theme_single_ads_script')));
     }
   }
+
+  if (get_option('pure_theme_analytics') != '') {
+    echo trim(stripslashes(get_option('pure_theme_analytics')));
+  };
   ?>
   <?php wp_footer(); ?>
   </body>
