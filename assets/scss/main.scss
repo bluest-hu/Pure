@@ -13,6 +13,14 @@ html {
   color: #3c4043;
 }
 
+body {
+  font-weight: 300;
+  word-break: normal;
+  word-wrap: break-word;
+  text-align: justify;
+  text-justify: ideographic;
+}
+
 a {
   color: $link-primary-color;
   text-decoration-color: $link-primary-color;
@@ -1286,7 +1294,7 @@ figure.alignright {
     .friend-list {
       display: flex;
       .friend-list-item {
-        box-shadow: 0 1px 10px rgba($color: #000000, $alpha: .1);
+        box-shadow: 0 1px 10px rgba($color: #000000, $alpha: 0.1);
         border-radius: 3px;
         border: 1px solid $border-color;
         margin: 20px;
@@ -1419,7 +1427,7 @@ figure.alignright {
               .comments,
               .publish-time {
                 flex-shrink: 0;
-                font-size: 12px;
+                font-size: 14px;
                 color: $text-not-primary-color;
               }
             }

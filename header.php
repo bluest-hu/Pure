@@ -49,6 +49,10 @@ if (!isset($content_width)) {
     ?>
   </head>
 
+  <noscript>
+      <h1 class="warning">页面部分功能依赖 Javascript ,请开启后再浏览</h1>
+  </noscript>
+
   <body <?php body_class('serif'); ?>>
     <header class="main-header">
       <div class="custom-header-background-image" id="customHeaderBackgroundImage"></div>
@@ -96,7 +100,3 @@ if (!isset($content_width)) {
         </nav>
       </div>
     </header>
-
-    <noscript>
-      <h1 class="warning">页面部分功能依赖 Javascript ,请开启后再浏览</h1>
-    </noscript>

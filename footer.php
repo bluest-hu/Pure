@@ -32,6 +32,19 @@
                     console.log('user is login, ServiceWorker unregister ' + (flag ? 'success' : 'fail'));
                   });
                 }
+
+                // need update
+                registration.addEventListener('updatefound', () => {
+                  newWorker = registration.installing;
+
+                  newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed') {
+                      if (navigator.serviceWorker.controller) {
+                          // showNotification();
+                      }
+                    }
+                  });
+              });
             }).catch(function(err) {
                 console.log('ServiceWorker registration failed: ', err);
             });
@@ -51,6 +64,13 @@
   };
   ?>
   <?php wp_footer(); ?>
+
+    <script src="http://files.keyes.ie/things/baseliner/baseliner-latest.min.js"></script>
+    <script>
+    window.onload = function() {
+        baseliner = new Baseliner(5);
+    }
+    </script>
   </body>
 </html>
 <!--total <?php echo esc_html(get_num_queries()); ?> query-->
