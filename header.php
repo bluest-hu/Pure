@@ -16,8 +16,6 @@ if (!isset($content_width)) {
     <meta name="theme-color" content="#1a73e8">
     <meta name="referrer" content="always">
     <link rel="preload" as="image" href="<?php header_image(); ?>"/>
-    <!-- <link rel="dns-prefetch"  href="//www.google-analytics.com"/> -->
-    <!-- <link rel="prefetch"  href="//www.google-analytics.com"/> -->
     <?php
     wp_meta();
     wp_head();
@@ -45,6 +43,8 @@ if (!isset($content_width)) {
       }
     </style>
     <?php
+
+    // echo get_header_textcolor();
     add_editor_style(); 
     ?>
   </head>

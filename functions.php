@@ -105,7 +105,7 @@ add_action('after_setup_theme', function () {
   add_theme_support('custom-header', array(
     'default-image'          => get_template_directory_uri() . '/assets/images/header_default.png',
     // Display the header text along with the image
-    'header-text'            => false,
+    'header-text'            => true,
     // Header text color default
     'default-text-color'     => '000',
     // Header image width (in pixels)
@@ -124,6 +124,8 @@ add_action('after_setup_theme', function () {
     'admin-head-callback'    => 'adminhead_cb',
     // function to produce preview markup in the admin screen
     'admin-preview-callback' => 'adminpreview_cb',
+    // video
+    'video'                  => true,
   ));
 
   // 自定义 logo
@@ -137,7 +139,7 @@ add_action('after_setup_theme', function () {
 
   // 自定义背景图片
   add_theme_support('custom-background', array(
-    'default-color'          => '000',
+    'default-color'          => 'FFF',
     'default-image'          => '',
     'default-repeat'         => 'no-repeat',
     'default-position-x'     => 'left',
@@ -179,9 +181,25 @@ add_action('after_setup_theme', function () {
 
   add_theme_support('customize-selective-refresh-widgets');
 
-  add_theme_support('custom-header', array(
-    'video' => true,
-  ));
+  add_theme_support('responsive-embeds');
+
+  add_theme_support('responsive-embeds');
+
+  add_theme_support('align-wide');
+
+  add_theme_support('dark-editor-style');
+  
+  add_theme_support('disable-custom-colors');
+  
+  add_theme_support('disable-custom-font-sizes');
+  
+  add_theme_support('editor-color-pallete');
+
+  add_theme_support('editor-font-sizes');
+  
+  add_theme_support('editor-styles');
+
+  add_theme_support('wp-block-styles');
 
   //  load_theme_textdomain( 'text_domain', get_template_directory() . '/language' );
 });
