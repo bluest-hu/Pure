@@ -61,14 +61,15 @@
           </div>
 
           <footer class="entry-footer">
+            <div class="post-meta post-tags-wrap">
+              <?php the_tags('', '', ''); ?>
+            </div>
+
             <?php if (is_single()) : ?>
               <div class="end">
                 <span class="eof">EOF</span>
               </div>
             <?php endif ?>
-            <div class="post-meta post-tags-wrap">
-              <?php the_tags('', '', ''); ?>
-            </div>
           </footer>
         </div>
       </article>
@@ -93,7 +94,7 @@
     </article>
   <?php endif; ?>
 
-  <nav class="pages-nav" id="pagesNav">
+  <nav class="pages-nav font-kai" id="pagesNav">
     <?php echo paginate_links(array(
       'type'               => 'list',
       'show_all'           => false,

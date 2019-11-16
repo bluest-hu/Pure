@@ -2,6 +2,14 @@ import * as tocbot from "tocbot";
 import { raf } from "./raf.js";
 
 function toc() {
+  // 判断
+  const tocDom = document.getElementById("jsToc");
+  const titleDom = document.querySelectorAll(".post-title.entry-title")[0];
+
+  if (!tocDom) {
+    return false;
+  }
+
   // TOC Gen
   tocbot.init({
     contentSelector: ".post-entry.entry-content",
@@ -14,14 +22,6 @@ function toc() {
     // scrollContainer: 'html',
     // positionFixedSelector: '.post-entry.entry-content'
   });
-
-  // 判断
-  const tocDom = document.getElementById("jsToc");
-  const titleDom = document.querySelectorAll(".post-title.entry-title")[0];
-
-  if (!tocDom) {
-    return false;
-  }
 
   let shouldPassScroll = false;
   let preCalResult  = null;
