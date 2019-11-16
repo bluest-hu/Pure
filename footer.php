@@ -68,7 +68,7 @@
     <script src="http://files.keyes.ie/things/baseliner/baseliner-latest.min.js"></script>
     <script>
     window.onload = function() {
-        baseliner = new Baseliner(5);
+      Baseliner({height: 16});
     }
     </script>
   </body>

@@ -32,8 +32,10 @@ module.exports = {
     main: './assets/scripts/index.js',
   },
   resolve: {
-    modules: [path.resolve(__dirname, '../node_modules')],
-    alias: {}
+    modules: ['node_modules'],
+    alias: {
+      '@': path.resolve(__dirname, '../node_modules/'),
+    },
   },
   output: {
     filename: '[name].[contenthash:8].min.js',

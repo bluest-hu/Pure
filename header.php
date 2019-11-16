@@ -53,12 +53,12 @@ if (!isset($content_width)) {
       <h1 class="warning">页面部分功能依赖 Javascript ,请开启后再浏览</h1>
   </noscript>
 
-  <body <?php body_class('serif'); ?>>
+  <body <?php body_class('font-song'); ?>>
     <header class="main-header">
       <div class="custom-header-background-image" id="customHeaderBackgroundImage"></div>
       <div class="header-content-wrap">
         <div class="main-header-content">
-          <div class="blog-info-wrap">
+          <div class="blog-info-wrap font-kai">
             <?php the_custom_logo(); ?>
 
             <div class="split-line"></div>

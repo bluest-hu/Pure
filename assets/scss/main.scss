@@ -1,20 +1,24 @@
 @import "typo.css";
+@import "fonts.css/dist/fonts.css";
+@import "fonts.css/dist/fonts.scss";
 @import "./toc.scss";
-@import "./highlight.scss";
+@import "prismjs/themes/prism.css";
+
 // @import "../../../../../wp-includes/css/dist/block-library/style.min.css";
 
 $text-not-primary-color: #5f6368;
 $border-color: #eaeaea;
 $link-primary-color: #1a73e8;
 $text-color: #333;
-$content_width: 700px;
+$content-width: 700px;
 
 html {
   color: #3c4043;
+  font-size: 16px;
 }
 
 body {
-  font-weight: 300;
+  font-weight: normal;
   word-break: normal;
   word-wrap: break-word;
   text-align: justify;
@@ -32,6 +36,16 @@ header {
 
 main {
   position: relative;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+ @include font-song;
+ color: $text-color;
 }
 
 .admin-bar {
@@ -125,22 +139,8 @@ figure.alignright {
   z-index: 100000;
 }
 
-.serif {
-  font-family: Palatino, Optima, Georgia, serif;
-
-  & h1,
-  & h2,
-  & h3,
-  & h4,
-  & h5,
-  & h6 {
-    font-family: inherit;
-    color: #202124;
-  }
-}
-
 .content-width {
-  max-width: $content_width;
+  max-width: $content-width;
   padding-left: 20px;
   padding-right: 20px;
   margin-left: auto;
@@ -353,6 +353,15 @@ figure.alignright {
   }
 }
 
+.page,
+.single {
+  .main-content {
+    .post {
+      border-bottom: none;
+    }
+  }
+}
+
 .main-content {
   .post-wrap {
     padding-top: 30px;
@@ -445,30 +454,38 @@ figure.alignright {
     }
 
     &.post-tags-wrap {
-      font-size: 18px;
-      line-height: 20px;
+      // font-size: 18px;
+      // line-height: 20px;
       margin: 20px 0;
       flex-flow: wrap;
 
       a {
-        //text-decoration: underline;
-        font-style: italic;
+        // font-style: italic;
         display: inline-block;
         font-size: inherit;
         text-transform: capitalize;
         margin: 5px;
         border-radius: 20px;
-        background-color: #e8f0fe;
+        background-color: rgba(0, 0, 0, 0.05);
         padding: 3px 10px;
-        color: #1967d2;
-        font-size: 14px;
+        color: $text-not-primary-color;
+        font-size: 1rem;
+        line-height: 1.25rem;
+        transition: color, background-color 0.3s ease-in-out;
+
+        &:hover {
+          color: #1967d2;
+          background-color: #e8f0fe;
+        }
 
         &:before {
           content: "#";
           display: inline;
-          font-weight: bold;
+          font-weight: bolder;
+          
+          font-family: serif;
+          // color: #1967d2;
           //color: #999;
-          //font-style: normal;
         }
       }
     }
@@ -477,6 +494,8 @@ figure.alignright {
   .post {
     margin: 50px 0;
     border-bottom: 1px solid $border-color;
+
+    
 
     &.last-child {
       border-bottom: none;
@@ -530,8 +549,9 @@ figure.alignright {
   clear: both;
 }
 
+
 .post-entry {
-  font-size: 17px;
+  font-size: 1.125rem;
   margin: 50px 0;
   // word-break: break-word;
 
@@ -541,7 +561,8 @@ figure.alignright {
   h4,
   h5,
   h6 {
-    font-weight: bolder;
+    font-weight: 400;
+    color: #202124;
   }
 
   &:after {
@@ -554,7 +575,7 @@ figure.alignright {
 
   a {
     color: inherit;
-    border-color: #333;
+    border-color: $text-not-primary-color;
 
     &:hover {
       color: $link-primary-color;
@@ -721,22 +742,19 @@ figure.alignright {
   }
 
   a.more-link {
-    color: #999;
-    border: 1px solid #dadce0;
+    color: $text-not-primary-color;
+    border: 1px solid $text-not-primary-color;
     display: inline-block;
-    padding: 0 25px;
-    line-height: 40px;
-    font-size: 16px;
+    padding: 0 1.25rem;
+    line-height: 2.5rem;
     text-decoration: none;
-    border-radius: 4px;
-    color: $link-primary-color;
+    border-radius: 3px;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    transition: background-color, color 0.3s ease-in-out;
 
     &:hover {
-      border-color: #dadce0;
-      color: #174ea6;
-      background-color: #f6fafe;
+      color: #FFF;
+      background-color: $text-color;
     }
 
     &:focus {
@@ -999,6 +1017,13 @@ figure.alignright {
     flex-shrink: 0;
     color: $border-color;
     text-align: center;
+    animation: textBlink 5s ease infinite alternate-reverse;
+  }
+}
+
+@keyframes textBlink {
+  to {
+    color: $text-not-primary-color;
   }
 }
 
@@ -1221,7 +1246,7 @@ figure.alignright {
   margin-bottom: 30px;
 
   .nav-list {
-    max-width: $content_width;
+    max-width: $content-width;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -1486,6 +1511,9 @@ figure.alignright {
       .post-title {
         font-size: 35px;
       }
+    }
+    .hentry {
+      border-bottom: none;
     }
   }
 
