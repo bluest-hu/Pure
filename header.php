@@ -29,8 +29,6 @@ if (!isset($content_width)) {
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
     <?php endif; ?>
     <style>
-      <?php include(get_stylesheet_directory() . '/dist/main.min.css');?>
-      .main-header .top-nav-container::before,
       .main-header .custom-header-background-image {
         padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100; ?>%;
         background-image: url(<?php header_image(); ?>);
@@ -43,6 +41,8 @@ if (!isset($content_width)) {
       .main-header .top-nav-container::before {
         padding-bottom: 0;
       }
+
+      <?php include(get_stylesheet_directory() . '/dist/main.min.css');?>
     </style>
     <?php
     add_editor_style(); 
@@ -96,7 +96,3 @@ if (!isset($content_width)) {
         </nav>
       </div>
     </header>
-
-    <noscript>
-      <h1 class="warning">页面部分功能依赖 Javascript ,请开启后再浏览</h1>
-    </noscript>

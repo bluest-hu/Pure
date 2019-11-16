@@ -173,6 +173,9 @@ figure.alignright {
 
   .main-header-content {
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .header-top-bar {
@@ -200,12 +203,8 @@ figure.alignright {
   .blog-info-wrap {
     text-align: center;
     font-size: 0;
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    height: $blog-info-area-height;
-    margin-top: -25px;
-    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
 
     .split-line {
       display: inline-block;
@@ -467,7 +466,7 @@ figure.alignright {
   }
 
   .post {
-    margin: 50px 0;
+    margin: 50px 0 50px 0;
     border-bottom: 1px solid $border-color;
 
     &.last-child {
@@ -476,7 +475,7 @@ figure.alignright {
 
     .post-title {
       text-align: center;
-      font-size: 50px;
+      font-size: 2.5rem;
       margin-bottom: 50px;
       line-height: 1.2;
       word-break: break-all;
@@ -1286,7 +1285,7 @@ figure.alignright {
     .friend-list {
       display: flex;
       .friend-list-item {
-        box-shadow: 0 1px 10px rgba($color: #000000, $alpha: .1);
+        box-shadow: 0 1px 10px rgba($color: #000000, $alpha: 0.1);
         border-radius: 3px;
         border: 1px solid $border-color;
         margin: 20px;
@@ -1348,6 +1347,7 @@ figure.alignright {
           }
 
           .year-list {
+            margin-left: -30px;
             .year-list-item {
               margin-bottom: 20px;
             }
@@ -1419,7 +1419,7 @@ figure.alignright {
               .comments,
               .publish-time {
                 flex-shrink: 0;
-                font-size: 12px;
+                font-size: 14px;
                 color: $text-not-primary-color;
               }
             }
@@ -1434,7 +1434,7 @@ figure.alignright {
   }
 }
 
-@media (max-width: 640px) {
+@media screen and (max-width: 640px) {
   .main-header {
     // .blog-title-desc-wrap {
     //   //transform: translateY(-10px);
@@ -1476,7 +1476,7 @@ figure.alignright {
       margin-top: 30px;
       margin-bottom: 30px;
       .post-title {
-        font-size: 35px;
+        font-size: 30px;
       }
     }
   }
@@ -1508,6 +1508,36 @@ figure.alignright {
     .comments-title {
       font-size: 20px;
     }
+  }
+
+  .page.page-template.page-template-archieve {
+    .main-content .post .year-list {
+      margin-left: -10px;
+    }
+  }
+
+  #jsToc {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .main-header {
+    .blog-info-wrap {
+      margin-top: 0;
+
+      .home-link {
+        font-size: 35px;
+      }
+    }
+  }
+
+  .main-content .post .post-title {
+    font-size: 30px;
+  }
+  .main-header .custom-header-background-image {
+    padding-bottom: 50%;
+    background-size: cover;
   }
 }
 
