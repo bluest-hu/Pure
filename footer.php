@@ -7,7 +7,7 @@
       v<?php echo esc_html($theme_info->display('Version')); ?> by <?php echo $theme_info->display('Author'); ?>
       <br>
       <?php if (get_option('zh_cn_l10n_icp_num')) { ?>
-        <a href="http://www.miitbeian.gov.cn" rel="nofollow"><?php echo esc_html(get_option('zh_cn_l10n_icp_num')); ?></a>
+        <a href="http://beian.miit.gov.cn" rel="nofollow"><?php echo esc_html(get_option('zh_cn_l10n_icp_num')); ?></a>
       <?php } ?>
     </div>
   </footer>
@@ -65,12 +65,12 @@
   ?>
   <?php wp_footer(); ?>
 
-    <script src="http://files.keyes.ie/things/baseliner/baseliner-latest.min.js"></script>
+    <!-- <script src="http://files.keyes.ie/things/baseliner/baseliner-latest.min.js"></script>
     <script>
     window.onload = function() {
       Baseliner({height: 16});
     }
-    </script>
+    </script> -->
   </body>
 </html>
 <!--total <?php echo esc_html(get_num_queries()); ?> query-->

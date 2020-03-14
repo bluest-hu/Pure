@@ -199,7 +199,7 @@ add_action('after_setup_theme', function () {
   
   add_theme_support('editor-styles');
 
-  add_theme_support('wp-block-styles');
+  // add_theme_support('wp-block-styles');
 
   //  load_theme_textdomain( 'text_domain', get_template_directory() . '/language' );
 });
@@ -489,9 +489,10 @@ add_action('rest_api_init', function () {
     'methods'  => WP_REST_Server::ALLMETHODS,
     'callback' => function () {
       ob_start();
+      header('status: 204');
       header('cache-control: no-cache, no-store, must-revalidate');
-      header("Pragma: no-cache");
-
+      header('pragma: no-cache');
+      
       if (!isset($_COOKIE[PURE_THEME_TRACK_UUID_KEY])) {
         $uuid = uniqid();
         setcookie(PURE_THEME_TRACK_UUID_KEY, $uuid , time()+368400000);
@@ -539,7 +540,8 @@ add_action('rest_api_init', function () {
         );
       } else {
         return array(
-          'msg'  => 'ok'
+          'msg'  => 'ok',
+          // 'res'  => $url . '?' . $post_data
         );
       }
     },
