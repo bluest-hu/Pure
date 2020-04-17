@@ -7,12 +7,15 @@
  * Time: 18:22
  * charset: utf-8
  */
+const PURE_THEME_MANIFEST_KEY = 'KEY_theme_pure_manifest';
 
+const PURE_THEME_TRACK_UUID_KEY = 'track_uuid';
 /**
  * 判断是否为 AMOP 模式
  */
-function theme_pure_is_amp() {
-  return function_exists( 'is_amp_endpoint' ) && is_amp_endpoint();
+function theme_pure_is_amp()
+{
+  return function_exists('is_amp_endpoint') && is_amp_endpoint();
 }
 
 /**
@@ -20,8 +23,9 @@ function theme_pure_is_amp() {
  *
  * @return string|string[]|null
  */
-function new_avatar($avatar) {
-  $replace_url = "https://cdn.v2ex.com/gravatar/";
+function new_avatar($avatar)
+{
+  $replace_url = "https://gravatar.loli.net/avatar/";
   $avatar = preg_replace("#(?:http|https):\/\/(secure|\d).gravatar.com\/avatar\/#", $replace_url, $avatar);
   return $avatar;
 }
@@ -101,7 +105,7 @@ add_action('after_setup_theme', function () {
   add_theme_support('custom-header', array(
     'default-image'          => get_template_directory_uri() . '/assets/images/header_default.png',
     // Display the header text along with the image
-    'header-text'            => false,
+    'header-text'            => true,
     // Header text color default
     'default-text-color'     => '000',
     // Header image width (in pixels)
@@ -120,6 +124,8 @@ add_action('after_setup_theme', function () {
     'admin-head-callback'    => 'adminhead_cb',
     // function to produce preview markup in the admin screen
     'admin-preview-callback' => 'adminpreview_cb',
+    // video
+    'video'                  => true,
   ));
 
   // 自定义 logo
@@ -133,7 +139,7 @@ add_action('after_setup_theme', function () {
 
   // 自定义背景图片
   add_theme_support('custom-background', array(
-    'default-color'          => '000',
+    'default-color'          => 'FFF',
     'default-image'          => '',
     'default-repeat'         => 'no-repeat',
     'default-position-x'     => 'left',
@@ -174,6 +180,28 @@ add_action('after_setup_theme', function () {
   add_theme_support('title-tag');
 
   add_theme_support('customize-selective-refresh-widgets');
+
+  add_theme_support('responsive-embeds');
+
+  add_theme_support('responsive-embeds');
+
+  add_theme_support('align-wide');
+
+  add_theme_support('dark-editor-style');
+  
+  add_theme_support('disable-custom-colors');
+  
+  add_theme_support('disable-custom-font-sizes');
+  
+  add_theme_support('editor-color-pallete');
+
+  add_theme_support('editor-font-sizes');
+  
+  add_theme_support('editor-styles');
+
+  // add_theme_support('wp-block-styles');
+
+  //  load_theme_textdomain( 'text_domain', get_template_directory() . '/language' );
 });
 
 add_filter('upload_mimes', function ($mimes = array()) {
@@ -182,9 +210,8 @@ add_filter('upload_mimes', function ($mimes = array()) {
 });
 
 // 已经集成
-add_action( 'wp_enqueue_scripts', function () {
-  wp_dequeue_style( 'wp-block-library' );
-  wp_dequeue_style( 'wp-block-library' );
+add_action('wp_enqueue_scripts', function () {
+  wp_dequeue_style('wp-block-library');
 });
 
 /**
@@ -271,14 +298,20 @@ function add_image_placeholders($content)
   return $content;
 }
 
-function remove_duplicate_id_attribute($content) {
+/**
+ * @param $content
+ *
+ * @return string|string[]|null
+ */
+function remove_duplicate_id_attribute($content)
+{
   if (is_single()) {
     return $content;
   }
 
   $content = preg_replace(
-    '#<h([1-6])([^>]*?)(id="toc_\d+")([^>]*)>([\s\S]*?)</h[1-6]>#', 
-    '<h${1}${2}${4}>${5}</h${1}>', 
+    '#<h([1-6])([^>]*?)(id="toc_\d+")([^>]*)>([\s\S]*?)</h[1-6]>#',
+    '<h${1}${2}${4}>${5}</h${1}>',
     $content
   );
   return $content;
@@ -295,11 +328,11 @@ add_filter("pre_option_link_manager_enabled", "__return_true");
  */
 function deregister_scripts()
 {
-  wp_deregister_script( 'wp-embed' );
+  wp_deregister_script('wp-embed');
 }
 
-remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-remove_action( 'wp_print_styles', 'print_emoji_styles' );
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_print_styles', 'print_emoji_styles');
 
 add_action('wp_enqueue_scripts', 'deregister_scripts', 99);
 
@@ -352,15 +385,22 @@ function get_theme_manifest($sizeSet = array(120, 144, 152, 167, 180, 192, 512,)
     }
   }
 
+  $color = get_background_color();
+  if (empty($color)) {
+    $color = "#1abc9c";
+  } else {
+    $color = "#" . $color;
+  }
+
   $res = array(
     "name"                        => get_bloginfo('blogname'),
     "short_name"                  => substr(get_bloginfo('blogname'), 0, 12),
     "description"                 => get_bloginfo('description'),
     "lang"                        => get_bloginfo('language'),
-    "dir"                         => is_rtl() ? "rtl" : "",
-    "start_url"                   => get_home_url(),
-    "background_color"            => get_background_color() || "#1abc9c",
-    "theme_color"                 => get_background_color() || "#1abc9c",
+    "dir"                         => is_rtl() ? "rtl" : "ltr",
+    "start_url"                   => esc_url(home_url()),
+    "background_color"            => $color,
+    "theme_color"                 => $color,
     "display"                     => "standalone",
     "prefer_related_applications" => false,
     "orientation"                 => "portrait",
@@ -370,25 +410,20 @@ function get_theme_manifest($sizeSet = array(120, 144, 152, 167, 180, 192, 512,)
   return $res;
 }
 
-const PURE_THEME_MANIFEST_KEY = 'KEY_theme_pure_manifest';
-$c = 0;
-
 add_action('custom_header_options', function () {
-  global $c;
-  echo $c += 1;
-  $res = wp_cache_get(PURE_THEME_MANIFEST_KEY);
-  wp_cache_set('theme_pure_manifest', $res);
+  $manifest = get_theme_manifest();
+  wp_cache_set(PURE_THEME_MANIFEST_KEY, $manifest);
 });
 
 
 /**
- *  注册接口
+ *  支持 service worker
  */
 add_action('rest_api_init', function () {
   register_rest_route('wp_theme_pure/v1', '/service-worker.js', array(
     'methods'  => WP_REST_Server::READABLE,
     'callback' => function () {
-
+      ob_start();
       header_remove("Content-Type");
       header('Content-Type: application/javascript');
       header('Service-Worker-Allowed: /');
@@ -400,11 +435,15 @@ add_action('rest_api_init', function () {
       }
 
       return '';
+
+      ob_end_flush();
     },
   ), true);
 
-
-  register_rest_route('/wp_theme_pure/v1', '/manifest.json', array(
+  /**
+   * PWA 支持 manifest
+   */
+  register_rest_route('wp_theme_pure/v1', '/manifest.json', array(
     'methods'  => WP_REST_Server::READABLE,
     'callback' => function () {
       header('Content-Type: application/manifest+json');
@@ -419,19 +458,96 @@ add_action('rest_api_init', function () {
     },
   ));
 
-  register_rest_route('wp_theme_pure/v1', '/track', array(
-    'methods'  => WP_REST_Server::READABLE,
-    'callback' => function () {
+  function create_uuid(){$str = md5(uniqid(mt_rand(), true));
+    $uuid = substr($str,0,8) . '-';
+    $uuid .= substr($str,8,4) . '-';
+    $uuid .= substr($str,12,4) . '-';
+    $uuid .= substr($str,16,4) . '-';
+    $uuid .= substr($str,20,12);
+    return $uuid;
+  }
 
-      header_remove("Content-Type");
-      header('Content-Type: application/javascript');
-      return Array(
-        'code' => 0,
-      );
+  function get_real_ip() {
+    static $ip = '';
+    $ip = $_SERVER['REMOTE_ADDR'];
+    if(isset($_SERVER['HTTP_CDN_SRC_IP'])) {
+      $ip = $_SERVER['HTTP_CDN_SRC_IP'];
+    } elseif (isset($_SERVER['HTTP_CLIENT_IP']) && preg_match('/^([0-9]{1,3}\.){3}[0-9]{1,3}$/', $_SERVER['HTTP_CLIENT_IP'])) {
+      $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR']) AND preg_match_all('#\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}#s', $_SERVER['HTTP_X_FORWARDED_FOR'], $matches)) {
+      foreach ($matches[0] AS $xip) {
+        if (!preg_match('#^(10|172\.16|192\.168)\.#', $xip)) {
+          $ip = $xip;
+          break;
+        }
+      }
+    }
+    return $ip;
+  }
+
+  register_rest_route('wp_theme_pure/v1', '/ga', array(
+    'methods'  => WP_REST_Server::ALLMETHODS,
+    'callback' => function () {
+      ob_start();
+      header('status: 204');
+      header('cache-control: no-cache, no-store, must-revalidate');
+      header('pragma: no-cache');
+      
+      if (!isset($_COOKIE[PURE_THEME_TRACK_UUID_KEY])) {
+        $uuid = uniqid();
+        setcookie(PURE_THEME_TRACK_UUID_KEY, $uuid , time()+368400000);
+      }else{
+        $uuid = $_COOKIE[PURE_THEME_TRACK_UUID_KEY];
+      }
+
+      $_REQUEST['tid'] = 'UA-22609002-2';
+      $_REQUEST['cid'] = $uuid;
+      $_REQUEST['ip'] = get_real_ip();
+
+      $post_data = '';
+      foreach($_REQUEST as $key => $value) {
+        $post_data .= ($key . '=' . rawurlencode(rawurldecode($value)) . '&');
+      }
+      $post_data .= ('z=' . time());
+      $url = 'https://www.google-analytics.com/collect';
+
+      if (function_exists("fastcgi_finish_request")) {
+        fastcgi_finish_request(); // 对于 fastcgi 会提前返回请求结果，提高响应速度。
+      }
+     
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        // CURLOPT_MAXREDIRS => 10,
+        // CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => $post_data,
+        CURLOPT_TCP_FASTOPEN => true,
+        CURLOPT_HTTPHEADER => array(
+        ),
+      ));
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+      curl_close($curl);
+
+      if ($err) {
+        return array(
+          'msg' => 'bad req',
+        );
+      } else {
+        return array(
+          'msg'  => 'ok',
+          // 'res'  => $url . '?' . $post_data
+        );
+      }
     },
   ), true);
 });
 
 
 //add_option('pure_theme_pwa_cache_version', get_option('pure_theme_pwa_cache_version') + 0);
-add_option('pure_theme_pwa_cache_version', 1);
+// add_option('pure_theme_pwa_cache_version', 1);

@@ -1,17 +1,42 @@
-import '../../../../../wp-includes/js/wp-embed.js';
-import Prism from 'prismjs';
+import * as Prism from "prismjs";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-apacheconf";
+import "prismjs/components/prism-shell-session";
+// import autoloader from "prismjs/plugins/autoloader/prism-autoloader";
+
+
+import "../../../../../wp-includes/js/wp-embed.js";
 import LazyLoad from "./lazy-load.js";
 import Track from './track.js';
-import '../scss/main.scss';
-import '../styles/Prism.css';
+import toc from "./toc.js";
+import "../scss/main.scss";
 
-document.addEventListener('DOMContentLoaded', () => {
-  new LazyLoad('.post-entry img');
+const languages = [
+  'bash',
+  'apacheconf',
+  'sass',
+  'scss',
+  'less',
+];
+
+// 添加一个 tracker
+new Track();
+
+document.addEventListener("DOMContentLoaded", () => {
+  // lazy load
+  new LazyLoad(".post-entry img");
+
+  // hightlight
   Prism.highlightAll();
+
+  // gen TOC
+  toc();
 });
 
-window.addEventListener('load', () => {
-  if (!!window.ga && typeof window.ga === 'function') {
-    // ga('send', 'timing');
-  }
-});
+// window.addEventListener("load", () => {
+//   languages.forEach(language => {
+//     import(`prismjs/components/prism-${language}`).then(data => {
+//       console.log(data);
+//     });
+//   });
+// });

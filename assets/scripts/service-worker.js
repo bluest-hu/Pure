@@ -1,24 +1,25 @@
+importScripts(
+  "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js"
+);
 
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
+const CACHE_PREFIX = "pure-theme-cache";
 
-const CACHE_PREFIX = 'pure-theme-cache';
-
-workbox.setConfig({ 
+workbox.setConfig({
   debug: true,
-  modulePathPrefix: 'https://storage.googleapis.com/workbox-cdn/releases/4.3.1/',
+  modulePathPrefix: "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/"
 });
 
 workbox.googleAnalytics.initialize();
 
 workbox.core.setCacheNameDetails({
   prefix: CACHE_PREFIX,
-  suffix: 'v1',
-  precache: 'precache',
-  runtime: 'runtime'
+  suffix: "v1",
+  precache: "precache",
+  runtime: "runtime"
 });
 
 workbox.routing.registerRoute(
-  new RegExp('/wp-admin/'),
+  new RegExp("/wp-admin/"),
   new workbox.strategies.NetworkOnly()
 );
 
@@ -29,30 +30,30 @@ workbox.routing.registerRoute(
     plugins: [
       new workbox.expiration.Plugin({
         maxAgeSeconds: 30 * 24 * 60 * 60,
-        purgeOnQuotaError: true,
-      }),
-    ],
+        purgeOnQuotaError: true
+      })
+    ]
   })
 );
 
 workbox.routing.registerRoute(
   /\.(?:js)$/,
   new workbox.strategies.CacheFirst({
-    cacheName: `${CACHE_PREFIX}-js`,
+    cacheName: `${CACHE_PREFIX}-js`
   })
 );
 
 workbox.routing.registerRoute(
   /\.(?:html)$/,
   new workbox.strategies.NetworkFirst({
-    cacheName: `${CACHE_PREFIX}-post`,
+    cacheName: `${CACHE_PREFIX}-post`
   })
 );
 
 workbox.routing.registerRoute(
   /\.(?:manifest.json)$/,
   new workbox.strategies.NetworkFirst({
-    cacheName: `${CACHE_PREFIX}-manifest`,
+    cacheName: `${CACHE_PREFIX}-manifest`
   })
 );
 

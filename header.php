@@ -16,8 +16,6 @@ if (!isset($content_width)) {
     <meta name="theme-color" content="#1a73e8">
     <meta name="referrer" content="always">
     <link rel="preload" as="image" href="<?php header_image(); ?>"/>
-    <link rel="dns-prefetch"  href="//www.google-analytics.com"/>
-    <link rel="prefetch"  href="//www.google-analytics.com"/>
     <?php
     wp_meta();
     wp_head();
@@ -29,8 +27,6 @@ if (!isset($content_width)) {
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
     <?php endif; ?>
     <style>
-      <?php include(get_stylesheet_directory() . '/dist/main.min.css');?>
-      .main-header .top-nav-container::before,
       .main-header .custom-header-background-image {
         padding-bottom: <?php echo get_custom_header()->height / get_custom_header()->width * 100; ?>%;
         background-image: url(<?php header_image(); ?>);
@@ -43,21 +39,26 @@ if (!isset($content_width)) {
       .main-header .top-nav-container::before {
         padding-bottom: 0;
       }
+
+      <?php include(get_stylesheet_directory() . '/dist/main.min.css');?>
     </style>
     <?php
-    add_editor_style();
 
-    if (get_option('pure_theme_analytics') != '') {
-      echo trim(stripslashes(get_option('pure_theme_analytics')));
-    }; ?>
+    // echo get_header_textcolor();
+    add_editor_style(); 
+    ?>
   </head>
 
-  <body <?php body_class('serif'); ?>>
+  <noscript>
+      <h1 class="warning">页面部分功能依赖 Javascript ,请开启后再浏览</h1>
+  </noscript>
+
+  <body <?php body_class('font-song'); ?>>
     <header class="main-header">
       <div class="custom-header-background-image" id="customHeaderBackgroundImage"></div>
       <div class="header-content-wrap">
         <div class="main-header-content">
-          <div class="blog-info-wrap">
+          <div class="blog-info-wrap font-kai">
             <?php the_custom_logo(); ?>
 
             <div class="split-line"></div>
@@ -99,7 +100,3 @@ if (!isset($content_width)) {
         </nav>
       </div>
     </header>
-
-    <noscript>
-      <h1 class="warning">页面部分功能依赖 Javascript ,请开启后再浏览</h1>
-    </noscript>
