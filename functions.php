@@ -443,7 +443,7 @@ add_action('rest_api_init', function () {
   /**
    * PWA 支持 manifest
    */
-  register_rest_route('/wp_theme_pure/v1', '/manifest.json', array(
+  register_rest_route('wp_theme_pure/v1', '/manifest.json', array(
     'methods'  => WP_REST_Server::READABLE,
     'callback' => function () {
       header('Content-Type: application/manifest+json');
