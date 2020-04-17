@@ -1,6 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -49,7 +49,12 @@ module.exports = {
         include: [
           path.resolve(__dirname, '../assets'),
         ],
-        loader: 'babel-loader'
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        },
       },
       {
         test: /\.[s]?css$/,
@@ -85,7 +90,7 @@ module.exports = {
     }),
     // new WebpackBundleAnalyzer(),
     new WorkboxPlugin.GenerateSW({
-      importWorkboxFrom: 'local',
+      // importWorkboxFrom: 'local',
       // excludeChunks: ['main'],
       offlineGoogleAnalytics: true,
       cleanupOutdatedCaches: true,
