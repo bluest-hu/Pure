@@ -40,7 +40,12 @@
                   newWorker.addEventListener('statechange', () => {
                     if (newWorker.state === 'installed') {
                       if (navigator.serviceWorker.controller) {
-                          // showNotification();
+                        // todo 
+                        //const result = confirm('页面更新啦是否更新？');
+
+                        // if (result) {
+                        //   window.location.href.reload();
+                        // }
                       }
                     }
                   });

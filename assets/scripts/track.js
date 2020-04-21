@@ -50,7 +50,7 @@ class Track {
       // cid: "", // client id
       // uid: "", // user id
       // uip: '', // user ip
-      ul: navigator.language, // user language
+      ul: navigator.language.toLowerCase(), // user language
       // t: "pageview", // “pageview”、“screenview”、“event”、“transaction”、“item”、“social”、“exception”、“timing”
       // fl: "", // flash version
       // je: 0, // java version
@@ -90,14 +90,15 @@ class Track {
    */
   send(data) {
     const payload = this.genFormData(data);
+    const url = `${TRACK_URL}?t=${new Date() * 1}`;
 
     if (navigator.sendBeacon) {
-      navigator.sendBeacon(`${TRACK_URL}?t=${new Date() * 1}`, payload);
+      navigator.sendBeacon(url, payload);
     } else {
      
       const xhr = new XMLHttpRequest();
 
-      xhr.open('post', TRACK_URL);
+      xhr.open('post', url);
       // xhr.onload = () => {};
       xhr.send(payload);
     }
