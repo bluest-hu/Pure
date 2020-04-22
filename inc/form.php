@@ -11,11 +11,18 @@
                 <span>首页关键词添加</span>
               </legend>
               <p>
-                <label for="indexKeywords" class="description">
+                <label for="indexKeywords"
+                       class="description">
                   添加在首页关键词，请用<code>,</code>间隔
                 </label>
               </p>
-              <textarea name="index_page_keywords" class="large-text code" id="indexKeywords" rows="3" cols="30" style="text-indent:0;padding:0"><?php echo stripslashes(trim(get_option('pure_theme_index_page_keywords'))); ?></textarea>
+              <textarea name="index_page_keywords" 
+                        class="large-text code" 
+                        id="indexKeywords" 
+                        rows="3" 
+                        cols="30" 
+                        style="text-indent:0;padding:0"><?php echo stripslashes(trim(get_option('pure_theme_index_page_keywords'))); ?>
+              </textarea>
               <p class="description">
                 建议设置 2~3 个，最多不超过 5 个
               </p>
@@ -34,7 +41,13 @@
                   添加首页描述
                 </label>
               </p>
-              <textarea name="index_page_description" class="large-text code" id="indexDescription" rows="3" cols="30" style="text-indent:0;padding:0"><?php echo stripslashes(trim(get_option('pure_theme_index_page_description'))); ?></textarea>
+              <textarea name="index_page_description" 
+                        class="large-text code" 
+                        id="indexDescription" 
+                        rows="3" 
+                        cols="30" 
+                        style="text-indent:0;padding:0"><?php echo stripslashes(trim(get_option('pure_theme_index_page_description'))); ?>
+              </textarea>
               <p class="description">
                 在Google的搜索结果中，摘要信息标题长度一般在 72 字节（即 36 个中文字）左右，而百度则只有 56 字节（即 28 个中文字）左右，超出这个范围的内容将被省略。
               </p>

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack -w --config build/webpack.config.js --mode=development",
+    "dev": "webpack --watch --config build/webpack.config.js --mode=development ",
     "product": "webpack --config build/webpack.config.js --mode=production"
   },
   "repository": "git+https://github.com/ihuguowei/Pure.git",

@@ -1,8 +1,8 @@
 @import "typo.css";
-@import "fonts.css/dist/fonts.css";
 @import "fonts.css/dist/fonts.scss";
-@import "./toc.scss";
+@import "fonts.css/dist/fonts.css";
 @import "prismjs/themes/prism.css";
+@import "./toc.scss";
 
 // @import "../../../../../wp-includes/css/dist/block-library/style.min.css";
 
@@ -22,7 +22,8 @@ body {
   word-break: normal;
   word-wrap: break-word;
   text-align: justify;
-  text-justify: ideographic;
+  // text-justify: ideographic;
+  @include font-fang-song;
 }
 
 a {
@@ -46,6 +47,7 @@ h5,
 h6 {
  @include font-song;
  color: $text-color;
+ font-weight: normal;
 }
 
 .admin-bar {
@@ -1175,10 +1177,13 @@ figure.alignright {
 
     label {
       display: inline-block;
-      width: 100px;
+      width: 4ch;
       font-size: 18px;
       line-height: 40px;
       flex-grow: 0;
+      .required {
+        color: red;
+      }
     }
 
     .comment-form-cookies-consent {
@@ -1199,16 +1204,49 @@ figure.alignright {
     }
 
     .submit {
-      height: 40px;
-      border: 1px solid #1abc9c;
-      border-radius: 30px;
-      padding: 0 50px;
-      background: transparent;
+      color: $text-not-primary-color;
+      border: 1px solid $text-not-primary-color;
+      display: inline-block;
+      padding: 0 1.25rem;
+      line-height: 2.5rem;
+      text-decoration: none;
+      border-radius: 3px;
+      font-weight: bold;
+      transition: background-color, color 0.3s ease-in-out;
+
       &:hover {
-        color: #fff;
-        background-color: #1abc9c;
-        border-color: darken(#1abc9c, 5);
-        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        color: #FFF;
+        background-color: $text-color;
+      }
+
+      &:focus {
+        // border-color: #174ea6;
+        // color: #174ea6;
+        box-shadow: 1px 2px 0 rgba(60, 64, 67, 0.3),
+          0 2px 6px 2px rgba(60, 64, 67, 0.15);
+      }
+    }
+
+    .comment-form-author,
+    .comment-form-email,
+    .comment-form-url {
+      width: 33.333333333%;
+      display: flex;
+      float: left;
+      margin-top: 0;
+      label {
+        display: inline;
+        width: auto;
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+    }
+
+    .comment-form-author {
+      label {
+        width: inherit;
+        padding-left: 0;
+        padding-right: 0px;
       }
     }
 
@@ -1230,7 +1268,7 @@ figure.alignright {
 
       &:focus {
         outline: none;
-        border-color: #1abc9c;
+        border-color: $text-color;
       }
     }
 
@@ -1318,7 +1356,7 @@ figure.alignright {
     .friend-list {
       display: flex;
       .friend-list-item {
-        box-shadow: 0 1px 10px rgba($color: #000000, $alpha: 0.1);
+        box-shadow: 0 1px 10px rgba($color: blue, $alpha: 0.1);
         border-radius: 3px;
         border: 1px solid $border-color;
         margin: 20px;
@@ -1336,6 +1374,7 @@ figure.alignright {
         .post {
           border-bottom: none;
           margin-bottom: 0;
+          // background-color: rgba($color: #000000, $alpha: 0.1);
 
           ul,
           ol,
@@ -1348,7 +1387,7 @@ figure.alignright {
           .month-title,
           .year-title {
             margin: 0;
-            width: 75px;
+            width: 90px;
             text-align: right;
             font-weight: bold;
             line-height: 40px;
@@ -1380,7 +1419,7 @@ figure.alignright {
           }
 
           .year-list {
-            margin-left: -30px;
+            // margin-left: -30px;
             .year-list-item {
               margin-bottom: 20px;
             }
@@ -1395,7 +1434,7 @@ figure.alignright {
             margin-bottom: 15px;
 
             .post-list-item {
-              margin-left: 90px;
+              margin-left: 100px;
               font-size: 16px;
               line-height: 40px;
               position: relative;

@@ -64,7 +64,9 @@
                         <?php foreach ($month_value as $post => $post_value) : ?>
                           <li class="post-list-item">
                             <time class="publish-time"><?php echo $post_value['publish_date']; ?>日</time>
-                            <a class="title" title="<?php echo $post_value['title']; ?>" href="<?php echo $post_value['permalink']; ?>"><?php echo $post_value['title']; ?></a>
+                            <a class="title" 
+                               title="<?php echo $post_value['title']; ?>" 
+                               href="<?php echo $post_value['permalink']; ?>"><?php echo $post_value['title']; ?></a>
                             <span class="line"></span>
                             <a class="comments" href="<?php echo $post_value['permalink']; ?>#comments" title=" echo $post_value['comments']; ?> 条评论"><?php echo $post_value['comments']; ?> reply</a>
                           </li>

@@ -1,7 +1,8 @@
 <?php $theme_info = wp_get_theme(); ?>
   <footer class="main-footer" id="main-footer">
     <div class="footer-content">
-      Powered by <a href="https://wordpress.org/" title="code is poetry">WordPress</a><br>
+      Powered by <a href="https://wordpress.org/"
+                    title="code is poetry">WordPress</a><br>
       Theme <a href="<?php echo esc_html($theme_info->display('ThemeURI')); ?>"><?php echo esc_html($theme_info->display('Name')); ?></a>
 
       v<?php echo esc_html($theme_info->display('Version')); ?> by <?php echo $theme_info->display('Author'); ?>
@@ -26,7 +27,7 @@
 
           serviceWorker.register('/wp-json/wp_theme_pure/v1/service-worker.js', {scope: '/'})
             .then(function(registration) {
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                // console.log('ServiceWorker registration successful with scope: ', registration.scope);
                 if (isLogin) {
                   registration.unregister().then(function (flag) {
                     console.log('user is login, ServiceWorker unregister ' + (flag ? 'success' : 'fail'));
@@ -35,7 +36,7 @@
 
                 // need update
                 registration.addEventListener('updatefound', () => {
-                  newWorker = registration.installing;
+                  const newWorker = registration.installing;
 
                   newWorker.addEventListener('statechange', () => {
                     if (newWorker.state === 'installed') {
