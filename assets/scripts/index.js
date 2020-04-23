@@ -7,18 +7,16 @@ import "prismjs/components/prism-shell-session";
 import autoloader from "prismjs/plugins/autoloader/prism-autoloader";
 
 import "../../../../../wp-includes/js/wp-embed.js";
-import LazyLoad from "./lazy-load.js";
+import LazyLoad from "./lazyLoad.js";
 import Track from './track.js';
 import toc from "./toc.js";
 import "../scss/main.scss";
 
 // 添加一个 tracker
 new Track();
-
+// lazy load
+new LazyLoad(".post-entry img");
 document.addEventListener("DOMContentLoaded", () => {
-  // lazy load
-  new LazyLoad(".post-entry img");
-
   // hightlight
   Prism.highlightAll();
 

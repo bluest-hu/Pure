@@ -54,6 +54,9 @@ if (!isset($content_width)) {
   </noscript>
 
   <body <?php body_class('font-song'); ?>>
+    <input type="hidden"
+           id="googleAnalyticsId"
+           value="<?php echo get_option('pure_theme_google_analytics_id')?>" />
     <header class="main-header">
       <div class="custom-header-background-image"
            id="customHeaderBackgroundImage"></div>

@@ -10,9 +10,13 @@ class Track {
    * @param {*} config 
    */
   constructor(config = {}) {
-    this.logexception = config.logexception === false ? false : true;
-    this.logTiming = config.logTiming === false ? false : true;
-    this.logPageView = config.logPageView === false ? false : true;
+    this.logexception = config.logexception !== false;
+    this.logTiming = config.logTiming !== false;
+    this.logPageView = config.logPageView !== false;
+
+    const { value } = document.querySelector('#googleAnalyticsId');
+
+    this.canSend = !!value;
 
     const self = this;
 
@@ -89,6 +93,10 @@ class Track {
    * @param {*} data 
    */
   send(data) {
+    if (!this.canSend) {
+      return false;
+    }
+
     const payload = this.genFormData(data);
     const url = `${TRACK_URL}?t=${new Date() * 1}`;
 

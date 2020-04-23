@@ -2,8 +2,17 @@ import { raf } from "./raf.js";
 class LazyLoad {
   constructor(selector) {
     this.targetElements = Array.from(document.querySelectorAll(selector));
+    this.shouldPass = false;
+    // 默认不开启浏览器自带的 lazy loading
+    this.nativeLazyLoadingFlag = false;
 
-    if (window.IntersectionObserver) {
+    if ('loading' in HTMLImageElement.prototype && this.nativeLazyLoadingFlag) {
+      this.targetElements.forEach(image => {
+        image.removeAttribute('src');
+        const { src } = image.dataset;
+        image.src = src;
+      });
+    } else if (window.IntersectionObserver) {
       const io = new IntersectionObserver(
         changes => {
           changes.forEach(change => {
@@ -27,22 +36,9 @@ class LazyLoad {
         io.observe(image);
       });
     } else {
-      let shouldPass = false;
-      window.addEventListener(
-        "scroll",
-        () => {
-          if (shouldPass) {
-            return false;
-          }
-          shouldPass = true;
-          raf(() => {
-            shouldPass = false;
-            this.check();
-          });
-        },
-        { passive: true }
-      );
-      this.check();
+      window.addEventListener("scroll", this.doCheck.bind(this), { passive: true });
+      window.addEventListener('resize', this.doCheck.bind(this), { passive: true });
+      this.doCheck();
     }
   }
 
@@ -53,6 +49,10 @@ class LazyLoad {
         const { src } = image.dataset;
         image.src = src;
         this.targetElements.splice(index, 1);
+        if (this.targetElements.length <= 0) {
+          window.removeEventListener("scroll", self.doCheck);
+          window.removeEventListener('resize', self.doCheck);
+        }
       }
     });
   }
@@ -67,6 +67,18 @@ class LazyLoad {
       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
   }
+
+  doCheck() {
+    if (this.shouldPass) {
+      return false;
+    }
+    const self = this;
+    this.shouldPass = true;
+    raf(() => {
+      self.shouldPass = false;
+      self.check();
+    });
+  };
 }
 
 export default LazyLoad;

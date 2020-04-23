@@ -24,7 +24,9 @@
             <div class="posy-meta-wrap">
               <ul class="post-meta post-meta-top">
                 <li class="post-meta-item author-avatar-wrap">
-                  <?php echo get_avatar(get_the_author_meta('user_email'), 40); ?>
+                  <?php echo get_avatar(get_the_author_meta('user_email'), 40, '','', array(
+                    'extra_attr' => 'loading="lazy"'
+                  )); ?>
                 </li>
                 <li class="post-meta-item vcard author author_name post-author">
                   <a class="author-name fn"
@@ -72,7 +74,7 @@
               <?php the_tags('', '', ''); ?>
             </div>
 
-            <?php if (is_single()) : ?>
+            <?php if (is_single() || is_page()) : ?>
               <div class="end">
                 <span class="eof">EOF</span>
               </div>

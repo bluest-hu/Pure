@@ -1159,11 +1159,19 @@ figure.alignright {
       border-bottom: 1px solid $border-color;
       margin: 30px 0;
     }
+
+    #cancel-comment-reply-link {
+      font-size: 16px;
+      border: 1px solid $link-primary-color;
+      border-radius: 1px;
+      padding: 0 2px;
+    }
   }
 
   .comment-form {
+    margin-bottom: 20px;
     .comment-notes {
-      font-size: 13px;
+      font-size: 12px;
       color: $text-not-primary-color;
     }
 
@@ -1171,19 +1179,38 @@ figure.alignright {
     .comment-form-email,
     .comment-form-url,
     .comment-form-comment {
-      margin: 30px 0;
+      margin: 25px 0;
       display: flex;
     }
 
     label {
       display: inline-block;
-      width: 4ch;
-      font-size: 18px;
+      width: 80px;
+      font-size: 16px;
       line-height: 40px;
       flex-grow: 0;
       .required {
         color: red;
       }
+    }
+
+    .comment-form-comment {
+      width: 60%;
+      float: right;
+
+      label {
+        width: 50px;
+      }
+
+      textarea {
+        min-height: 170px;
+        padding: 10px;
+        text-indent: 0;
+      }
+    }
+
+    .form-submit {
+      clear: both;
     }
 
     .comment-form-cookies-consent {
@@ -1230,25 +1257,16 @@ figure.alignright {
     .comment-form-author,
     .comment-form-email,
     .comment-form-url {
-      width: 33.333333333%;
-      display: flex;
-      float: left;
-      margin-top: 0;
-      label {
-        display: inline;
-        width: auto;
-        padding-right: 10px;
-        padding-left: 10px;
-      }
+      padding-right: 10px;
     }
 
-    .comment-form-author {
-      label {
-        width: inherit;
-        padding-left: 0;
-        padding-right: 0px;
-      }
-    }
+    //.comment-form-author {
+    //  label {
+    //    width: inherit;
+    //    padding-left: 0;
+    //    padding-right: 0px;
+    //  }
+    //}
 
     input[type="text"],
     input[type="email"],
@@ -1271,15 +1289,11 @@ figure.alignright {
         border-color: $text-color;
       }
     }
-
-    textarea {
-      min-height: 150px;
-    }
   }
 }
 
 .relative-post-nav {
-  margin-top: 30px;
+  margin-top: -30px;
   margin-bottom: 30px;
 
   .nav-list {
@@ -1370,6 +1384,16 @@ figure.alignright {
 
   &.page-template {
     &.page-template-archieve {
+
+      .post-title {
+        @include font-kai;
+        //color: #FFF;
+        border: 1px solid $text-not-primary-color;
+        width: 5ch;
+        margin: 0 auto;
+        //background-color: $text-not-primary-color;
+      }
+
       .main-content {
         .post {
           border-bottom: none;
@@ -1452,7 +1476,7 @@ figure.alignright {
                 border-radius: 50%;
                 top: 17px;
                 // transform: translateY(-50%);
-                left: -10px;
+                left: -8px;
               }
 
               &:first-child {
@@ -1486,6 +1510,7 @@ figure.alignright {
                 white-space: nowrap;
                 margin: 0 5px;
                 font-weight: 500;
+                @include font-kai;
               }
 
               .comments,
@@ -1494,7 +1519,16 @@ figure.alignright {
                 font-size: 14px;
                 color: $text-not-primary-color;
               }
+              .publish-time {
+                font-size: inherit;
+              }
             }
+          }
+
+          .month-title,
+          .year-title,
+          .publish-time {
+            @include font-fang-song;
           }
         }
       }
@@ -1508,7 +1542,7 @@ figure.alignright {
 
 @media screen and (max-width: 640px) {
   .main-header {
-    min-height: 200px;
+    //min-height: 200px;
     // .blog-title-desc-wrap {
     //   //transform: translateY(-10px);
     // }
@@ -1550,6 +1584,7 @@ figure.alignright {
       margin-bottom: 30px;
       .post-title {
         font-size: 30px;
+        @include font-kai;
       }
     }
     .hentry {

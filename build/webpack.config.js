@@ -268,6 +268,16 @@ module.exports = (env, argv) => {
               },
               cacheName: 'pure-theme-cache-gavatar',
             },
+          },
+          {
+            urlPattern: /^(?:http|https):\/\/dn-qiniu-avatar.qbox.me\/avatar\//,
+            handler: 'CacheFirst',
+            options: {
+              expiration: {
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+              cacheName: 'pure-theme-cache-gavatar',
+            },
           }
         ],
       }),

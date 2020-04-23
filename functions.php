@@ -29,7 +29,11 @@ function theme_pure_is_amp() {
  * @return string|string[]|null
  */
 function new_avatar($avatar) {
-  $replace_url = "https://gravatar.loli.net/avatar/";
+  /**
+   * https://gravatar.loli.net/avatar/
+   * https://dn-qiniu-avatar.qbox.me/avatar/
+   */
+  $replace_url = "https://dn-qiniu-avatar.qbox.me/avatar/";
   $avatar = preg_replace("#(?:http|https):\/\/(secure|\d).gravatar.com\/avatar\/#", $replace_url, $avatar);
   return $avatar;
 }
@@ -296,7 +300,7 @@ function add_image_placeholders($content) {
   // This is a pretty simple regex, but it works
   $content = preg_replace(
     '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#',
-    sprintf('<img${1}src="%s" data-src="${2}"${3}><noscript><img${1}src="${2}"${3}></noscript>', $placeholder_image),
+    sprintf('<img loading="lazy" ${1}src="%s" data-src="${2}"${3}><noscript><img loading="lazy" ${1}src="${2}"${3}></noscript>', $placeholder_image),
     $content
   );
   return $content;
@@ -434,9 +438,8 @@ add_action('rest_api_init', function () {
         return include $filePath;
       }
 
-      return '';
-
       ob_end_flush();
+      return '';
     },
   ), true);
 
@@ -458,7 +461,8 @@ add_action('rest_api_init', function () {
     },
   ));
 
-  function create_uuid(){$str = md5(uniqid(mt_rand(), true));
+  function create_uuid() {
+    $str = md5(uniqid(mt_rand(), true));
     $uuid = substr($str,0,8) . '-';
     $uuid .= substr($str,8,4) . '-';
     $uuid .= substr($str,12,4) . '-';
@@ -494,13 +498,13 @@ add_action('rest_api_init', function () {
       header('pragma: no-cache');
       
       if (!isset($_COOKIE[PURE_THEME_TRACK_UUID_KEY])) {
-        $uuid = uniqid();
+        $uuid = create_uuid();
         setcookie(PURE_THEME_TRACK_UUID_KEY, $uuid , time()+368400000);
       }else{
         $uuid = $_COOKIE[PURE_THEME_TRACK_UUID_KEY];
       }
 
-      $_REQUEST['tid'] = 'UA-22609002-2';
+      $_REQUEST['tid'] = get_option('pure_theme_google_analytics_id');
       $_REQUEST['cid'] = $uuid;
       $_REQUEST['ip'] = get_real_ip();
 
@@ -541,7 +545,8 @@ add_action('rest_api_init', function () {
       } else {
         return array(
           'msg'  => 'ok',
-          // 'res'  => $url . '?' . $post_data
+//        'body' => $_REQUEST,
+//        'res'  => $url . '?' . $post_data
         );
       }
     },
