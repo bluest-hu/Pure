@@ -59,7 +59,7 @@
               <ol class="month-list">
                 <?php foreach ($year_value as $month => $month_value) : ?>
                   <li class="month-list-item">
-                    <h3 class="month-title"><?php echo $month; ?><span class="unit">月</span></h2>
+                    <h3 class="month-title"><?php echo $month; ?><span class="unit">月</span></h3>
                       <ol class="post-list">
                         <?php foreach ($month_value as $post => $post_value) : ?>
                           <li class="post-list-item">
@@ -85,6 +85,5 @@
       </div>
     </article>
   </div>
-</div>
-
+</main>
 <?php get_footer(); ?>
