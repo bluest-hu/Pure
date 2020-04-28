@@ -4,7 +4,7 @@
 @import "prismjs/themes/prism.css";
 @import "./toc.scss";
 
-// @import "../../../../../wp-includes/css/dist/block-library/style.min.css";
+ //@import "../../../../../wp-includes/css/dist/block-library/style.min.css";
 
 $text-not-primary-color: #5f6368;
 $border-color: #eaeaea;
@@ -388,6 +388,7 @@ figure.alignright {
     display: flex;
     align-items: center;
     justify-content: center;
+    @include font-kai;
 
     a {
       color: inherit;
@@ -952,11 +953,15 @@ figure.alignright {
 }
 
 .pages-nav {
-  margin: 50px 0;
+  margin: 100px 0;
 
   .page-numbers {
     list-style: none;
     text-align: center;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
 
     li {
       display: inline-block;
@@ -965,7 +970,7 @@ figure.alignright {
       &:hover {
         a {
           transition: color 0.5s linear;
-          color: #1abc9c;
+          color: $text-color;
         }
       }
     }
@@ -973,7 +978,7 @@ figure.alignright {
     .page-numbers,
     span,
     a {
-      font-size: 15px;
+      font-size: 20px;
       display: block;
       text-decoration: none;
       color: #757575;
@@ -983,13 +988,13 @@ figure.alignright {
       height: 30px;
       box-sizing: border-box;
       border-radius: 100%;
-      //border: 1px solid #eee;
+      margin: 0 5px;
 
       &.current {
         color: #fff;
         border-radius: 100%;
         font-weight: bold;
-        background-color: #ddd;
+        background-color: $text-not-primary-color;
       }
     }
   }
@@ -1078,9 +1083,10 @@ figure.alignright {
       border: 1px solid #ffd22c;
       display: inline-block;
       padding: 5px;
-      border-radius: 5px;
+      border-radius: 2px;
       background-color: rgba(255, 227, 151, 0.34902);
       font-size: 14px;
+      @include font-fang-song;
     }
 
     .children {
@@ -1102,6 +1108,7 @@ figure.alignright {
   }
 
   .comment-meta {
+    //@include font-kai;
     .comment-author {
       height: 20px;
       margin-bottom: 5px;
@@ -1151,6 +1158,7 @@ figure.alignright {
         color: $text-not-primary-color;
         margin-right: 5px;
         vertical-align: text-bottom;
+        @include font-fang-song;
       }
     }
   }
@@ -1369,7 +1377,7 @@ figure.alignright {
 }
 
 .page {
-  &.page-template-firends {
+  &.page-template-friends {
     .friend-list {
       display: flex;
       .friend-list-item {
@@ -1385,9 +1393,42 @@ figure.alignright {
     }
   }
 
-  &.page-template {
-    &.page-template-archieve {
+  &.page-template-tags {
+    .post-wrap {
+      margin-bottom: 50px;
+      //margin: 50px auto;
+      //text-align: justify;
+    }
 
+    .tag-cloud-link {
+      display: inline-block;
+      word-break: keep-all;
+      line-height: 1.2;
+      margin: 13px 3px;
+      padding: 2px 3px;
+      color: $text-not-primary-color;
+      border: none;
+      text-decoration: none;
+      @include font-fang-song;
+
+      &:hover {
+        color: $text-color;
+        transform: scale(1.2);
+        transition: transform 0.3s ease;
+        transform-origin: bottom center;
+        //font-weight: bold;
+        //text-shadow: 0 0 1px rgba(0, 0, 0, 0.6);
+      }
+
+      //@for $i from 1 through 5 {
+      //  &.tag-link-position-#{$i} {
+      //    color: darken($border-color, $i * 20%);
+      //  }
+      //}
+    }
+  }
+
+  &.page-template-archive {
       .post-title {
         @include font-kai;
         //color: #FFF;
@@ -1471,6 +1512,7 @@ figure.alignright {
               align-content: center;
               justify-content: center;
               align-items: center;
+              @include font-fang-song;
 
               &::before {
                 position: absolute;
@@ -1539,7 +1581,7 @@ figure.alignright {
           .year-title,
           .publish-time {
             font-weight: 600;
-            @include font-fang-song;
+            @include font-kai;
           }
         }
       }
@@ -1548,9 +1590,7 @@ figure.alignright {
         display: none;
       }
     }
-  }
 }
-
 
 .error404 {
   .post-wrap {
@@ -1621,34 +1661,6 @@ figure.alignright {
       box-shadow: 1px 2px 0 rgba(60, 64, 67, 0.3),
       0 2px 6px 2px rgba(60, 64, 67, 0.15);
     }
-  }
-}
-
-.page-template-tags {
-  .post-wrap {
-    padding: 50px 0;
-    //text-align: justify;
-  }
-
-  .tag-cloud-link {
-    display: inline-block;
-    word-break: keep-all;
-    line-height: 1;
-    margin: 10px 3px;
-    padding: 5px 3px;
-    color: $text-not-primary-color;
-    border: none;
-    text-decoration: none;
-
-    &:hover {
-      color: $text-color;
-    }
-
-    //@for $i from 1 through 5 {
-    //  &.tag-link-position-#{$i} {
-    //    color: darken($border-color, $i * 20%);
-    //  }
-    //}
   }
 }
 
@@ -1779,6 +1791,18 @@ figure.alignright {
       .comment-form-email,
       .comment-form-url {
         padding-right: 0;
+      }
+    }
+  }
+
+  .page {
+    &.page-template-tags {
+      .post-wrap {
+        padding: 0 25px;
+      }
+      .tag-cloud-link {
+        margin: 5px 3px;
+        padding: 2px 3px;
       }
     }
   }

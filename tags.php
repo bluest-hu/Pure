@@ -13,7 +13,7 @@
 <!--    </header>-->
     <?php wp_tag_cloud(array(
       'smallest'   => 16,
-      'largest'    => 64,
+      'largest'    => 48,
       'unit'       => 'px',
       'number'     => 0,
       'format'     => 'flat',

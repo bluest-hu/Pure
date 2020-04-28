@@ -70,13 +70,6 @@
   };
   ?>
   <?php wp_footer(); ?>
-
-    <!-- <script src="http://files.keyes.ie/things/baseliner/baseliner-latest.min.js"></script>
-    <script>
-    window.onload = function() {
-      Baseliner({height: 16});
-    }
-    </script> -->
   </body>
 </html>
 <!--total <?php echo esc_html(get_num_queries()); ?> query-->
