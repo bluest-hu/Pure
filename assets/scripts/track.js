@@ -58,7 +58,7 @@ class Track {
       // t: "pageview", // “pageview”、“screenview”、“event”、“transaction”、“item”、“social”、“exception”、“timing”
       // fl: "", // flash version
       // je: 0, // java version
-      ua: navigator.userAgent, // user agent
+      // ua: navigator.userAgent, // user agent
       dh: location.host, // document host
       ds: "web",
       dp: window.location.pathname,
@@ -103,9 +103,7 @@ class Track {
     if (navigator.sendBeacon) {
       navigator.sendBeacon(url, payload);
     } else {
-     
       const xhr = new XMLHttpRequest();
-
       xhr.open('post', url);
       // xhr.onload = () => {};
       xhr.send(payload);
@@ -174,9 +172,9 @@ class Track {
     const timingData = Track.getTimingData();
     const data = {
       t: "timing",
-      utv: "load",
-      utc: "Performence API",
-      utt: 0,
+      // utv: "load",
+      // utc: "performance",
+      // utt: 0,
       ...timingData
     };
     this.send(data);

@@ -8,7 +8,12 @@
  */
 
 get_header(); ?>
-<div class="post-wrap content-width">
-  <h1>404</h1>
-</div>
+<main class="main-content">
+  <div class="post-wrap content-width">
+    <h2 class="title">404 !!1</h2>
+    <p class="search-notice">你访问的内容不存在，或许你可以尝试下搜索功能 🔍</p>
+    <?php get_search_form(); ?>
+  </div>
+</main>
+
 <?php get_footer(); ?>

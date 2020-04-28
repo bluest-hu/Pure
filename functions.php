@@ -506,6 +506,7 @@ add_action('rest_api_init', function () {
 
       $_REQUEST['tid'] = get_option('pure_theme_google_analytics_id');
       $_REQUEST['cid'] = $uuid;
+      $_REQUEST['ua'] = $_SERVER['HTTP_USER_AGENT'] ;
       $_REQUEST['ip'] = get_real_ip();
 
       $post_data = '';
@@ -531,6 +532,9 @@ add_action('rest_api_init', function () {
         CURLOPT_POSTFIELDS => $post_data,
         CURLOPT_TCP_FASTOPEN => true,
         CURLOPT_HTTPHEADER => array(
+          'Accept-Encoding'=> 'gzip',
+          'cookie'=> $_COOKIE,
+          'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
         ),
       ));
 
@@ -545,8 +549,9 @@ add_action('rest_api_init', function () {
       } else {
         return array(
           'msg'  => 'ok',
-//        'body' => $_REQUEST,
-//        'res'  => $url . '?' . $post_data
+//          'body' => $_REQUEST,
+//          'res'  => $response,
+//          'res'  => $url . '?' . $post_data
         );
       }
     },

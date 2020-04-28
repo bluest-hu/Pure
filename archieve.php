@@ -68,7 +68,9 @@
                                title="<?php echo $post_value['title']; ?>" 
                                href="<?php echo $post_value['permalink']; ?>"><?php echo $post_value['title']; ?></a>
                             <span class="line"></span>
-                            <a class="comments" href="<?php echo $post_value['permalink']; ?>#comments" title=" echo $post_value['comments']; ?> 条评论"><?php echo $post_value['comments']; ?> reply</a>
+                            <a class="comments" 
+                               href="<?php echo $post_value['permalink']; ?>#comments" 
+                               title=" echo $post_value['comments']; ?> 条评论"><?php echo $post_value['comments']; ?> reply</a>
                           </li>
                         <?php endforeach ?>
                       </ol>

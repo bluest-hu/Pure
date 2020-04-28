@@ -803,6 +803,7 @@ figure.alignright {
     input[type="submit"] {
       height: 35px;
       display: inline-block;
+      appearance: none;
       -webkit-appearance: none;
       line-height: 35px;
       padding: 0;
@@ -1547,6 +1548,107 @@ figure.alignright {
         display: none;
       }
     }
+  }
+}
+
+
+.error404 {
+  .post-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 150px;
+  }
+
+  .search-notice {
+    margin-bottom: 15px;
+  }
+
+  .search-form {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+  .title {
+    font-weight: bold;
+    font-size: 10em;
+    padding:50px 0;
+    font-family: Arial;
+    text-align: center;
+    color: $text-not-primary-color;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.69);
+    //text-shadow: 0 1px rgba(0,0,0,0.9),
+    //             0 -1px #FFF;
+  }
+}
+
+.search-form {
+  .search-field {
+    height: 30px;
+    border: 1px solid $border-color;
+    margin-right: 10px;
+    padding: 5px;
+    width: 350px;
+
+    &:focus,
+    &:focus {
+      border-color: $text-not-primary-color;
+    }
+  }
+
+
+  .search-submit {
+    color: $text-not-primary-color;
+    border: 1px solid $text-not-primary-color;
+    display: inline-block;
+    padding: 0 1.25rem;
+    //line-height: 2.5rem;
+    text-decoration: none;
+    border-radius: 3px;
+    font-weight: bold;
+    height: 30px;
+    transition: background-color, color 0.3s ease-in-out;
+
+    &:hover {
+      color: #FFF;
+      background-color: $text-color;
+    }
+
+    &:focus {
+      // border-color: #174ea6;
+      // color: #174ea6;
+      box-shadow: 1px 2px 0 rgba(60, 64, 67, 0.3),
+      0 2px 6px 2px rgba(60, 64, 67, 0.15);
+    }
+  }
+}
+
+.page-template-tags {
+  .post-wrap {
+    padding: 50px 0;
+    //text-align: justify;
+  }
+
+  .tag-cloud-link {
+    display: inline-block;
+    word-break: keep-all;
+    line-height: 1;
+    margin: 10px 3px;
+    padding: 5px 3px;
+    color: $text-not-primary-color;
+    border: none;
+    text-decoration: none;
+
+    &:hover {
+      color: $text-color;
+    }
+
+    //@for $i from 1 through 5 {
+    //  &.tag-link-position-#{$i} {
+    //    color: darken($border-color, $i * 20%);
+    //  }
+    //}
   }
 }
 
