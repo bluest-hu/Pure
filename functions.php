@@ -419,11 +419,10 @@ add_action('custom_header_options', function () {
   wp_cache_set(PURE_THEME_MANIFEST_KEY, $manifest);
 });
 
-
-/**
- *  支持 service worker
- */
 add_action('rest_api_init', function () {
+  /**
+   *  支持 service worker
+   */
   register_rest_route('wp_theme_pure/v1', '/service-worker.js', array(
     'methods'  => WP_REST_Server::READABLE,
     'callback' => function () {
@@ -489,6 +488,9 @@ add_action('rest_api_init', function () {
     return $ip;
   }
 
+  /**
+   * 支持 ga 统计
+   */
   register_rest_route('wp_theme_pure/v1', '/ga', array(
     'methods'  => WP_REST_Server::ALLMETHODS,
     'callback' => function () {
