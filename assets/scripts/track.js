@@ -68,7 +68,7 @@ class Track {
       dr: encodeURIComponent(document.referrer), // referrer
       de: document.characterSet || document.charset || document.inputEncoding,
       // gclid: "", // 指定 Google Ads ID
-      sd: screen.colorDepth + "-bit", // screen depth
+      sd: `${screen.colorDepth}-bit`, // screen depth
       sr: `${screen.width}x${screen.height}`, // screen resolution
       vp: `${screen.availWidth}x${screen.availHeight}` // visible part
     };
