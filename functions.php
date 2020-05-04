@@ -421,11 +421,10 @@ add_action('custom_header_options', function () {
   wp_cache_set(PURE_THEME_MANIFEST_KEY, $manifest);
 });
 
-
-/**
- *  支持 service worker
- */
 add_action('rest_api_init', function () {
+  /**
+   *  支持 service worker
+   */
   register_rest_route('wp_theme_pure/v1', '/service-worker.js', array(
     'methods'  => WP_REST_Server::READABLE,
     'callback' => function () {
@@ -491,6 +490,9 @@ add_action('rest_api_init', function () {
     return $ip;
   }
 
+  /**
+   * 支持 ga 统计
+   */
   register_rest_route('wp_theme_pure/v1', '/ga', array(
     'methods'  => WP_REST_Server::ALLMETHODS,
     'callback' => function () {
@@ -498,7 +500,7 @@ add_action('rest_api_init', function () {
       header('status: 204');
       header('cache-control: no-cache, no-store, must-revalidate');
       header('pragma: no-cache');
-      
+
       if (!isset($_COOKIE[PURE_THEME_TRACK_UUID_KEY])) {
         $uuid = create_uuid();
         setcookie(PURE_THEME_TRACK_UUID_KEY, $uuid , time()+368400000);
@@ -509,7 +511,7 @@ add_action('rest_api_init', function () {
       $_REQUEST['tid'] = get_option('pure_theme_google_analytics_id');
       $_REQUEST['cid'] = $uuid;
       $_REQUEST['ua'] = $_SERVER['HTTP_USER_AGENT'] ;
-      $_REQUEST['ip'] = get_real_ip();
+      $_REQUEST['uip'] = get_real_ip();
 
       $post_data = '';
       foreach($_REQUEST as $key => $value) {
@@ -521,7 +523,7 @@ add_action('rest_api_init', function () {
       if (function_exists("fastcgi_finish_request")) {
         fastcgi_finish_request(); // 对于 fastcgi 会提前返回请求结果，提高响应速度。
       }
-     
+
       $curl = curl_init();
       curl_setopt_array($curl, array(
         CURLOPT_URL => $url,
@@ -543,6 +545,10 @@ add_action('rest_api_init', function () {
       $response = curl_exec($curl);
       $err = curl_error($curl);
       curl_close($curl);
+
+//      return array(
+//        'ip' => get_real_ip(),
+//      );
 
       if ($err) {
         return array(
