@@ -179,7 +179,9 @@ add_action('after_setup_theme', function () {
     'comment-form',
     'comment-list',
     'gallery',
-    'caption'
+    'caption',
+    'script',
+    'style',
   ));
 
   // 缩略图
