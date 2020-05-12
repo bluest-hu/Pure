@@ -43,10 +43,12 @@ if (!isset($content_width)) {
       <?php include(get_stylesheet_directory() . '/dist/main.min.css');?>
     </style>
     <?php
-
-    // echo get_header_textcolor();
-    add_editor_style(); 
+    add_editor_style();
     ?>
+    <input type="hidden"
+           id="googleAnalyticsId"
+           value="<?php echo get_option('pure_theme_google_analytics_id')?>" />
+    <?php get_template_part('dist/footer_script'); ?>
   </head>
 
   <noscript>
@@ -54,9 +56,6 @@ if (!isset($content_width)) {
   </noscript>
 
   <body <?php body_class('font-song'); ?>>
-    <input type="hidden"
-           id="googleAnalyticsId"
-           value="<?php echo get_option('pure_theme_google_analytics_id')?>" />
     <header class="main-header">
       <div class="custom-header-background-image"
            id="customHeaderBackgroundImage"></div>

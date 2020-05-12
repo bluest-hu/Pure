@@ -13,51 +13,82 @@
     </div>
   </footer>
 
+  <div class="sw-update-notice" id="swUpdateNotice">
+    ☞ 站点内容发生了更新
+    <br>
+    请点击获取最新内容！
+  </div>
+
   <script>
+    const dom = document.getElementById('swUpdateNotice');
+
     if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          // 防止爬虫在抓抓取的时候 sw 注册失败产生错误
-          if (location.protocol !== 'https:' && 
-            (location.hostname !== '127.0.0.1' && location.hostname !== 'localhost')) {
-            return false;
-          }
+      dom.addEventListener('click', () => {
+        try {
+          dom.style.display = 'none';
+          window.location.reload();
+          navigator.serviceWorker.getRegistration().then(reg => {
+            reg.waiting.postMessage("skipWaiting");
+          });
+        } catch (e) {
+          window.location.reload();
+        }
+      })
 
-          const isLogin = (<?php echo is_user_logged_in() ? 'true' : 'false' ;?>);
-          const serviceWorker = navigator.serviceWorker;
+      function showSWUpdateNotice() {
+        if (dom) {
+          dom.style.display = 'inline-block';
+        }
+      }
 
-          serviceWorker.register('/wp-json/wp_theme_pure/v1/service-worker.js', {scope: '/'})
-            .then(function(registration) {
-                // console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                if (isLogin) {
-                  registration.unregister().then(function (flag) {
-                    console.log('user is login, ServiceWorker unregister ' + (flag ? 'success' : 'fail'));
-                  });
-                }
+      window.addEventListener('load', function() {
+        // 防止爬虫在抓抓取的时候 sw 注册失败产生错误
+        if (location.protocol !== 'https:' &&
+          (location.hostname !== '127.0.0.1' && location.hostname !== 'localhost')) {
+          return false;
+        }
+        //  这是有问题的
+        const isLogin = (<?php echo is_user_logged_in() ? 'true' : 'false' ;?>);
+        const serviceWorker = navigator.serviceWorker;
 
-                // need update
-                registration.addEventListener('updatefound', () => {
-                  const newWorker = registration.installing;
+        console.log(serviceWorker)
 
-                  newWorker.addEventListener('statechange', () => {
-                    if (newWorker.state === 'installed') {
-                      if (navigator.serviceWorker.controller) {
-                        // todo 
-                        //const result = confirm('页面更新啦是否更新？');
+        serviceWorker.register('/wp-json/wp_theme_pure/v1/service-worker.js', {scope: '/'})
+          .then(function(registration) {
+              // console.log('ServiceWorker registration successful with scope: ', registration.scope);
+              if (isLogin) {
+                registration.unregister().then(function (flag) {
+                  console.log('user is login, ServiceWorker unregister ' + (flag ? 'success' : 'fail'));
+                });
+              }
 
-                        // if (result) {
-                        //   window.location.href.reload();
-                        // }
-                      }
+              // if (registration.waiting) {
+              //   showSWUpdateNotice();
+              //   return;
+              // }
+
+              // need update
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed') {
+                    if (navigator.serviceWorker.controller) {
+                      showSWUpdateNotice();
                     }
-                  });
-              });
-            }).catch(function(err) {
-                console.log('ServiceWorker registration failed: ', err);
+                  }
+                });
             });
+          }).catch(function(err) {
+              console.log('ServiceWorker registration failed: ', err);
+          });
+
+        serviceWorker.addEventListener('controllerchange', function () {
+          window.location.reload();
         });
+      });
     }
   </script>
-  <?php get_template_part('dist/footer_script'); ?>
   <?php
   if (is_single()) {
     if (get_option('pure_theme_single_ads_script') != '') {

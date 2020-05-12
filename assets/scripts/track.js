@@ -20,14 +20,18 @@ class Track {
 
     const self = this;
 
-    if (this.logexception === true) {
-      window.addEventListener("error", event => {
-        self.doLogException(event.message);
-      });
-    }
-
     if (this.logPageView === true) {
       self.doLogView();
+    }
+
+    if (this.logexception === true) {
+      window.addEventListener('error', event => {
+        self.doLogException(event.message);
+      });
+
+      window.addEventListener('unhandledrejection', event => {
+        self.doLogException(event.message);
+      });
     }
 
     if (this.logTiming === true) {
@@ -105,7 +109,9 @@ class Track {
     } else {
       const xhr = new XMLHttpRequest();
       xhr.open('post', url);
-      // xhr.onload = () => {};
+      xhr.onload = () => {
+        console.log('send success');
+      };
       xhr.send(payload);
     }
   }
@@ -172,9 +178,6 @@ class Track {
     const timingData = Track.getTimingData();
     const data = {
       t: "timing",
-      // utv: "load",
-      // utc: "performance",
-      // utt: 0,
       ...timingData
     };
     this.send(data);

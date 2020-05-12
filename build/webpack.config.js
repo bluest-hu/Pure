@@ -102,7 +102,7 @@ module.exports = (env, argv) => {
         swDest: 'service-worker.js',
         // swDest: 'service-worker',
         offlineGoogleAnalytics: true,
-        // clientsClaim: false,
+        // clientsClaim: true,
         // skipWaiting: false,
         sourcemap: isDevMode,
         cleanupOutdatedCaches: true,

@@ -1113,6 +1113,9 @@ figure.alignright {
       height: 20px;
       margin-bottom: 5px;
       font-size: 0;
+      display: flex;
+      line-height: 1;
+      //background-color: red;
 
       .fn,
       .says {
@@ -1121,7 +1124,8 @@ figure.alignright {
         line-height: 20px;
         display: inline-block;
         color: $text-not-primary-color;
-        transform: translateY(4px);
+        //transform: translateY(4px);
+        //background-color: #333;
 
         a {
           color: inherit;
@@ -1132,7 +1136,7 @@ figure.alignright {
         margin-left: 5px;
         font-size: 12px;
         color: #666666;
-        vertical-align: baseline;
+        @include font-song;
       }
 
       .avatar {
@@ -1150,6 +1154,7 @@ figure.alignright {
       height: 15px;
       font-size: 14px;
       line-height: 1;
+      margin-left: 50px;
       a,
       time {
         font-size: 12px;
@@ -1398,6 +1403,7 @@ figure.alignright {
 
   &.page-template-page-tags {
     .post-wrap {
+      margin-top: 50px;
       margin-bottom: 50px;
       //margin: 50px auto;
       //text-align: justify;
@@ -1413,6 +1419,12 @@ figure.alignright {
       border: none;
       text-decoration: none;
       @include font-fang-song;
+
+      .tag-link-count {
+        font-size: 12px;
+        vertical-align: super;
+        color: $text-not-primary-color;
+      }
 
       &:hover {
         color: $text-color;
@@ -1669,6 +1681,70 @@ figure.alignright {
   }
 }
 
+.sw-update-notice {
+  position: fixed;
+  background-color: $text-not-primary-color;
+  color: #FFF;
+  top: 250px;
+  padding: 10px;
+  border-radius: 0 2px 2px 0;
+  left: 0;
+  display: inline-block;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+  display: none;
+}
+
+@media screen and (max-width: $content-width) {
+  .comments-area {
+    .comment-form {
+      .comment-form-comment {
+        width: auto;
+        float: none;
+
+        label {
+          width: 80px;
+        }
+      }
+
+      .comment-form-author,
+      .comment-form-email,
+      .comment-form-url {
+        padding-right: 0;
+      }
+    }
+  }
+
+  .page {
+    &.page-template-page-tags {
+      .post-wrap {
+        padding: 0 25px;
+      }
+      .tag-cloud-link {
+        margin: 5px 3px;
+        padding: 2px 3px;
+      }
+    }
+
+    &.page-template-page-archive {
+      .post-entry {
+        margin-left: -20px;
+      }
+    }
+
+    #pagesNav {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .admin-bar {
+    .main-header {
+      margin-top: -46px;
+    }
+  }
+}
+
 @media screen and (max-width: 640px) {
   .main-header {
     //min-height: 200px;
@@ -1777,56 +1853,5 @@ figure.alignright {
   .main-header .custom-header-background-image {
     padding-bottom: 50%;
     background-size: cover;
-  }
-}
-
-@media screen and (max-width: $content-width) {
-  .comments-area {
-    .comment-form {
-      .comment-form-comment {
-        width: auto;
-        float: none;
-
-        label {
-          width: 80px;
-        }
-      }
-
-      .comment-form-author,
-      .comment-form-email,
-      .comment-form-url {
-        padding-right: 0;
-      }
-    }
-  }
-
-  .page {
-    &.page-template-page-tags {
-      .post-wrap {
-        padding: 0 25px;
-      }
-      .tag-cloud-link {
-        margin: 5px 3px;
-        padding: 2px 3px;
-      }
-    }
-
-    &.page-template-page-archive {
-      .post-entry {
-        margin-left: -20px;
-      }
-    }
-
-    #pagesNav {
-      display: none;
-    }
-  }
-}
-
-@media screen and (max-width: 782px) {
-  .admin-bar {
-    .main-header {
-      margin-top: -46px;
-    }
   }
 }

@@ -26,7 +26,7 @@
       'taxonomy'   => 'post_tag',
       'post_type'  => '',
       'echo'       => true,
-      'show_count' => 0,
+      'show_count' => 1,
     ));?>
   </div>
 </main>
