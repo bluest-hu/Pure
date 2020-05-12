@@ -88,7 +88,7 @@ add_action('wp_head', function () {
     foreach (wp_get_post_tags($post_id) as $tag) {
       array_push($blog_keywords, $tag->name);
     }
-    $blog_keywords = join($blog_keywords, ',');
+    $blog_keywords = join(',', $blog_keywords);
     $blog_author   = get_the_author_meta('display_name', $post_author_id);
   } else if (is_tag()) {
     $blog_keywords    = single_tag_title('', false);
