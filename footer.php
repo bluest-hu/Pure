@@ -51,8 +51,6 @@
         const isLogin = (<?php echo is_user_logged_in() ? 'true' : 'false' ;?>);
         const serviceWorker = navigator.serviceWorker;
 
-        console.log(serviceWorker)
-
         serviceWorker.register('/wp-json/wp_theme_pure/v1/service-worker.js', {scope: '/'})
           .then(function(registration) {
               // console.log('ServiceWorker registration successful with scope: ', registration.scope);

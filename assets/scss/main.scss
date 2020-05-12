@@ -388,7 +388,7 @@ figure.alignright {
     display: flex;
     align-items: center;
     justify-content: center;
-    @include font-kai;
+    @include font-fang-song;
 
     a {
       color: inherit;
@@ -427,6 +427,7 @@ figure.alignright {
       font-size: 13px;
       line-height: 1;
       margin-top: 2px;
+      @include font-hei;
     }
 
     .author-name {

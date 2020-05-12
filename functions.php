@@ -538,7 +538,7 @@ add_action('rest_api_init', function () {
         CURLOPT_HTTPHEADER => array(
           'Accept-Encoding'=> 'gzip',
           'cookie'=> $_COOKIE,
-          'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
+          'User-Agent' => $_SERVER['HTTP_USER_AGENT'] . '',
         ),
       ));
 
@@ -557,6 +557,7 @@ add_action('rest_api_init', function () {
       } else {
         return array(
           'msg'  => 'ok',
+//          'a' => $_SERVER['HTTP_USER_AGENT'],
 //          'body' => $_REQUEST,
 //          'res'  => $response,
 //          'res'  => $url . '?' . $post_data
