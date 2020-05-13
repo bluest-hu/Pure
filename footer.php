@@ -19,6 +19,11 @@
     请点击获取最新内容！
   </div>
 
+  <input type="hidden"
+         id="googleAnalyticsId"
+         value="<?php echo get_option('pure_theme_google_analytics_id')?>" />
+  <?php get_template_part('dist/footer_script'); ?>
+
   <script>
     const dom = document.getElementById('swUpdateNotice');
 
@@ -50,8 +55,6 @@
         //  这是有问题的
         const isLogin = (<?php echo is_user_logged_in() ? 'true' : 'false' ;?>);
         const serviceWorker = navigator.serviceWorker;
-
-        console.log(serviceWorker)
 
         serviceWorker.register('/wp-json/wp_theme_pure/v1/service-worker.js', {scope: '/'})
           .then(function(registration) {

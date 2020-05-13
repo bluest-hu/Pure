@@ -33,7 +33,7 @@ function new_avatar($avatar) {
    * https://gravatar.loli.net/avatar/
    * https://dn-qiniu-avatar.qbox.me/avatar/
    */
-  $replace_url = "https://dn-qiniu-avatar.qbox.me/avatar/";
+  $replace_url = "https://gravatar.loli.net/avatar/";
   $avatar = preg_replace("#(?:http|https):\/\/(secure|\d).gravatar.com\/avatar\/#", $replace_url, $avatar);
   return $avatar;
 }
@@ -512,6 +512,10 @@ add_action('rest_api_init', function () {
       $_REQUEST['cid'] = $uuid;
       $_REQUEST['ua'] = $_SERVER['HTTP_USER_AGENT'] ;
       $_REQUEST['uip'] = get_real_ip();
+      $user_email = $_COOKIE[ 'comment_author_email_' . COOKIEHASH ];
+      if ($user_email) {
+        $_REQUEST['uid'] = $user_email;
+      }
 
       $post_data = '';
       foreach($_REQUEST as $key => $value) {
