@@ -431,7 +431,7 @@ figure.alignright {
       font-size: 13px;
       line-height: 1;
       margin-top: 2px;
-      @include font-hei;
+      font-family: sans-serif;
     }
 
     .author-name {
@@ -790,7 +790,9 @@ figure.alignright {
 
   :not(pre) > code[class*="language-"],
   pre[class*="language-"] {
-    background: rgba(245, 242, 240, 0.2) !important;
+    background: transparent !important;
+    box-shadow: 0 0 3px #00000038;
+    border: none;
   }
 
   .post-password-form {
@@ -1171,8 +1173,17 @@ figure.alignright {
       }
     }
   }
+  .children {
+    .comment-respond {
+      border-radius: 2px;
+      box-shadow: 0 0 2px #00000038;
+      padding: 0 15px 1px 15px;
+      box-sizing: border-box;
+    }
+  }
 
   .comment-respond {
+
     .comment-reply-title {
       font-size: 30px;
       padding: 10px 0;
@@ -1697,7 +1708,6 @@ figure.alignright {
   padding: 10px;
   border-radius: 0 2px 2px 0;
   left: 0;
-  display: inline-block;
   box-shadow: 0 0 2px rgba(0,0,0,0.3);
   display: none;
 }
