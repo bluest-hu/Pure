@@ -63,7 +63,7 @@
                       <ol class="post-list">
                         <?php foreach ($month_value as $post => $post_value) : ?>
                           <li class="post-list-item">
-                            <time class="publish-time"><?php echo $post_value['publish_date']; ?>日</time>
+                            <time class="publish-time"><?php echo $post_value['publish_date']; ?><span class="unit">日</span></time>
                             <a class="title" 
                                title="<?php echo $post_value['title']; ?>" 
                                href="<?php echo $post_value['permalink']; ?>"><?php echo $post_value['title']; ?></a>
