@@ -229,7 +229,35 @@ module.exports = (env, argv) => {
           },
           {
             urlPattern: /^(?:http|https):\/\/static.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:js|css)(?:|\?(?:[^\/]*)))$/g,
-            handler: 'StaleWhileRevalidate',
+            handler: 'CacheFirst',
+            options: {
+              fetchOptions: {
+                mode: 'no-cors',
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              },
+            }
+          },
+          {
+            urlPattern: /^(?:http|https):\/\/asset.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:jpg|jpeg|png|gif|webp|mp3|svg)(?:|\?(?:[^\/]*)))$/g,
+            handler: 'CacheFirst',
+            options: {
+              fetchOptions: {
+                mode: 'no-cors',
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              },
+              expiration: {
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+              cacheName: 'pure-theme-cache-cdn-static',
+            }
+          },
+          {
+            urlPattern: /^(?:http|https):\/\/asset.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:js|css)(?:|\?(?:[^\/]*)))$/g,
+            handler: 'CacheFirst',
             options: {
               fetchOptions: {
                 mode: 'no-cors',

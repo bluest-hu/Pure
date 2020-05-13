@@ -19,6 +19,11 @@
     请点击获取最新内容！
   </div>
 
+  <input type="hidden"
+         id="googleAnalyticsId"
+         value="<?php echo get_option('pure_theme_google_analytics_id')?>" />
+  <?php get_template_part('dist/footer_script'); ?>
+
   <script>
     const dom = document.getElementById('swUpdateNotice');
 
