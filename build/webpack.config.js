@@ -267,6 +267,16 @@ module.exports = (env, argv) => {
               },
             }
           },
+          {
+            urlPattern: /\/wp-json\/wp_theme_pure\/v1\/manifest.json\$/,
+            handler: 'CacheFirst',
+            options: {
+              expiration: {
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+              cacheName: 'pure-theme-cache-manifest',
+            },
+          },
           // 缓存 Gavatar
           {
             urlPattern: /^(?:http|https):\/\/([0-9]|secure).gravatar.com\/avatar\//,
