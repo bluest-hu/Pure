@@ -68,6 +68,10 @@ h6 {
   }
 
   & table {
+    th,
+    td {
+      line-height: 1.2;
+    }
     table {
       margin-bottom: 5px;
       margin-top: 5px;
@@ -735,14 +739,13 @@ figure.alignright {
   }
 
   code {
-    padding: 0px 5px;
+    padding: 0 5px;
     //margin: 0 2px;
     box-sizing: border-box;
     border-radius: 4px;
     background-color: rgba(245, 242, 240, 0.2);
     border: 1px solid #eee;
-    box-sizing: border-box;
-    // word-break: break-word;
+    word-break: keep-all;
   }
 
   a.more-link {
@@ -1470,6 +1473,10 @@ figure.alignright {
 
           $space: 80px;
 
+          .unit {
+            @include font-kai;
+          }
+
           .month-title,
           .year-title {
             margin: 0;
@@ -1597,7 +1604,7 @@ figure.alignright {
           .year-title,
           .publish-time {
             font-weight: 600;
-            @include font-kai;
+            font-family: serif, Georgia,Nimbus Roman No9 L,Songti SC,"Noto Serif CJK SC","Source Han Serif SC","Source Han Serif CN",STSong,AR PL New Sung,AR PL SungtiL GB,NSimSun,SimSun,TW\\-Sung,WenQuanYi Bitmap Song,AR PL UMing CN,AR PL UMing HK,AR PL UMing TW,AR PL UMing TW MBE,PMingLiU,MingLiU,serif;
           }
         }
       }

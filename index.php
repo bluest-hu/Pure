@@ -70,9 +70,11 @@
           </div>
 
           <footer class="entry-footer">
+            <?php if (is_single() && get_the_tags()) : ?>
             <div class="post-meta post-tags-wrap">
               <?php the_tags('', '', ''); ?>
             </div>
+            <?php endif ?>
 
             <?php if (is_single() || is_page()) : ?>
               <div class="end">
@@ -103,9 +105,9 @@
       </div>
     </article>
   <?php endif; ?>
+  <?php
 
-  <nav class="pages-nav font-kai" id="pagesNav">
-    <?php echo paginate_links(array(
+    $pageNav = paginate_links(array(
       'type'               => 'list',
       'show_all'           => false,
       'prev_next'          => true,
@@ -115,8 +117,14 @@
       'add_fragment'       => '',
       'before_page_number' => '',
       'after_page_number'  => ''
-    )); ?>
-  </nav>
+    ));
+  ?>
+
+  <?php if ($pageNav): ;?>
+    <nav class="pages-nav font-kai" id="pagesNav">
+      <?php echo $pageNav ;?>
+    </nav>
+  <?php endif; ?>
 </main>
 
 <?php get_footer(); ?>

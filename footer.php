@@ -87,7 +87,7 @@
           });
 
         serviceWorker.addEventListener('controllerchange', function () {
-          window.location.reload();
+          showSWUpdateNotice();
         });
       });
     }
