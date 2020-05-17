@@ -70,8 +70,7 @@ class Track {
       dl: encodeURIComponent(location.href), // document location
       dt: encodeURIComponent(document.title),
       dr: encodeURIComponent(document.referrer), // referrer
-      de: document.characterSet || document.charset || document.inputEncoding,
-      // gclid: "", // 指定 Google Ads ID
+      de: (document.characterSet || document.charset || document.inputEncoding).toLowerCase(),
       sd: `${screen.colorDepth}-bit`, // screen depth
       sr: `${screen.width}x${screen.height}`, // screen resolution
       vp: `${screen.availWidth}x${screen.availHeight}` // visible part
