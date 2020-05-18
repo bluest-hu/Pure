@@ -52,7 +52,7 @@
           (location.hostname !== '127.0.0.1' && location.hostname !== 'localhost')) {
           return false;
         }
-        //  这是有问题的
+        //  todo 这是有问题的
         const isLogin = (<?php echo is_user_logged_in() ? 'true' : 'false' ;?>);
         const serviceWorker = navigator.serviceWorker;
 
