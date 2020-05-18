@@ -432,6 +432,8 @@ add_action('rest_api_init', function () {
       header_remove("Content-Type");
       header('Content-Type: application/javascript');
       header('Service-Worker-Allowed: /');
+      header('cache-control: no-cache, no-store, must-revalidate');
+      header('pragma: no-cache');
 
       $filePath = get_stylesheet_directory() . '/dist/service-worker.js';
 
@@ -451,6 +453,7 @@ add_action('rest_api_init', function () {
     'methods'  => WP_REST_Server::READABLE,
     'callback' => function () {
       header('Content-Type: application/manifest+json');
+      header('Cache-Control:max-age=86400');
       $manifest = wp_cache_get(PURE_THEME_MANIFEST_KEY);
 
       if (!$manifest) {
