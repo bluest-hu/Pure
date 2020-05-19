@@ -340,6 +340,7 @@ figure.alignright {
 
     &.current_page_item,
     &.current-menu-item,
+    &.current-category-ancestor,
     &:hover {
       a {
         color: #fff;
@@ -348,6 +349,7 @@ figure.alignright {
     }
 
     &.current_page_item,
+    &.current-category-ancestor,
     &.current-menu-item {
       font-weight: bold;
     }
@@ -559,9 +561,12 @@ figure.alignright {
 
 
 .post-entry {
-  font-size: 1.125rem;
+  font-size: 18px;
   margin: 50px 0;
   word-break: break-all;
+  text-align: justify;
+  text-justify: inter-character;
+  text-rendering: optimizeLegibility;
 
   h1,
   h2,
@@ -584,6 +589,7 @@ figure.alignright {
   a {
     color: inherit;
     border-color: $text-not-primary-color;
+    word-break: break-all;
 
     &:hover {
       color: $link-primary-color;
@@ -595,6 +601,8 @@ figure.alignright {
     color: #666;
     border-left-width: 3px;
     border-left-color: $border-color;
+    @include font-kai;
+    font-size: 20px;
   }
 
   video,
@@ -727,7 +735,8 @@ figure.alignright {
     border-radius: 5px;
     background-color: #f8f8f8;
     overflow: auto;
-    font-size: 14px;
+    // font-size: 16px;
+    font-family: Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;
 
     code {
       padding: unset;
@@ -735,17 +744,21 @@ figure.alignright {
       background: unset;
       border-radius: unset;
       box-shadow: none;
+      font-size: 15px;
+      font-family: inherit;
+      font-family: Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;
     }
   }
 
   code {
     padding: 0 5px;
-    //margin: 0 2px;
     box-sizing: border-box;
-    border-radius: 4px;
-    background-color: rgba(245, 242, 240, 0.2);
-    border: 1px solid #eee;
+    border-radius: 2px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.6);
     word-break: keep-all;
+    background-color: rgba(245, 242, 240, 0.2);
+    // font-size: 0.9em;
+    @include font-hei;
   }
 
   a.more-link {
@@ -1345,19 +1358,12 @@ figure.alignright {
       display: flex;
       align-items: center;
 
-      // .arrow {
-      //   float: left;
-      // }
-
-      // &.next-nav-item {
-      //   .arrow {
-      //     float: right;
-      //   }
-      // }
-
       a {
         font-weight: bold;
         margin: 0 10px;
+        word-break: break-all;
+        // text-align: justify;
+        // text-justify: newspaper;
       }
     }
 
@@ -1815,7 +1821,7 @@ figure.alignright {
   }
 
   .post-entry {
-    font-size: 15px;
+    // font-size: 15px;
 
     table {
       max-width: 100%;

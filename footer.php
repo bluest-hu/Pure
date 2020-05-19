@@ -3,7 +3,7 @@
     <div class="footer-content">
       Powered by <a href="https://wordpress.org/"
                     title="code is poetry">WordPress</a><br>
-      Theme <a href="<?php echo esc_html($theme_info->display('ThemeURI')); ?>"><?php echo esc_html($theme_info->display('Name')); ?></a>
+     ♥︎ Theme <a href="<?php echo esc_html($theme_info->display('ThemeURI')); ?>"><?php echo esc_html($theme_info->display('Name')); ?></a>
 
       v<?php echo esc_html($theme_info->display('Version')); ?> by <?php echo $theme_info->display('Author'); ?>
       <br>
