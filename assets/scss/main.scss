@@ -1812,7 +1812,7 @@ figure.alignright {
       margin-top: 30px;
       margin-bottom: 30px;
       .post-title {
-        font-size: 30px;
+        font-size: 2em;
       }
     }
     .hentry {
@@ -1821,7 +1821,7 @@ figure.alignright {
   }
 
   .post-entry {
-    // font-size: 15px;
+    font-size: 16px;
 
     table {
       max-width: 100%;
@@ -1855,6 +1855,25 @@ figure.alignright {
     }
   }
 
+  .pages-nav .page-numbers  {
+    .page-numbers, 
+    a,
+    span {
+      font-size: 16px;
+    }
+
+    .page-numbers {
+      min-width: 20px;
+      line-height: 20px;
+      height: 20px;
+      margin: 0 1px;
+      // width: 25px;
+      // height: 25px;
+      // line-height: 25px;
+    }
+  }
+ 
+
   #jsToc {
     display: none;
   }
@@ -1866,13 +1885,13 @@ figure.alignright {
       margin-top: 0;
 
       .home-link {
-        font-size: 35px;
+        font-size: 40px;
       }
     }
   }
 
   .main-content .post .post-title {
-    font-size: 30px;
+    // font-size: 30px;
   }
   .main-header .custom-header-background-image {
     padding-bottom: 50%;
