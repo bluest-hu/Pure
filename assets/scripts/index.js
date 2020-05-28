@@ -1,7 +1,7 @@
 import "../../../../../wp-includes/js/wp-embed.js";
 import LazyLoad from "./lazyLoad.js";
 import Track from './track.js';
-import toc from "./toc.js";
+// import toc from "./toc.js";
 import "../scss/main.scss";
 // import loader from './auto-loader';
 
@@ -27,6 +27,13 @@ document.addEventListener("DOMContentLoaded", () => {
        
     });
   }
-  // gen TOC
-  toc();
+
+    // 判断
+    const tocDom = document.getElementById("jsToc");
+  
+    if (tocDom) {
+      import('./toc').then(({default: toc}) => {
+        toc();
+      });
+    }
 });
