@@ -3,9 +3,7 @@ import LazyLoad from "./lazyLoad.js";
 import Track from './track.js';
 import toc from "./toc.js";
 import "../scss/main.scss";
-import loader from './auto-loader';
-
-
+// import loader from './auto-loader';
 
 // 添加一个 tracker
 new Track();
@@ -22,11 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
       /* webpackMode: "lazy" */
       'prismjs'
       ).then(Prism => {
-       
-        console.log(Prism)
-        Prism.hooks.add('complete', function (env) {
-          loader(env.language);
+        import('prismjs/plugins/autoloader/prism-autoloader.js').then(() => {
+          Prism.plugins.autoloader.languages_path = '/wp-content/themes/pure/dist/prism-lan/';
+          Prism.highlightAll();
         });
+       
     });
   }
   // gen TOC

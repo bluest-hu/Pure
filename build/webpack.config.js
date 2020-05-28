@@ -7,6 +7,7 @@ const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerP
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const CopyPlugin = require('copy-webpack-plugin');
 
 /**
  * @deprecated 不需要再依赖 git hash 作为更新的 key 值
@@ -320,11 +321,27 @@ module.exports = (env, argv) => {
           }
         ],
       }),
-        new HtmlWebpackPlugin({
+      new HtmlWebpackPlugin({
         filename: 'footer_script.php',
         template: './template/footer_script.ejs',
         inject: false,
         minify: true,
+      }),
+      new CopyPlugin({
+        patterns: [
+          {
+            from: path.resolve(__dirname, '../node_modules/prismjs/components/*.min.js'),
+            to: path.resolve(__dirname, '../dist/prism-lan/[name].[ext]'),
+            toType: 'template',
+            // transform(content, path) {
+            //   return optimize(content);
+            // },
+            // cacheTransform: {
+            //   directory: path.resolve(__dirname, '../dist/prism-lan'),
+            //   key: process.version,
+            // },
+          }
+        ]
       }),
     ],
     performance: {
