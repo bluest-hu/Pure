@@ -16,6 +16,10 @@ if (!isset($content_width)) {
     <meta name="theme-color" content="#1a73e8">
     <meta name="referrer" content="always">
     <link rel="preload" as="image" href="<?php header_image(); ?>"/>
+    <link rel="preconnect" href="https://static.bluest.xyz/">
+    <link rel="dns-prefetch" href="https://static.bluest.xyz/">
+    <link rel="preconnect" href="https://gravatar.bluest.xyz/">
+    <link rel="dns-prefetch" href="https://gravatar.bluest.xyz/">
     <?php
     wp_meta();
     wp_head();

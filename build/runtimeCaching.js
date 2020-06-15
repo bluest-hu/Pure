@@ -9,6 +9,15 @@ const runtimeCaching = [
     },
   },
   {
+    urlPattern: /\/wp-json\/wp_theme_pure\/v1\/manifest.json$/,
+    handler: 'NetworkOnly',
+    options: {
+      matchOptions: {
+        ignoreSearch: false,
+      },
+    },
+  },
+  {
     urlPattern: /\.(?:png|jpg|jpeg|svg|webp)/,
     handler: 'CacheFirst',
     options: {
@@ -97,7 +106,7 @@ const runtimeCaching = [
   },
   // CDN 图片
   {
-    urlPattern: /^(?:http|https):\/\/static.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:jpg|jpeg|png|gif|webp|mp3|svg)(?:|\?(?:[^\/]*)))$/g,
+    urlPattern: /^(?:http|https):\/\/static.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:jpg|jpeg|png|gif|webp|mp3|svg)(?:|\?(?:[^\/]*)))/g,
     handler: 'CacheFirst',
     options: {
       fetchOptions: {

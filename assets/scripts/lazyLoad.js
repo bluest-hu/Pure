@@ -1,16 +1,13 @@
 import { raf } from "./raf.js";
 import checkSupportWebP from './checkWebP';
 
-
-
 class LazyLoad {
   constructor(selector) {
-
     this.targetElements = Array.from(document.querySelectorAll(selector));
     this.shouldPass = false;
     // 默认不开启浏览器自带的 lazy loading
     this.nativeLazyLoadingFlag = false;
-    console.log(this.supprtWebP());
+    const self = this;
 
     if ('loading' in HTMLImageElement.prototype && this.nativeLazyLoadingFlag) {
       this.targetElements.forEach(image => {
@@ -25,8 +22,9 @@ class LazyLoad {
             if (change.intersectionRatio > 0) {
               const image = change.target;
               const { src } = image.dataset;
+              image.decoding = 'async';
               if (image && src) {
-                image.src = src;
+                self.changeSrc(image, src)
               }
               io.unobserve(image);
             }
@@ -34,7 +32,6 @@ class LazyLoad {
         },
         {
           rootMargin: "0px 0px 0px 0px"
-          // threshold: 0.01
         }
       );
 
@@ -53,8 +50,21 @@ class LazyLoad {
     URL = URL.lastIndexOf('?') !== -1 ? `${URL}?` : URL;
   }
 
-  async supprtWebP() {
-    return await checkSupportWebP('lossy').catch(() => false);
+   changeSrc(image, src) {
+    const hasQuery = src.lastIndexOf('?') > -1;
+
+    if (src.lastIndexOf('.svg') > -1) {
+      image.src = src;
+      return ;
+    }
+
+    checkSupportWebP('lossy')
+      .then(() => {
+        image.src = `${src}${hasQuery ? '&' : '?'}imageView2/0/format/webp`;
+      })
+      .catch(() => {
+        image.src = src;
+      });
   }
 
   check() {

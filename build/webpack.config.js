@@ -43,10 +43,8 @@ function replaceVersionCode() {
 
 module.exports = (env, argv) => {
   const isDevMode = (env.NODE_ENV !== 'production');
-  console.log('NODE_ENV: ', env, argv);
+  // console.log('NODE_ENV: ', env, argv);
   console.log(`当前的开发模式为：${isDevMode ? 'dev' : 'production'}`);
-
-
 
   return {
     name: 'wp-theme-pure',

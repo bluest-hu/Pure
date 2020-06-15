@@ -17,7 +17,11 @@
     //     "theme": "",
     //     "css": true
     // }]
-    "@babel/plugin-transform-runtime"
+    [
+      "@babel/plugin-transform-runtime",
+      {
+      }
+    ]
     // "syntax-dynamic-import", 
     // "transform-class-properties"
   ]

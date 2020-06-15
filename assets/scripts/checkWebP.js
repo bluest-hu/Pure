@@ -13,7 +13,7 @@ const check_webp_feature = (feature, callback = () => {}) => {
   return new Promise((reslove, reject) => {
     if (resultCache[feature] !== undefined) {
       if (resultCache[feature]) {
-        reslove(feature) 
+        reslove(feature);
       } else {
         reject(feature); 
       }
