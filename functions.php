@@ -33,7 +33,7 @@ function new_avatar($avatar) {
    * https://gravatar.loli.net/avatar/
    * https://dn-qiniu-avatar.qbox.me/avatar/
    */
-  $replace_url = "https://gravatar.loli.net/avatar/";
+  $replace_url = "https://gravatar.bluest.xyz/avatar/";
   $avatar = preg_replace("#(?:http|https):\/\/(secure|\d).gravatar.com\/avatar\/#", $replace_url, $avatar);
   return $avatar;
 }
@@ -276,6 +276,11 @@ function disable_emojis_remove_dns_prefetch($urls, $relation_type) {
     $urls = array_diff($urls, array($emoji_svg_url));
   }
   return $urls;
+}
+
+
+function is_support_webp(){
+  return strstr($_SERVER['HTTP_ACCEPT'],'image/webp');
 }
 
 /**

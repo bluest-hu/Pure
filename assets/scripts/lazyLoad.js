@@ -1,10 +1,16 @@
 import { raf } from "./raf.js";
+import checkSupportWebP from './checkWebP';
+
+
+
 class LazyLoad {
   constructor(selector) {
+
     this.targetElements = Array.from(document.querySelectorAll(selector));
     this.shouldPass = false;
     // 默认不开启浏览器自带的 lazy loading
     this.nativeLazyLoadingFlag = false;
+    console.log(this.supprtWebP());
 
     if ('loading' in HTMLImageElement.prototype && this.nativeLazyLoadingFlag) {
       this.targetElements.forEach(image => {
@@ -40,6 +46,15 @@ class LazyLoad {
       window.addEventListener('resize', this.doCheck.bind(this), { passive: true });
       this.doCheck();
     }
+  }
+
+  static getQiNiuWebSrc(src, optimize = false) {
+    let URL = `${src}`;
+    URL = URL.lastIndexOf('?') !== -1 ? `${URL}?` : URL;
+  }
+
+  async supprtWebP() {
+    return await checkSupportWebP('lossy').catch(() => false);
   }
 
   check() {

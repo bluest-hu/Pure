@@ -6,8 +6,22 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
+// const webpack = require('webpack');
+// const copy = require('copy');
+// const fs = require('fs');
 const CopyPlugin = require('copy-webpack-plugin');
+const { runtimeCaching } = require('./runtimeCaching.js');
+
+// copy(
+//   path.resolve(__dirname, '../node_modules/prismjs/components/*.min.js'),
+//   path.resolve(__dirname, '../dist/prism-lan'),
+//   function(err, files) {
+//     if (!err) {
+//       console.log('copy success!');
+//     }
+//   },
+// );
+
 
 /**
  * @deprecated 不需要再依赖 git hash 作为更新的 key 值
@@ -28,8 +42,12 @@ function replaceVersionCode() {
 }
 
 module.exports = (env, argv) => {
-  const isDevMode = (argv.mode !== 'production');
-  console.log(`当前的开发模式为：${process ? 'dev' : 'production'}`);
+  const isDevMode = (env.NODE_ENV !== 'production');
+  console.log('NODE_ENV: ', env, argv);
+  console.log(`当前的开发模式为：${isDevMode ? 'dev' : 'production'}`);
+
+
+
   return {
     name: 'wp-theme-pure',
     devtool: isDevMode ? 'source-map' : '',
@@ -89,7 +107,9 @@ module.exports = (env, argv) => {
       ]
     },
     plugins: [
-      new CleanWebpackPlugin(),
+      new CleanWebpackPlugin({
+        cleanOnceBeforeBuildPatterns: ['prism-lan/*'],
+      }),
       new MiniCssExtractPlugin({
         filename: "[name].min.css",
         chunkFilename: "[id].css"
@@ -107,6 +127,7 @@ module.exports = (env, argv) => {
         // skipWaiting: false,
         sourcemap: isDevMode,
         cleanupOutdatedCaches: true,
+        runtimeCaching: runtimeCaching,
         include: [
         ],
         exclude: [
@@ -114,212 +135,7 @@ module.exports = (env, argv) => {
         ],
         ignoreURLParametersMatching: [],
         cacheId: 'pure-theme-cache',
-        runtimeCaching: [
-          {
-            urlPattern: /\.(?:json)/,
-            handler: 'NetworkOnly',
-            options: {
-              matchOptions: {
-                ignoreSearch: false,
-              },
-            },
-          },
-          {
-            urlPattern: /\.(?:png|jpg|jpeg|svg|webp)/,
-            handler: 'CacheFirst',
-            options: {
-              matchOptions: {
-                ignoreSearch: false,
-              },
-              cacheName: 'pure-theme-cache-image',
-              expiration: {
-                maxAgeSeconds: 60 * 60 * 24 * 30,
-              },
-            },
-          },
-          {
-            urlPattern: /\.(?:js|css)(?:(|\?(?:[^\/]*)))$/,
-            handler: 'CacheFirst',
-            options: {
-              matchOptions: {
-                ignoreSearch: false,
-              },
-              cacheName: 'pure-theme-cache-js-css',
-              expiration: {
-                maxAgeSeconds: 60 * 60 * 24 * 7,
-              },
-            },
-          },
-          {
-            urlPattern: /\.(?:html)$/,
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            },
-          },
-          {
-            urlPattern:/\.php/,
-            handler: 'NetworkOnly',
-            options: {
-            },
-          },
-          {
-            urlPattern: /wp-admin/,
-            handler: 'NetworkOnly',
-            options: {
-            },
-          },
-          // 缓存首页
-          {
-            urlPattern: /(|\/)$/,
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            },
-          },
-          // 分类
-          {
-            urlPattern: /\/category\//,
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            },
-          },
-          // tag
-          {
-            urlPattern: /\/tag\//,
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            },
-          },
-          // 分页
-          {
-            urlPattern: /\/page\/\d+/,
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
-            },
-          },
-          // CDN 图片
-          {
-            urlPattern: /^(?:http|https):\/\/static.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:jpg|jpeg|png|gif|webp|mp3|svg)(?:|\?(?:[^\/]*)))$/g,
-            handler: 'CacheFirst',
-            options: {
-              fetchOptions: {
-                mode: 'no-cors',
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              },
-              expiration: {
-                maxAgeSeconds: 60 * 60 * 24 * 30,
-              },
-              cacheName: 'pure-theme-cache-cdn-static',
-            }
-          },
-          {
-            urlPattern: /^(?:http|https):\/\/static.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:js|css)(?:|\?(?:[^\/]*)))$/g,
-            handler: 'CacheFirst',
-            options: {
-              fetchOptions: {
-                mode: 'no-cors',
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              },
-            }
-          },
-          {
-            urlPattern: /^(?:http|https):\/\/asset.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:jpg|jpeg|png|gif|webp|mp3|svg)(?:|\?(?:[^\/]*)))$/g,
-            handler: 'CacheFirst',
-            options: {
-              fetchOptions: {
-                mode: 'no-cors',
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              },
-              expiration: {
-                maxAgeSeconds: 60 * 60 * 24 * 30,
-              },
-              cacheName: 'pure-theme-cache-cdn-static',
-            }
-          },
-          {
-            urlPattern: /^(?:http|https):\/\/asset.bluest.xyz\/(?:(?:[^?#]*)).(?:(?:js|css)(?:|\?(?:[^\/]*)))$/g,
-            handler: 'CacheFirst',
-            options: {
-              fetchOptions: {
-                mode: 'no-cors',
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              },
-            }
-          },
-          {
-            urlPattern: /\/wp-json\/wp_theme_pure\/v1\/manifest.json\$/,
-            handler: 'CacheFirst',
-            options: {
-              expiration: {
-                maxAgeSeconds: 60 * 60 * 24 * 30,
-              },
-              cacheName: 'pure-theme-cache-manifest',
-            },
-          },
-          // 缓存 Gavatar
-          {
-            urlPattern: /^(?:http|https):\/\/([0-9]|secure).gravatar.com\/avatar\//,
-            handler: 'CacheFirst',
-            options: {
-              expiration: {
-                maxAgeSeconds: 60 * 60 * 24 * 30,
-              },
-              cacheName: 'pure-theme-cache-gavatar',
-            },
-          },
-          {
-            urlPattern: /^(?:http|https):\/\/cdn.v2ex.com\/gravatar\//,
-            handler: 'CacheFirst',
-            options: {
-              expiration: {
-                maxAgeSeconds: 60 * 60 * 24 * 30,
-              },
-              cacheName: 'pure-theme-cache-gavatar',
-            },
-          },
-          {
-            urlPattern: /^(?:http|https):\/\/gravatar.loli.net\/avatar\//,
-            handler: 'CacheFirst',
-            options: {
-              expiration: {
-                maxAgeSeconds: 60 * 60 * 24 * 30,
-              },
-              cacheName: 'pure-theme-cache-gavatar',
-            },
-          },
-          {
-            urlPattern: /^(?:http|https):\/\/dn-qiniu-avatar.qbox.me\/avatar\//,
-            handler: 'CacheFirst',
-            options: {
-              expiration: {
-                maxAgeSeconds: 60 * 60 * 24 * 30,
-              },
-              cacheName: 'pure-theme-cache-gavatar',
-            },
-          }
-        ],
+        
       }),
       new HtmlWebpackPlugin({
         filename: 'footer_script.php',
@@ -347,7 +163,7 @@ module.exports = (env, argv) => {
     performance: {
       hints: 'error',
     },
-    stats: 'verbose',
+    // stats: 'verbose',
     // stats: {
     //   errors: true,
     //   warnings: true,
