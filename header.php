@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 if (!isset($content_width)) {
-  $content_width = 900;
+  $content_width = 680;
 }
 ?>
 <html <?php echo get_language_attributes(); ?>>
@@ -16,11 +16,15 @@ if (!isset($content_width)) {
     <meta name="theme-color" content="#1a73e8">
     <meta name="referrer" content="always">
     <link rel="preload" as="image" href="<?php header_image(); ?>"/>
+    <link rel="preconnect" href="https://static.bluest.xyz/">
+    <link rel="dns-prefetch" href="https://static.bluest.xyz/">
+    <link rel="preconnect" href="https://gravatar.bluest.xyz/">
+    <link rel="dns-prefetch" href="https://gravatar.bluest.xyz/">
     <?php
     wp_meta();
     wp_head();
     ?>
-    <link rel="manifest" href="/wp-json/wp_theme_pure/v1/manifest.json">
+    <link rel="manifest" href="<?php echo home_url('/') ;?>wp-json/wp_theme_pure/v1/manifest.json">
     <link rel="apple-touch-icon" href="<?php echo get_site_icon_url(192); ?>">
     <link rel="alternate" hreflang="zh-Hans" href="<?php echo esc_url(home_url()); ?>">
     <?php if (is_singular() && pings_open(get_queried_object())) : ?>
@@ -43,9 +47,7 @@ if (!isset($content_width)) {
       <?php include(get_stylesheet_directory() . '/dist/main.min.css');?>
     </style>
     <?php
-
-    // echo get_header_textcolor();
-    add_editor_style(); 
+    add_editor_style();
     ?>
   </head>
 
@@ -55,7 +57,8 @@ if (!isset($content_width)) {
 
   <body <?php body_class('font-song'); ?>>
     <header class="main-header">
-      <div class="custom-header-background-image" id="customHeaderBackgroundImage"></div>
+      <div class="custom-header-background-image"
+           id="customHeaderBackgroundImage"></div>
       <div class="header-content-wrap">
         <div class="main-header-content">
           <div class="blog-info-wrap font-kai">
@@ -64,7 +67,8 @@ if (!isset($content_width)) {
             <div class="split-line"></div>
 
             <div class="blog-title-desc-wrap serif">
-              <a class="home-link" href="<?php echo esc_url(home_url('/')); ?>">
+              <a class="home-link"
+                 href="<?php echo esc_url(home_url('/')); ?>">
                 <h1 class="blog-title">
                   <?php bloginfo("title") ?>
                 </h1>
@@ -76,7 +80,8 @@ if (!isset($content_width)) {
             </div>
           </div>
         </div>
-        <nav class="top-nav-container" id="topNavigationContainer">
+        <nav class="top-nav-container"
+             id="topNavigationContainer">
           <?php
           wp_nav_menu(array(
             'theme_location'  => 'header_menu',

@@ -59,14 +59,18 @@
               <ol class="month-list">
                 <?php foreach ($year_value as $month => $month_value) : ?>
                   <li class="month-list-item">
-                    <h3 class="month-title"><?php echo $month; ?><span class="unit">月</span></h2>
+                    <h3 class="month-title"><?php echo $month; ?><span class="unit">月</span></h3>
                       <ol class="post-list">
                         <?php foreach ($month_value as $post => $post_value) : ?>
                           <li class="post-list-item">
-                            <time class="publish-time"><?php echo $post_value['publish_date']; ?>日</time>
-                            <a class="title" title="<?php echo $post_value['title']; ?>" href="<?php echo $post_value['permalink']; ?>"><?php echo $post_value['title']; ?></a>
+                            <time class="publish-time"><?php echo $post_value['publish_date']; ?><span class="unit">日</span></time>
+                            <a class="title" 
+                               title="<?php echo $post_value['title']; ?>" 
+                               href="<?php echo $post_value['permalink']; ?>"><?php echo $post_value['title']; ?></a>
                             <span class="line"></span>
-                            <a class="comments" href="<?php echo $post_value['permalink']; ?>#comments" title=" echo $post_value['comments']; ?> 条评论"><?php echo $post_value['comments']; ?> reply</a>
+                            <a class="comments" 
+                               href="<?php echo $post_value['permalink']; ?>#comments" 
+                               title=" echo $post_value['comments']; ?> 条评论"><?php echo $post_value['comments']; ?> reply</a>
                           </li>
                         <?php endforeach ?>
                       </ol>
@@ -83,6 +87,5 @@
       </div>
     </article>
   </div>
-</div>
-
+</main>
 <?php get_footer(); ?>

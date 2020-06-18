@@ -1,16 +1,16 @@
 @import "typo.css";
-@import "fonts.css/dist/fonts.css";
 @import "fonts.css/dist/fonts.scss";
-@import "./toc.scss";
+@import "fonts.css/dist/fonts.css";
 @import "prismjs/themes/prism.css";
+@import "./toc.scss";
 
-// @import "../../../../../wp-includes/css/dist/block-library/style.min.css";
+//  @import "../../../../../wp-includes/css/dist/block-library/style.min.css";
 
-$text-not-primary-color: #5f6368;
+$text-not-primary-color: #212a35;
 $border-color: #eaeaea;
 $link-primary-color: #1a73e8;
 $text-color: #333;
-$content-width: 700px;
+$content-width: 680px;
 
 html {
   color: #3c4043;
@@ -22,7 +22,8 @@ body {
   word-break: normal;
   word-wrap: break-word;
   text-align: justify;
-  text-justify: ideographic;
+  // text-justify: ideographic;
+  @include font-fang-song;
 }
 
 a {
@@ -46,6 +47,7 @@ h5,
 h6 {
  @include font-song;
  color: $text-color;
+ font-weight: normal;
 }
 
 .admin-bar {
@@ -66,6 +68,10 @@ h6 {
   }
 
   & table {
+    th,
+    td {
+      line-height: 1.2;
+    }
     table {
       margin-bottom: 5px;
       margin-top: 5px;
@@ -256,6 +262,7 @@ figure.alignright {
       color: #fff;
       margin-bottom: 10px;
       box-sizing: border-box;
+      @include font-kai;
 
       &:hover {
         color: $border-color;
@@ -333,6 +340,7 @@ figure.alignright {
 
     &.current_page_item,
     &.current-menu-item,
+    &.current-category-ancestor,
     &:hover {
       a {
         color: #fff;
@@ -341,6 +349,7 @@ figure.alignright {
     }
 
     &.current_page_item,
+    &.current-category-ancestor,
     &.current-menu-item {
       font-weight: bold;
     }
@@ -385,6 +394,7 @@ figure.alignright {
     display: flex;
     align-items: center;
     justify-content: center;
+    @include font-fang-song;
 
     a {
       color: inherit;
@@ -423,6 +433,7 @@ figure.alignright {
       font-size: 13px;
       line-height: 1;
       margin-top: 2px;
+      font-family: sans-serif;
     }
 
     .author-name {
@@ -502,10 +513,10 @@ figure.alignright {
 
     .post-title {
       text-align: center;
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin-bottom: 50px;
       line-height: 1.2;
-      word-break: break-all;
+      word-break: break-word;
       font-weight: 600;
 
       .post-title-url {
@@ -550,9 +561,12 @@ figure.alignright {
 
 
 .post-entry {
-  font-size: 1.125rem;
+  font-size: 18px;
   margin: 50px 0;
-  // word-break: break-word;
+  word-break: break-all;
+  text-align: justify;
+  text-justify: inter-character;
+  text-rendering: optimizeLegibility;
 
   h1,
   h2,
@@ -575,6 +589,7 @@ figure.alignright {
   a {
     color: inherit;
     border-color: $text-not-primary-color;
+    word-break: break-all;
 
     &:hover {
       color: $link-primary-color;
@@ -586,6 +601,8 @@ figure.alignright {
     color: #666;
     border-left-width: 3px;
     border-left-color: $border-color;
+    @include font-kai;
+    font-size: 20px;
   }
 
   video,
@@ -718,7 +735,8 @@ figure.alignright {
     border-radius: 5px;
     background-color: #f8f8f8;
     overflow: auto;
-    font-size: 14px;
+    // font-size: 16px;
+    font-family: Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;
 
     code {
       padding: unset;
@@ -726,18 +744,21 @@ figure.alignright {
       background: unset;
       border-radius: unset;
       box-shadow: none;
+      font-size: 15px;
+      font-family: inherit;
+      font-family: Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;
     }
   }
 
   code {
-    padding: 0px 5px;
-    //margin: 0 2px;
+    padding: 0 5px;
     box-sizing: border-box;
-    border-radius: 4px;
+    border-radius: 2px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.6);
+    word-break: keep-all;
     background-color: rgba(245, 242, 240, 0.2);
-    border: 1px solid #eee;
-    box-sizing: border-box;
-    // word-break: break-word;
+    // font-size: 0.9em;
+    @include font-hei;
   }
 
   a.more-link {
@@ -749,6 +770,7 @@ figure.alignright {
     text-decoration: none;
     border-radius: 3px;
     font-weight: bold;
+    font-size: 1rem;
     transition: background-color, color 0.3s ease-in-out;
 
     &:hover {
@@ -781,7 +803,9 @@ figure.alignright {
 
   :not(pre) > code[class*="language-"],
   pre[class*="language-"] {
-    background: rgba(245, 242, 240, 0.2) !important;
+    background: transparent !important;
+    box-shadow: 0 0 3px #00000038;
+    border: none;
   }
 
   .post-password-form {
@@ -799,6 +823,7 @@ figure.alignright {
     input[type="submit"] {
       height: 35px;
       display: inline-block;
+      appearance: none;
       -webkit-appearance: none;
       line-height: 35px;
       padding: 0;
@@ -947,11 +972,15 @@ figure.alignright {
 }
 
 .pages-nav {
-  margin: 50px 0;
+  margin: 100px 0;
 
   .page-numbers {
     list-style: none;
     text-align: center;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
 
     li {
       display: inline-block;
@@ -960,7 +989,7 @@ figure.alignright {
       &:hover {
         a {
           transition: color 0.5s linear;
-          color: #1abc9c;
+          color: $text-color;
         }
       }
     }
@@ -968,7 +997,7 @@ figure.alignright {
     .page-numbers,
     span,
     a {
-      font-size: 15px;
+      font-size: 20px;
       display: block;
       text-decoration: none;
       color: #757575;
@@ -978,13 +1007,13 @@ figure.alignright {
       height: 30px;
       box-sizing: border-box;
       border-radius: 100%;
-      //border: 1px solid #eee;
+      margin: 0 5px;
 
       &.current {
         color: #fff;
         border-radius: 100%;
         font-weight: bold;
-        background-color: #ddd;
+        background-color: $text-not-primary-color;
       }
     }
   }
@@ -1073,9 +1102,10 @@ figure.alignright {
       border: 1px solid #ffd22c;
       display: inline-block;
       padding: 5px;
-      border-radius: 5px;
+      border-radius: 2px;
       background-color: rgba(255, 227, 151, 0.34902);
       font-size: 14px;
+      @include font-fang-song;
     }
 
     .children {
@@ -1097,10 +1127,14 @@ figure.alignright {
   }
 
   .comment-meta {
+    //@include font-kai;
     .comment-author {
       height: 20px;
       margin-bottom: 5px;
       font-size: 0;
+      display: flex;
+      line-height: 1;
+      //background-color: red;
 
       .fn,
       .says {
@@ -1109,7 +1143,8 @@ figure.alignright {
         line-height: 20px;
         display: inline-block;
         color: $text-not-primary-color;
-        transform: translateY(4px);
+        //transform: translateY(4px);
+        //background-color: #333;
 
         a {
           color: inherit;
@@ -1120,7 +1155,7 @@ figure.alignright {
         margin-left: 5px;
         font-size: 12px;
         color: #666666;
-        vertical-align: baseline;
+        @include font-song;
       }
 
       .avatar {
@@ -1138,6 +1173,7 @@ figure.alignright {
       height: 15px;
       font-size: 14px;
       line-height: 1;
+      margin-left: 50px;
       a,
       time {
         font-size: 12px;
@@ -1146,22 +1182,40 @@ figure.alignright {
         color: $text-not-primary-color;
         margin-right: 5px;
         vertical-align: text-bottom;
+        @include font-fang-song;
       }
+    }
+  }
+  .children {
+    .comment-respond {
+      border-radius: 2px;
+      box-shadow: 0 0 2px #00000038;
+      padding: 0 15px 1px 15px;
+      box-sizing: border-box;
     }
   }
 
   .comment-respond {
+
     .comment-reply-title {
       font-size: 30px;
       padding: 10px 0;
       border-bottom: 1px solid $border-color;
       margin: 30px 0;
     }
+
+    #cancel-comment-reply-link {
+      font-size: 16px;
+      border: 1px solid $link-primary-color;
+      border-radius: 1px;
+      padding: 0 2px;
+    }
   }
 
   .comment-form {
+    margin-bottom: 20px;
     .comment-notes {
-      font-size: 13px;
+      font-size: 12px;
       color: $text-not-primary-color;
     }
 
@@ -1169,16 +1223,39 @@ figure.alignright {
     .comment-form-email,
     .comment-form-url,
     .comment-form-comment {
-      margin: 30px 0;
+      margin: 25px 0;
       display: flex;
     }
 
     label {
       display: inline-block;
-      width: 100px;
-      font-size: 18px;
+      width: 80px;
+      font-size: 16px;
       line-height: 40px;
       flex-grow: 0;
+      flex-shrink: 0;
+      .required {
+        color: red;
+      }
+    }
+
+    .comment-form-comment {
+      width: 60%;
+      float: right;
+
+      label {
+        width: 50px;
+      }
+
+      textarea {
+        min-height: 170px;
+        padding: 10px;
+        text-indent: 0;
+      }
+    }
+
+    .form-submit {
+      clear: both;
     }
 
     .comment-form-cookies-consent {
@@ -1199,18 +1276,44 @@ figure.alignright {
     }
 
     .submit {
-      height: 40px;
-      border: 1px solid #1abc9c;
-      border-radius: 30px;
-      padding: 0 50px;
-      background: transparent;
+      color: $text-not-primary-color;
+      border: 1px solid $text-not-primary-color;
+      display: inline-block;
+      padding: 0 1.25rem;
+      line-height: 2.5rem;
+      appearance: none;
+      text-decoration: none;
+      border-radius: 3px;
+      font-weight: bold;
+      transition: background-color, color 0.3s ease-in-out;
+      background-color: transparent;
+
       &:hover {
-        color: #fff;
-        background-color: #1abc9c;
-        border-color: darken(#1abc9c, 5);
-        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        color: #FFF;
+        background-color: $text-color;
+      }
+
+      &:focus {
+        // border-color: #174ea6;
+        // color: #174ea6;
+        box-shadow: 1px 2px 0 rgba(60, 64, 67, 0.3),
+          0 2px 6px 2px rgba(60, 64, 67, 0.15);
       }
     }
+
+    .comment-form-author,
+    .comment-form-email,
+    .comment-form-url {
+      padding-right: 10px;
+    }
+
+    //.comment-form-author {
+    //  label {
+    //    width: inherit;
+    //    padding-left: 0;
+    //    padding-right: 0px;
+    //  }
+    //}
 
     input[type="text"],
     input[type="email"],
@@ -1221,7 +1324,7 @@ figure.alignright {
       float: right;
       width: 100%;
       display: block;
-      border-radius: 4px;
+      border-radius: 3px;
       border: 1px solid $border-color;
       flex-grow: 1;
       box-sizing: border-box;
@@ -1230,18 +1333,14 @@ figure.alignright {
 
       &:focus {
         outline: none;
-        border-color: #1abc9c;
+        border-color: $text-color;
       }
-    }
-
-    textarea {
-      min-height: 150px;
     }
   }
 }
 
 .relative-post-nav {
-  margin-top: 30px;
+  margin-top: -30px;
   margin-bottom: 30px;
 
   .nav-list {
@@ -1259,19 +1358,12 @@ figure.alignright {
       display: flex;
       align-items: center;
 
-      // .arrow {
-      //   float: left;
-      // }
-
-      // &.next-nav-item {
-      //   .arrow {
-      //     float: right;
-      //   }
-      // }
-
       a {
         font-weight: bold;
         margin: 0 10px;
+        word-break: break-all;
+        // text-align: justify;
+        // text-justify: newspaper;
       }
     }
 
@@ -1314,11 +1406,11 @@ figure.alignright {
 }
 
 .page {
-  &.page-template-firends {
+  &.page-template-page-friends {
     .friend-list {
       display: flex;
       .friend-list-item {
-        box-shadow: 0 1px 10px rgba($color: #000000, $alpha: 0.1);
+        box-shadow: 0 1px 10px rgba($color: blue, $alpha: 0.1);
         border-radius: 3px;
         border: 1px solid $border-color;
         margin: 20px;
@@ -1330,12 +1422,63 @@ figure.alignright {
     }
   }
 
-  &.page-template {
-    &.page-template-archieve {
+  &.page-template-page-tags {
+    .post-wrap {
+      margin-top: 50px;
+      margin-bottom: 50px;
+      //margin: 50px auto;
+      //text-align: justify;
+    }
+
+    .tag-cloud-link {
+      display: inline-block;
+      word-break: keep-all;
+      line-height: 1.2;
+      margin: 13px 3px;
+      padding: 2px 3px;
+      color: $text-not-primary-color;
+      border: none;
+      text-decoration: none;
+      @include font-fang-song;
+
+      .tag-link-count {
+        font-size: 12px;
+        vertical-align: super;
+        color: $text-not-primary-color;
+      }
+
+      &:hover {
+        color: $text-color;
+        transform: scale(1.2);
+        transition: transform 0.3s ease;
+        transform-origin: bottom center;
+        //font-weight: bold;
+        //text-shadow: 0 0 1px rgba(0, 0, 0, 0.6);
+      }
+
+      //@for $i from 1 through 5 {
+      //  &.tag-link-position-#{$i} {
+      //    color: darken($border-color, $i * 20%);
+      //  }
+      //}
+    }
+  }
+
+  &.page-template-page-archive {
+      .post-title {
+        @include font-kai;
+        //color: #FFF;
+        border: 1px solid $text-not-primary-color;
+        width: 5ch;
+        margin: 0 auto;
+        //background-color: $text-not-primary-color;
+      }
+
       .main-content {
         .post {
           border-bottom: none;
           margin-bottom: 0;
+          // background-color: rgba($color: #000000, $alpha: 0.1);
 
           ul,
           ol,
@@ -1345,10 +1488,16 @@ figure.alignright {
             margin: 0;
           }
 
+          $space: 80px;
+
+          .unit {
+            @include font-kai;
+          }
+
           .month-title,
           .year-title {
             margin: 0;
-            width: 75px;
+            width: $space;
             text-align: right;
             font-weight: bold;
             line-height: 40px;
@@ -1380,7 +1529,7 @@ figure.alignright {
           }
 
           .year-list {
-            margin-left: -30px;
+            // margin-left: -30px;
             .year-list-item {
               margin-bottom: 20px;
             }
@@ -1395,7 +1544,7 @@ figure.alignright {
             margin-bottom: 15px;
 
             .post-list-item {
-              margin-left: 90px;
+              margin-left: $space + 10px;
               font-size: 16px;
               line-height: 40px;
               position: relative;
@@ -1403,6 +1552,7 @@ figure.alignright {
               align-content: center;
               justify-content: center;
               align-items: center;
+              @include font-fang-song;
 
               &::before {
                 position: absolute;
@@ -1413,7 +1563,7 @@ figure.alignright {
                 border-radius: 50%;
                 top: 17px;
                 // transform: translateY(-50%);
-                left: -10px;
+                left: -9px;
               }
 
               &:first-child {
@@ -1447,6 +1597,11 @@ figure.alignright {
                 white-space: nowrap;
                 margin: 0 5px;
                 font-weight: 500;
+                @include font-kai;
+                &:hover {
+                  color: #000;
+                  transition: color 0.3s linear;
+                }
               }
 
               .comments,
@@ -1455,7 +1610,18 @@ figure.alignright {
                 font-size: 14px;
                 color: $text-not-primary-color;
               }
+              .publish-time {
+                font-size: inherit;
+                font-weight: 500;
+              }
             }
+          }
+
+          .month-title,
+          .year-title,
+          .publish-time {
+            font-weight: 600;
+            font-family: serif, Georgia,Nimbus Roman No9 L,Songti SC,"Noto Serif CJK SC","Source Han Serif SC","Source Han Serif CN",STSong,AR PL New Sung,AR PL SungtiL GB,NSimSun,SimSun,TW\\-Sung,WenQuanYi Bitmap Song,AR PL UMing CN,AR PL UMing HK,AR PL UMing TW,AR PL UMing TW MBE,PMingLiU,MingLiU,serif;
           }
         }
       }
@@ -1464,12 +1630,148 @@ figure.alignright {
         display: none;
       }
     }
+}
+
+.error404 {
+  .post-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 150px;
+  }
+
+  .search-notice {
+    margin-bottom: 15px;
+  }
+
+  .search-form {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+  .title {
+    font-weight: bold;
+    font-size: 10em;
+    padding:50px 0;
+    font-family: Arial;
+    text-align: center;
+    color: $text-not-primary-color;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.69);
+    //text-shadow: 0 1px rgba(0,0,0,0.9),
+    //             0 -1px #FFF;
+  }
+}
+
+.search-form {
+  .search-field {
+    height: 35px;
+    border: 1px solid $border-color;
+    //margin-right: 10px;
+    padding: 5px;
+    width: 350px;
+    border-radius: 3px 0 0 3px;
+
+    &:focus,
+    &:focus {
+      border-color: $text-not-primary-color;
+    }
+  }
+
+  .search-submit {
+    color: $text-not-primary-color;
+    border: 1px solid $text-not-primary-color;
+    display: inline-block;
+    padding: 0 1.25rem;
+    //line-height: 2.5rem;
+    text-decoration: none;
+    border-radius: 0 3px 3px 0;
+    margin-left: -1px;
+    font-weight: bold;
+    height: 35px;
+    transition: background-color, color 0.3s ease-in-out;
+    background-color: transparent;
+
+    &:hover {
+      color: #FFF;
+      background-color: $text-color;
+    }
+
+    &:focus {
+      // border-color: #174ea6;
+      // color: #174ea6;
+      box-shadow: 1px 2px 0 rgba(60, 64, 67, 0.3),
+      0 2px 6px 2px rgba(60, 64, 67, 0.15);
+    }
+  }
+}
+
+.sw-update-notice {
+  position: fixed;
+  background-color: $text-not-primary-color;
+  color: #FFF;
+  top: 250px;
+  padding: 10px;
+  border-radius: 0 2px 2px 0;
+  left: 0;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+  display: none;
+}
+
+@media screen and (max-width: $content-width) {
+  .comments-area {
+    .comment-form {
+      .comment-form-comment {
+        width: auto;
+        float: none;
+
+        label {
+          width: 80px;
+        }
+      }
+
+      .comment-form-author,
+      .comment-form-email,
+      .comment-form-url {
+        padding-right: 0;
+      }
+    }
+  }
+
+  .page {
+    &.page-template-page-tags {
+      .post-wrap {
+        padding: 0 25px;
+      }
+      .tag-cloud-link {
+        margin: 5px 3px;
+        padding: 2px 3px;
+      }
+    }
+
+    &.page-template-page-archive {
+      .post-entry {
+        margin-left: -20px;
+      }
+    }
+
+    #pagesNav {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .admin-bar {
+    .main-header {
+      margin-top: -46px;
+    }
   }
 }
 
 @media screen and (max-width: 640px) {
   .main-header {
-    min-height: 200px;
+    //min-height: 200px;
     // .blog-title-desc-wrap {
     //   //transform: translateY(-10px);
     // }
@@ -1510,16 +1812,16 @@ figure.alignright {
       margin-top: 30px;
       margin-bottom: 30px;
       .post-title {
-        font-size: 30px;
+        font-size: 2em;
       }
     }
     .hentry {
-      border-bottom: none;
+      //border-bottom: none;
     }
   }
 
   .post-entry {
-    font-size: 15px;
+    font-size: 16px;
 
     table {
       max-width: 100%;
@@ -1553,6 +1855,25 @@ figure.alignright {
     }
   }
 
+  .pages-nav .page-numbers  {
+    .page-numbers, 
+    a,
+    span {
+      font-size: 16px;
+    }
+
+    .page-numbers {
+      min-width: 20px;
+      line-height: 20px;
+      height: 20px;
+      margin: 0 1px;
+      // width: 25px;
+      // height: 25px;
+      // line-height: 25px;
+    }
+  }
+ 
+
   #jsToc {
     display: none;
   }
@@ -1564,24 +1885,16 @@ figure.alignright {
       margin-top: 0;
 
       .home-link {
-        font-size: 35px;
+        font-size: 40px;
       }
     }
   }
 
   .main-content .post .post-title {
-    font-size: 30px;
+    // font-size: 30px;
   }
   .main-header .custom-header-background-image {
     padding-bottom: 50%;
     background-size: cover;
-  }
-}
-
-@media screen and (max-width: 782px) {
-  .admin-bar {
-    .main-header {
-      margin-top: -46px;
-    }
   }
 }

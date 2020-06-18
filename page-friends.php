@@ -23,7 +23,6 @@ get_header();
       </div>
     </article>
   </div>
-  </div>
 
   <div class="content-width">
     <ul class="friend-list">
@@ -35,12 +34,18 @@ get_header();
       ));
       foreach ($bookmarks as $friend) { ?>
         <li class="friend-list-item">
-          <a href="<?php echo $friend->link_url; ?>" ref="<?php echo $friend->link_rel; ?>" target="<?php echo $friend->link_target; ?>">
+          <a href="<?php echo $friend->link_url; ?>"
+             ref="<?php echo $friend->link_rel; ?>"
+             target="<?php echo $friend->link_target; ?>">
             <header>
             </header>
-            <img src="<?php echo $friend->link_image; ?>" alt="<?php echo $friend->link_name; ?>" width="200">
+            <img src="<?php echo $friend->link_image; ?>"
+                 alt="<?php echo $friend->link_name; ?>"
+                 width="200">
 
-            <img src="<?php echo $friend->link_description; ?>" alt="<?php echo $friend->link_name; ?>" width="200">
+            <img src="<?php echo $friend->link_description; ?>"
+                 alt="<?php echo $friend->link_name; ?>"
+                 width="200">
             <h2>
               <?php echo esc_html($friend->link_name); ?>
             </h2>
@@ -59,5 +64,6 @@ get_header();
     <?php var_dump(get_bookmarks(array()));?>
     </pre>
   </div>
-
+</main>
   <?php get_footer(); ?>
+

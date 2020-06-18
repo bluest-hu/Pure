@@ -8,25 +8,34 @@
           <header class="entry-header">
             <?php if (is_single()) : ?>
               <nav class="toc">
-                <div id="jsToc" class="js-toc no-serif"></div>
+                <div id="jsToc"
+                     class="js-toc no-serif">
+                </div>
               </nav>
             <?php endif ?>
 
             <h2 class="post-title entry-title">
-              <a class="post-title-url" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+              <a class="post-title-url"
+                 href="<?php the_permalink(); ?>"
+                 title="<?php the_title(); ?>">
                 <?php the_title(); ?>
               </a>
             </h2>
             <div class="posy-meta-wrap">
               <ul class="post-meta post-meta-top">
                 <li class="post-meta-item author-avatar-wrap">
-                  <?php echo get_avatar(get_the_author_meta('user_email'), 40); ?>
+                  <?php echo get_avatar(get_the_author_meta('user_email'), 40, '','', array(
+                    'extra_attr' => 'loading="lazy"'
+                  )); ?>
                 </li>
                 <li class="post-meta-item vcard author author_name post-author">
-                  <a class="author-name fn" href="<?php echo get_the_author_meta('url') ?>" title="<?php echo get_the_author_meta('display_name'); ?>">
+                  <a class="author-name fn"
+                     href="<?php echo get_the_author_meta('url') ?>"
+                     title="<?php echo get_the_author_meta('display_name'); ?>">
                     <?php echo get_the_author_meta('display_name'); ?>
                   </a>
-                  <time class="publish-time post-date updated" datetime="<?php echo get_post_time('Y-m-d'); ?>">
+                  <time class="publish-time post-date updated" 
+                        datetime="<?php echo get_post_time('Y-m-d'); ?>">
                     <?php echo get_post_time('Y-m-d'); ?>
                   </time>
                 </li>
@@ -61,11 +70,13 @@
           </div>
 
           <footer class="entry-footer">
+            <?php if (is_single() && get_the_tags()) : ?>
             <div class="post-meta post-tags-wrap">
               <?php the_tags('', '', ''); ?>
             </div>
+            <?php endif ?>
 
-            <?php if (is_single()) : ?>
+            <?php if (is_single() || is_page()) : ?>
               <div class="end">
                 <span class="eof">EOF</span>
               </div>
@@ -74,7 +85,8 @@
         </div>
       </article>
       <?php if (is_single()) : ?>
-        <nav id="relativePostNav" class="relative-post-nav content-width">
+        <nav id="relativePostNav"
+             class="relative-post-nav content-width">
           <ul class="nav-list">
             <li class="nav-item prev-nav-item"><?php previous_post_link('<span class="arrow">&laquo;</span> %link'); ?></li>
             <li class="nav-item next-nav-item"><?php next_post_link('%link <span class="arrow">&raquo;</span>'); ?></li>
@@ -93,9 +105,9 @@
       </div>
     </article>
   <?php endif; ?>
+  <?php
 
-  <nav class="pages-nav font-kai" id="pagesNav">
-    <?php echo paginate_links(array(
+    $pageNav = paginate_links(array(
       'type'               => 'list',
       'show_all'           => false,
       'prev_next'          => true,
@@ -105,8 +117,14 @@
       'add_fragment'       => '',
       'before_page_number' => '',
       'after_page_number'  => ''
-    )); ?>
-  </nav>
+    ));
+  ?>
+
+  <?php if ($pageNav): ;?>
+    <nav class="pages-nav font-kai" id="pagesNav">
+      <?php echo $pageNav ;?>
+    </nav>
+  <?php endif; ?>
 </main>
 
 <?php get_footer(); ?>

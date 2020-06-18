@@ -28,6 +28,7 @@ function toc() {
   // let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 
   if (window.IntersectionObserver === null) {
+    
   } else {
     document.addEventListener(
       "scroll",

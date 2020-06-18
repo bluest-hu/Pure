@@ -10,20 +10,28 @@ class Track {
    * @param {*} config 
    */
   constructor(config = {}) {
-    this.logexception = config.logexception === false ? false : true;
-    this.logTiming = config.logTiming === false ? false : true;
-    this.logPageView = config.logPageView === false ? false : true;
+    this.logexception = config.logexception !== false;
+    this.logTiming = config.logTiming !== false;
+    this.logPageView = config.logPageView !== false;
+
+    const { value } = document.querySelector('#googleAnalyticsId');
+
+    this.canSend = !!value;
 
     const self = this;
 
-    if (this.logexception === true) {
-      window.addEventListener("error", event => {
-        self.doLogException(event.message);
-      });
-    }
-
     if (this.logPageView === true) {
       self.doLogView();
+    }
+
+    if (this.logexception === true) {
+      window.addEventListener('error', event => {
+        self.doLogException(event.message);
+      });
+
+      window.addEventListener('unhandledrejection', event => {
+        self.doLogException(event.message);
+      });
     }
 
     if (this.logTiming === true) {
@@ -50,11 +58,11 @@ class Track {
       // cid: "", // client id
       // uid: "", // user id
       // uip: '', // user ip
-      ul: navigator.language, // user language
+      ul: navigator.language.toLowerCase(), // user language
       // t: "pageview", // “pageview”、“screenview”、“event”、“transaction”、“item”、“social”、“exception”、“timing”
       // fl: "", // flash version
       // je: 0, // java version
-      ua: navigator.userAgent, // user agent
+      // ua: navigator.userAgent, // user agent
       dh: location.host, // document host
       ds: "web",
       dp: window.location.pathname,
@@ -62,9 +70,8 @@ class Track {
       dl: encodeURIComponent(location.href), // document location
       dt: encodeURIComponent(document.title),
       dr: encodeURIComponent(document.referrer), // referrer
-      de: document.characterSet || document.charset || document.inputEncoding,
-      // gclid: "", // 指定 Google Ads ID
-      sd: screen.colorDepth + "-bit", // screen depth
+      de: (document.characterSet || document.charset || document.inputEncoding).toLowerCase(),
+      sd: `${screen.colorDepth}-bit`, // screen depth
       sr: `${screen.width}x${screen.height}`, // screen resolution
       vp: `${screen.availWidth}x${screen.availHeight}` // visible part
     };
@@ -89,16 +96,21 @@ class Track {
    * @param {*} data 
    */
   send(data) {
+    if (!this.canSend) {
+      return false;
+    }
+
     const payload = this.genFormData(data);
+    const url = `${TRACK_URL}?t=${new Date() * 1}`;
 
     if (navigator.sendBeacon) {
-      navigator.sendBeacon(`${TRACK_URL}?t=${new Date() * 1}`, payload);
+      navigator.sendBeacon(url, payload);
     } else {
-     
       const xhr = new XMLHttpRequest();
-
-      xhr.open('post', TRACK_URL);
-      // xhr.onload = () => {};
+      xhr.open('post', url);
+      xhr.onload = () => {
+        console.log('send success');
+      };
       xhr.send(payload);
     }
   }
@@ -165,9 +177,6 @@ class Track {
     const timingData = Track.getTimingData();
     const data = {
       t: "timing",
-      utv: "load",
-      utc: "Performence API",
-      utt: 0,
       ...timingData
     };
     this.send(data);

@@ -1,8 +1,5 @@
 # npm modules
 node_modules
 
-# output css
-/assets/scss/*.css.map
-/assets/scss/*.css
-!/assets/scss/*.min.css
+# dist
 /dist/
