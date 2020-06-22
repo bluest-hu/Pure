@@ -62,7 +62,7 @@ module.exports = (env, argv) => {
       filename: '[name].[contenthash:8].min.js',
       chunkFilename: '[name].[contenthash:8].js',
       path: path.resolve(__dirname, '../dist'),
-      publicPath: '/wp-content/themes/pure/dist/',
+      publicPath: isDevMode ? '/wp-content/themes/pure/dist/' : 'https://static.bluest.xyz/wp-content/themes/pure/dist/',
     },
     module: {
       rules: [
