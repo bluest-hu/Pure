@@ -1,7 +1,8 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const WorkboxPlugin = require('workbox-webpack-plugin');
@@ -42,16 +43,14 @@ function replaceVersionCode() {
 }
 
 module.exports = (env, argv) => {
-  const isDevMode = (env.NODE_ENV !== 'production');
+  const isDevMode = (argv.mode !== 'production');
   // console.log('NODE_ENV: ', env, argv);
   console.log(`当前的开发模式为：${isDevMode ? 'dev' : 'production'}`);
 
   return {
     name: 'wp-theme-pure',
-    devtool: isDevMode ? 'source-map' : '',
-    entry: {
-      main: './assets/scripts/index.js',
-    },
+    devtool: isDevMode ? 'source-map' : false,
+    entry:  './assets/scripts/index.js',
     resolve: {
       modules: ['node_modules'],
       alias: {
@@ -160,16 +159,19 @@ module.exports = (env, argv) => {
     ],
     performance: {
       hints: 'error',
+      assetFilter: function(assetFilename) {
+        return !assetFilename.endsWith('.map');
+      }
     },
     // stats: 'verbose',
-    // stats: {
-    //   errors: true,
-    //   warnings: true,
-    //   timings: true,
-    //   version: true,
-    //   moduleTrace: true,
-    //   errorDetails: true
-    // },
+    stats: {
+      errors: true,
+      warnings: true,
+      timings: true,
+      version: true,
+      moduleTrace: true,
+      errorDetails: true
+    },
     optimization: {
       splitChunks: {
         chunks: 'async',
@@ -177,7 +179,7 @@ module.exports = (env, argv) => {
         minChunks: 1,
         maxAsyncRequests: 5,
         maxInitialRequests: 3,
-        name: true,
+        name: false,
         cacheGroups: {
           vendors: {
             test: /[\\/]node_modules[\\/]/,
@@ -198,31 +200,36 @@ module.exports = (env, argv) => {
           }
         }
       },
+      minimize: true,
       minimizer: [
         new UglifyJSPlugin({
           cache: true,
           parallel: true,
           sourceMap: isDevMode // set to true if you want JS source maps
         }),
-        new OptimizeCSSAssetsPlugin({
-          assetNameRegExp: /\.css\.*(?!.*map)/g,
-          cssProcessor: require('cssnano'),
-          cssProcessorPluginOptions: {
-            preset: [
-              'default',
-              {
-                discardComments: {
-                  removeAll: true,
-                },
-                normalizeUnicode: false,
-                autoprefixer: {
-                  disable: true
-                },
-                safe: true,
-              },
-            ],
-          },
-          canPrint: true
+        // new OptimizeCSSAssetsPlugin({
+        //   assetNameRegExp: /\.css\.*(?!.*map)/g,
+        //   cssProcessor: require('cssnano'),
+        //   cssProcessorPluginOptions: {
+        //     preset: [
+        //       'default',
+        //       {
+        //         discardComments: {
+        //           removeAll: true,
+        //         },
+        //         normalizeUnicode: false,
+        //         autoprefixer: {
+        //           disable: false
+        //         },
+        //         safe: true,
+        //       },
+        //     ],
+        //   },
+        //   canPrint: true
+        // }),
+        new CssMinimizerPlugin({
+          test: /\.css\.*(?!.*map)/g,
+          parallel: true,
         }),
       ],
     },

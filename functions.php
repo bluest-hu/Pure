@@ -521,7 +521,12 @@ add_action('rest_api_init', function () {
       $_REQUEST['cid'] = $uuid;
       $_REQUEST['ua'] = $_SERVER['HTTP_USER_AGENT'] ;
       $_REQUEST['uip'] = get_real_ip();
-      $user_email = $_COOKIE[ 'comment_author_email_' . COOKIEHASH ];
+      try {
+        $user_email = $_COOKIE[ 'comment_author_email_' . COOKIEHASH ];
+      } catch (Exception $ex ) {
+        $user_email = false;
+      }
+
       if ($user_email) {
         $_REQUEST['uid'] = $user_email;
       }
@@ -543,7 +548,7 @@ add_action('rest_api_init', function () {
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
           // CURLOPT_MAXREDIRS => 10,
-          // CURLOPT_TIMEOUT => 30,
+        // CURLOPT_TIMEOUT => 1,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS => $post_data,

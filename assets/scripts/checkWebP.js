@@ -20,17 +20,16 @@ const check_webp_feature = (feature, callback = () => {}) => {
       return false;
     }
 
-    var kTestImages = {
+    const kTestImages = {
       lossy: "UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA",
       lossless: "UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==",
       alpha: "UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKgEAAQAAAP4AAA3AAP7mtQAAAA==",
       animation: "UklGRlIAAABXRUJQVlA4WAoAAAASAAAAAAAAAAAAQU5JTQYAAAD/////AABBTk1GJgAAAAAAAAAAAAAAAAAAAGQAAABWUDhMDQAAAC8AAAAQBxAREYiI/gcA"
     };
 
-    var img = new Image();
+    let img = new Image();
     img.onload = function () {
-        var result = (img.width > 0) && (img.height > 0);
-        resultCache[feature] = result;
+      resultCache[feature] = (img.width > 0) && (img.height > 0);
         try {
           resultCache = localStorage.setItem(key, JSON.stringify(resultCache));
         } catch(e) {
