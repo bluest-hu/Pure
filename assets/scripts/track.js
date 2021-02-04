@@ -1,7 +1,7 @@
 const TRACK_URL = "/wp-json/wp_theme_pure/v1/ga";
 
 /**
- * 借助 worpdress 转发到 Measurement Protocol，解决 Google 统计容易被屏蔽的问题
+ * 借助 wordpress 转发到 Measurement Protocol，解决 Google 统计容易被屏蔽的问题
  * https://developers.google.com/analytics/devguides/collection/protocol/v1
  */
 class Track {
@@ -78,12 +78,12 @@ class Track {
 
     const payload = new FormData();
 
-    Object.keys(basicDataPackage).forEach((key, index) => {
+    Object.keys(basicDataPackage).forEach((key) => {
       payload.set(key, basicDataPackage[key]);
     });
 
     if (data && typeof data === "object") {
-      Object.keys(data).forEach((key, index) => {
+      Object.keys(data).forEach((key) => {
         payload.set(key, data[key]);
       });
     }
@@ -152,7 +152,7 @@ class Track {
     // 在 TCP 和 SSL 上的耗时
     times.TCPTime = t.connectEnd - t.connectStart;
 
-    let ga_data = {
+    return {
       // 这里 plt 统计的是到 load 事件开始的时间
       plt: t.loadEventStart - t.navigationStart,
       dns: times.DNSTime,
@@ -163,7 +163,6 @@ class Track {
       dit: times.DOMInteractiveTime,
       clt: times.ContentLoadingTime
     };
-    return ga_data;
   }
 
   doLogView() {

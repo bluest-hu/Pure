@@ -17,7 +17,7 @@ const PURE_THEME_MANIFEST_KEY = 'KEY_theme_pure_manifest';
  */
 const PURE_THEME_TRACK_UUID_KEY = 'track_uuid';
 /**
- * 判断是否为 AMOP 模式
+ * 判断是否为 AMP 模式
  */
 function theme_pure_is_amp() {
   return function_exists('is_amp_endpoint') && is_amp_endpoint();
@@ -381,7 +381,7 @@ add_action('admin_menu', 'pure_setting_page');
  * @param array $sizeSet 尺寸合集
  * @return array
  */
-function get_theme_manifest($sizeSet = array(128, 144, 152, 192, 256, 512,)) {
+function get_theme_manifest($sizeSet = array(128, 144, 152, 192, 256, 512,)): array {
   $icons = array();
 
   if (has_site_icon()) {
@@ -404,7 +404,7 @@ function get_theme_manifest($sizeSet = array(128, 144, 152, 192, 256, 512,)) {
     $color = "#" . $color;
   }
 
-  $res = array(
+  return array(
     "name"                        => get_bloginfo('blogname'),
     "short_name"                  => substr(get_bloginfo('blogname'), 0, 12),
     "description"                 => get_bloginfo('description'),
@@ -418,8 +418,6 @@ function get_theme_manifest($sizeSet = array(128, 144, 152, 192, 256, 512,)) {
     "orientation"                 => "portrait",
     "icons"                       => $icons,
   );
-
-  return $res;
 }
 
 add_action('custom_header_options', function () {
@@ -548,7 +546,7 @@ add_action('rest_api_init', function () {
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
           // CURLOPT_MAXREDIRS => 10,
-        // CURLOPT_TIMEOUT => 1,
+        CURLOPT_TIMEOUT => 1,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS => $post_data,
