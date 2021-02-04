@@ -32,6 +32,7 @@ function new_avatar($avatar) {
   /**
    * https://gravatar.loli.net/avatar/
    * https://dn-qiniu-avatar.qbox.me/avatar/
+   * https://gravatar.bluest.xyz/avatar/
    */
   $replace_url = "https://gravatar.bluest.xyz/avatar/";
   $avatar = preg_replace("#(?:http|https):\/\/(secure|\d).gravatar.com\/avatar\/#", $replace_url, $avatar);
