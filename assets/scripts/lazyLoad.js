@@ -52,8 +52,10 @@ class LazyLoad {
 
    changeSrc(image, src) {
     const hasQuery = src.lastIndexOf('?') > -1;
+    const isWebp = src.indexOf('.wep') > -1;
+    const isSvg = src.lastIndexOf('.svg') > -1;
 
-    if (src.lastIndexOf('.svg') > -1) {
+    if (isSvg && isWebp) {
       image.src = src;
       return ;
     }
