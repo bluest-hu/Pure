@@ -44,7 +44,7 @@
   "dependencies": {
     "fonts.css": "^2.0.0",
     "han-css": "^3.3.0",
-    "prismjs": "^1.16.0",
+    "prismjs": ">=1.21.0",
     "tocbot": "^4.9.0",
     "typo.css": "^2.1.2"
   }
