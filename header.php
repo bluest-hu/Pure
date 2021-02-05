@@ -10,9 +10,9 @@ if (!isset($content_width)) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="msapplication-starturl" content="/">
-    <meta name="msapplication-navbutton-color" content="#1a73e8">
-    <meta name="msapplication-TileColor" content="#1a73e8">
+    <!-- <meta name="msapplication-starturl" content="/"> -->
+    <!-- <meta name="msapplication-navbutton-color" content="#1a73e8"> -->
+    <!-- <meta name="msapplication-TileColor" content="#1a73e8"> -->
     <meta name="theme-color" content="#1a73e8">
     <meta name="referrer" content="always">
     <link rel="preload" as="image" href="<?php header_image(); ?>"/>

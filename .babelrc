@@ -3,26 +3,8 @@
     "@babel/preset-env"
   ],
 	"plugins": [
-    // ["prismjs", {
-    //     "languages": [
-    //       // "javascript", 
-    //       // "css", 
-    //       // "markup",
-    //       // "bash",
-    //       // "apacheconf",
-    //       // "clike",
-    //       // "php",
-    //     ],
-    //     "plugins": [],
-    //     "theme": "",
-    //     "css": true
-    // }]
     [
-      "@babel/plugin-transform-runtime",
-      {
-      }
+      "@babel/plugin-transform-runtime"
     ]
-    // "syntax-dynamic-import", 
-    // "transform-class-properties"
   ]
 }
