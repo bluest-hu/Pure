@@ -121,7 +121,7 @@
   ?>
 
   <?php if ($pageNav): ;?>
-    <nav class="pages-nav font-kai" id="pagesNav">
+    <nav class="pages-nav" id="pagesNav">
       <?php echo $pageNav ;?>
     </nav>
   <?php endif; ?>

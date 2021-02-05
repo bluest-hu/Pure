@@ -997,8 +997,8 @@ figure.alignright {
     .page-numbers,
     span,
     a {
+      display: flex;
       font-size: 20px;
-      display: block;
       text-decoration: none;
       color: #757575;
       padding: 0 5px;
@@ -1008,6 +1008,10 @@ figure.alignright {
       box-sizing: border-box;
       border-radius: 100%;
       margin: 0 5px;
+      vertical-align: sub;
+      justify-content: center;
+      align-items: center;
+      font-family: Monaco;
 
       &.current {
         color: #fff;

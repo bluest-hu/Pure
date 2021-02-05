@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --watch --config build/webpack.config.js --mode=development ",
+    "dev": "webpack --config build/webpack.config.js --mode=development --watch",
     "product": "webpack --config build/webpack.config.js --mode=production --progress"
   },
   "repository": "git+https://github.com/ihuguowei/Pure.git",
@@ -46,6 +46,7 @@
     "cssnano": "^4.1.10",
     "fonts.css": "^2.0.0",
     "han-css": "^3.3.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
     "prismjs": "^1.23.0",
     "tocbot": "^4.9.0",
     "typo.css": "^2.1.2"
