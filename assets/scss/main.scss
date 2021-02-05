@@ -1898,3 +1898,9 @@ figure.alignright {
     background-size: cover;
   }
 }
+
+
+@media screen and (prefers-color-scheme: dark) {
+  body {
+  }
+}

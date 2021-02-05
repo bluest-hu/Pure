@@ -22,88 +22,27 @@
   <input type="hidden"
          id="googleAnalyticsId"
          value="<?php echo get_option('pure_theme_google_analytics_id')?>" />
-  <?php get_template_part('dist/footer_script'); ?>
+  <?php 
+    // 如果是 AMP 不加载 JavaScript
+    if (theme_pure_is_amp()) {
+      return false;
+    }
 
-  <script>
-    const dom = document.getElementById('swUpdateNotice');
+    get_template_part('dist/footer_script'); 
+    get_template_part('inc/sw.php'); 
 
-    if ('serviceWorker' in navigator) {
-      dom.addEventListener('click', () => {
-        try {
-          dom.style.display = 'none';
-          window.location.reload();
-          navigator.serviceWorker.getRegistration().then(reg => {
-            reg.waiting.postMessage("skipWaiting");
-          });
-        } catch (e) {
-          window.location.reload();
-        }
-      })
-
-      function showSWUpdateNotice() {
-        if (dom) {
-          dom.style.display = 'inline-block';
-        }
+    if (is_single()) {
+      if (get_option('pure_theme_single_ads_script') != '') {
+        echo trim(stripslashes(get_option('pure_theme_single_ads_script')));
       }
-
-      window.addEventListener('load', function() {
-        // 防止爬虫在抓抓取的时候 sw 注册失败产生错误
-        if (location.protocol !== 'https:' &&
-          (location.hostname !== '127.0.0.1' && location.hostname !== 'localhost')) {
-          return false;
-        }
-        //  todo 这是有问题的
-        const isLogin = (<?php echo is_user_logged_in() ? 'true' : 'false' ;?>);
-        const serviceWorker = navigator.serviceWorker;
-
-        serviceWorker.register('/wp-json/wp_theme_pure/v1/service-worker.js', {scope: '/'})
-          .then(function(registration) {
-              // console.log('ServiceWorker registration successful with scope: ', registration.scope);
-              if (isLogin) {
-                registration.unregister().then(function (flag) {
-                  console.log('user is login, ServiceWorker unregister ' + (flag ? 'success' : 'fail'));
-                });
-              }
-
-              // if (registration.waiting) {
-              //   showSWUpdateNotice();
-              //   return;
-              // }
-
-              // need update
-              registration.addEventListener('updatefound', () => {
-                const newWorker = registration.installing;
-
-                newWorker.addEventListener('statechange', () => {
-                  if (newWorker.state === 'installed') {
-                    if (navigator.serviceWorker.controller) {
-                      showSWUpdateNotice();
-                    }
-                  }
-                });
-            });
-          }).catch(function(err) {
-              console.log('ServiceWorker registration failed: ', err);
-          });
-
-        serviceWorker.addEventListener('controllerchange', function () {
-          showSWUpdateNotice();
-        });
-      });
     }
-  </script>
-  <?php
-  if (is_single()) {
-    if (get_option('pure_theme_single_ads_script') != '') {
-      echo trim(stripslashes(get_option('pure_theme_single_ads_script')));
-    }
-  }
 
-  if (get_option('pure_theme_analytics') != '') {
-    echo trim(stripslashes(get_option('pure_theme_analytics')));
-  };
+    if (get_option('pure_theme_analytics') != '') {
+      echo trim(stripslashes(get_option('pure_theme_analytics')));
+    };
+
+    wp_footer(); 
   ?>
-  <?php wp_footer(); ?>
   </body>
 </html>
 <!--total <?php echo esc_html(get_num_queries()); ?> query-->
