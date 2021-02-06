@@ -59,7 +59,7 @@ add_action('wp_head', function () {
   // keywords
   $blog_keywords = "";
   // author ID
-  $post_author_id = $post->post_author;
+  $post_author_id = $post && $post->post_author;
   // blog author
   $blog_author = get_bloginfo('admin_email');
   // ID

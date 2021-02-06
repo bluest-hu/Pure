@@ -4,6 +4,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -72,9 +73,9 @@ module.exports = (env, argv) => {
           ],
           use: {
             loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env']
-            }
+            // options: {
+            //   presets: ['@babel/preset-env']
+            // }
           },
         },
         {
@@ -105,7 +106,10 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new CleanWebpackPlugin({
-        cleanOnceBeforeBuildPatterns: ['prism-lan/*'],
+        cleanOnceBeforeBuildPatterns: [
+          // '!prism-lan/*',
+          path.resolve(__dirname, '../dist')
+        ],
       }),
       new MiniCssExtractPlugin({
         filename: "[name].min.css",
@@ -120,8 +124,8 @@ module.exports = (env, argv) => {
         swDest: 'service-worker.js',
         // swDest: 'service-worker',
         offlineGoogleAnalytics: true,
-        // clientsClaim: true,
-        // skipWaiting: false,
+        clientsClaim: true,
+        skipWaiting: true,
         sourcemap: isDevMode,
         cleanupOutdatedCaches: true,
         runtimeCaching: runtimeCaching,
@@ -146,13 +150,6 @@ module.exports = (env, argv) => {
             from: path.resolve(__dirname, '../node_modules/prismjs/components/*.min.js'),
             to: path.resolve(__dirname, '../dist/prism-lan/[name].[ext]'),
             toType: 'template',
-            // transform(content, path) {
-            //   return optimize(content);
-            // },
-            // cacheTransform: {
-            //   directory: path.resolve(__dirname, '../dist/prism-lan'),
-            //   key: process.version,
-            // },
           }
         ]
       }),

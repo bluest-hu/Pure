@@ -9,7 +9,7 @@ module.exports = {
         discardComments: {
           removeAll: true,
         },
-        autoprefixer: false,
+        autoprefixer: true,
         safe: true,
       }],
     }),

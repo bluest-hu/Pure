@@ -1565,9 +1565,9 @@ figure.alignright {
                 width: 5px;
                 height: 5px;
                 border-radius: 50%;
-                top: 17px;
+                top: 18px;
                 // transform: translateY(-50%);
-                left: -9px;
+                left: -8px;
               }
 
               &:first-child {
@@ -1658,10 +1658,10 @@ figure.alignright {
     font-weight: bold;
     font-size: 10em;
     padding:50px 0;
-    font-family: Arial;
     text-align: center;
     color: $text-not-primary-color;
-    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.69);
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.09);
+    font-family: Arial;
     //text-shadow: 0 1px rgba(0,0,0,0.9),
     //             0 -1px #FFF;
   }

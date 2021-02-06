@@ -45,10 +45,10 @@ class LazyLoad {
     }
   }
 
-  static getQiNiuWebSrc(src, optimize = false) {
-    let URL = `${src}`;
-    URL = URL.lastIndexOf('?') !== -1 ? `${URL}?` : URL;
-  }
+  // static getQiNiuWebSrc(src, optimize = false) {
+  //   let URL = `${src}`;
+  //   URL = URL.lastIndexOf('?') !== -1 ? `${URL}?` : URL;
+  // }
 
    changeSrc(image, src) {
     const hasQuery = src.lastIndexOf('?') > -1;

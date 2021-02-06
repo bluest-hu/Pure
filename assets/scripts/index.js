@@ -14,21 +14,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (codeBlocks && codeBlocks.length > 0) {
     import(
-      /* webpackPrefetch: false */
-      /* webpackPreload: false */
+      /* webpackPrefetch: 0 */
+      /* webpackPreload: 0 */
       /* webpackChunkName: "prism" */
       /* webpackMode: "lazy" */
       'prismjs'
       ).then(Prism => {
-        /* webpackPrefetch: false */
-        /* webpackPreload: false */
+        /* webpackPrefetch: 0 */
+        /* webpackPreload: 0 */
         /* webpackChunkName: "prismloader" */
         /* webpackMode: "lazy" */
         import('prismjs/plugins/autoloader/prism-autoloader.js').then(() => {
           Prism.plugins.autoloader.languages_path = '/wp-content/themes/pure/dist/prism-lan/';
           Prism.highlightAll();
         });
-       
     });
   }
 
@@ -36,8 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const tocDom = document.getElementById("jsToc");
   
     if (tocDom) {
-      /* webpackPrefetch: false */
-      /* webpackPreload: false */
+      /* webpackPrefetch: 0 */
+      /* webpackPreload: 0 */
       /* webpackChunkName: "toc" */
       /* webpackMode: "lazy" */
       import('./toc').then(({default: toc}) => {
