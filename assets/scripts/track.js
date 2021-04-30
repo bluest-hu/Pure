@@ -1,20 +1,20 @@
 const TRACK_URL = "/wp-json/wp_theme_pure/v1/ga";
 
 /**
- * 借助 worpdress 转发到 Measurement Protocol，解决 Google 统计容易被屏蔽的问题
+ * 借助 wordpress 转发到 Measurement Protocol，解决 Google 统计容易被屏蔽的问题
  * https://developers.google.com/analytics/devguides/collection/protocol/v1
  */
 class Track {
   /**
    * 初始化配置，默认发送 pageView、timing、exception
-   * @param {*} config 
+   * @param {*} config
    */
   constructor(config = {}) {
     this.logexception = config.logexception !== false;
     this.logTiming = config.logTiming !== false;
     this.logPageView = config.logPageView !== false;
 
-    const { value } = document.querySelector('#googleAnalyticsId');
+    const {value} = document.querySelector('#googleAnalyticsId');
 
     this.canSend = !!value;
 
@@ -42,7 +42,7 @@ class Track {
   }
 
   /**
-   * 获取 组合好的 FormData 
+   * 获取 组合好的 FormData
    * 不支持 IE
    * @param {*} data
    */
@@ -78,12 +78,12 @@ class Track {
 
     const payload = new FormData();
 
-    Object.keys(basicDataPackage).forEach((key, index) => {
+    Object.keys(basicDataPackage).forEach((key) => {
       payload.set(key, basicDataPackage[key]);
     });
 
     if (data && typeof data === "object") {
-      Object.keys(data).forEach((key, index) => {
+      Object.keys(data).forEach((key) => {
         payload.set(key, data[key]);
       });
     }
@@ -92,8 +92,8 @@ class Track {
   }
 
   /**
-   * 发送数据，如果不支持 sendBeacon 会降级到 XMLHttpRequest 
-   * @param {*} data 
+   * 发送数据，如果不支持 sendBeacon 会降级到 XMLHttpRequest
+   * @param {*} data
    */
   send(data) {
     if (!this.canSend) {
@@ -152,7 +152,7 @@ class Track {
     // 在 TCP 和 SSL 上的耗时
     times.TCPTime = t.connectEnd - t.connectStart;
 
-    let ga_data = {
+    return {
       // 这里 plt 统计的是到 load 事件开始的时间
       plt: t.loadEventStart - t.navigationStart,
       dns: times.DNSTime,
@@ -163,7 +163,6 @@ class Track {
       dit: times.DOMInteractiveTime,
       clt: times.ContentLoadingTime
     };
-    return ga_data;
   }
 
   doLogView() {
@@ -191,4 +190,5 @@ class Track {
     this.send(data);
   }
 }
+
 export default Track;

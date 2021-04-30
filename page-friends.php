@@ -14,9 +14,9 @@ get_header();
 
 <main class="main-content">
   <div class="post-wrap content-width">
-    <article <?php post_class('post h-entry'); ?>>
+    <article <?php post_class( 'post h-entry' ); ?>>
       <header class="entry-header">
-        <h1 class="post-title entry-title"><?php echo esc_html(get_the_title()); ?></h1>
+        <h1 class="post-title entry-title"><?php echo esc_html( get_the_title() ); ?></h1>
       </header>
 
       <div class="post-entry entry-content typo friends">
@@ -27,12 +27,12 @@ get_header();
   <div class="content-width">
     <ul class="friend-list">
       <?php
-      $bookmarks = get_bookmarks(array(
-        'orderby'         => 'rating',
-        'limit'           => -1,
-        'hide_invisible'  => 1,
-      ));
-      foreach ($bookmarks as $friend) { ?>
+      $bookmarks = get_bookmarks( array(
+        'orderby'        => 'rating',
+        'limit'          => - 1,
+        'hide_invisible' => 1,
+      ) );
+      foreach ( $bookmarks as $friend ) { ?>
         <li class="friend-list-item">
           <a href="<?php echo $friend->link_url; ?>"
              ref="<?php echo $friend->link_rel; ?>"
@@ -47,7 +47,7 @@ get_header();
                  alt="<?php echo $friend->link_name; ?>"
                  width="200">
             <h2>
-              <?php echo esc_html($friend->link_name); ?>
+              <?php echo esc_html( $friend->link_name ); ?>
             </h2>
             <p>
               <?php echo $friend->link_notes; ?>
@@ -55,15 +55,15 @@ get_header();
             <?php echo $friend->link_rss; ?>
           </a>
         </li>
-      <?php
+        <?php
       }
       ?>
     </ul>
 
     <pre>
-    <?php var_dump(get_bookmarks(array()));?>
+    <?php var_dump( get_bookmarks( array() ) ); ?>
     </pre>
   </div>
 </main>
-  <?php get_footer(); ?>
+<?php get_footer(); ?>
 

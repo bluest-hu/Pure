@@ -1,8 +1,10 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -42,16 +44,14 @@ function replaceVersionCode() {
 }
 
 module.exports = (env, argv) => {
-  const isDevMode = (env.NODE_ENV !== 'production');
+  const isDevMode = (argv.mode !== 'production');
   // console.log('NODE_ENV: ', env, argv);
   console.log(`当前的开发模式为：${isDevMode ? 'dev' : 'production'}`);
 
   return {
     name: 'wp-theme-pure',
-    devtool: isDevMode ? 'source-map' : '',
-    entry: {
-      main: './assets/scripts/index.js',
-    },
+    devtool: isDevMode ? 'source-map' : false,
+    entry:  './assets/scripts/index.js',
     resolve: {
       modules: ['node_modules'],
       alias: {
@@ -73,9 +73,9 @@ module.exports = (env, argv) => {
           ],
           use: {
             loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env']
-            }
+            // options: {
+            //   presets: ['@babel/preset-env']
+            // }
           },
         },
         {
@@ -106,7 +106,10 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new CleanWebpackPlugin({
-        cleanOnceBeforeBuildPatterns: ['prism-lan/*'],
+        cleanOnceBeforeBuildPatterns: [
+          // '!prism-lan/*',
+          path.resolve(__dirname, '../dist')
+        ],
       }),
       new MiniCssExtractPlugin({
         filename: "[name].min.css",
@@ -121,8 +124,8 @@ module.exports = (env, argv) => {
         swDest: 'service-worker.js',
         // swDest: 'service-worker',
         offlineGoogleAnalytics: true,
-        // clientsClaim: true,
-        // skipWaiting: false,
+        clientsClaim: true,
+        skipWaiting: true,
         sourcemap: isDevMode,
         cleanupOutdatedCaches: true,
         runtimeCaching: runtimeCaching,
@@ -147,29 +150,25 @@ module.exports = (env, argv) => {
             from: path.resolve(__dirname, '../node_modules/prismjs/components/*.min.js'),
             to: path.resolve(__dirname, '../dist/prism-lan/[name].[ext]'),
             toType: 'template',
-            // transform(content, path) {
-            //   return optimize(content);
-            // },
-            // cacheTransform: {
-            //   directory: path.resolve(__dirname, '../dist/prism-lan'),
-            //   key: process.version,
-            // },
           }
         ]
       }),
     ],
     performance: {
       hints: 'error',
+      assetFilter: function(assetFilename) {
+        return !assetFilename.endsWith('.map');
+      }
     },
     // stats: 'verbose',
-    // stats: {
-    //   errors: true,
-    //   warnings: true,
-    //   timings: true,
-    //   version: true,
-    //   moduleTrace: true,
-    //   errorDetails: true
-    // },
+    stats: {
+      errors: true,
+      warnings: true,
+      timings: true,
+      version: true,
+      moduleTrace: true,
+      errorDetails: true
+    },
     optimization: {
       splitChunks: {
         chunks: 'async',
@@ -177,7 +176,7 @@ module.exports = (env, argv) => {
         minChunks: 1,
         maxAsyncRequests: 5,
         maxInitialRequests: 3,
-        name: true,
+        name: false,
         cacheGroups: {
           vendors: {
             test: /[\\/]node_modules[\\/]/,
@@ -198,6 +197,7 @@ module.exports = (env, argv) => {
           }
         }
       },
+      minimize: true,
       minimizer: [
         new UglifyJSPlugin({
           cache: true,
@@ -216,13 +216,17 @@ module.exports = (env, argv) => {
                 },
                 normalizeUnicode: false,
                 autoprefixer: {
-                  disable: true
+                  disable: false
                 },
                 safe: true,
               },
             ],
           },
           canPrint: true
+        }),
+        new CssMinimizerPlugin({
+          test: /\.css\.*(?!.*map)/g,
+          parallel: true,
         }),
       ],
     },

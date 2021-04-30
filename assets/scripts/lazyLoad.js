@@ -1,4 +1,4 @@
-import { raf } from "./raf.js";
+import {raf} from "./raf.js";
 import checkSupportWebP from './checkWebP';
 
 class LazyLoad {
@@ -12,7 +12,7 @@ class LazyLoad {
     if ('loading' in HTMLImageElement.prototype && this.nativeLazyLoadingFlag) {
       this.targetElements.forEach(image => {
         image.removeAttribute('src');
-        const { src } = image.dataset;
+        const {src} = image.dataset;
         image.src = src;
       });
     } else if (window.IntersectionObserver) {
@@ -21,7 +21,7 @@ class LazyLoad {
           changes.forEach(change => {
             if (change.intersectionRatio > 0) {
               const image = change.target;
-              const { src } = image.dataset;
+              const {src} = image.dataset;
               image.decoding = 'async';
               if (image && src) {
                 self.changeSrc(image, src)
@@ -39,23 +39,25 @@ class LazyLoad {
         io.observe(image);
       });
     } else {
-      window.addEventListener("scroll", this.doCheck.bind(this), { passive: true });
-      window.addEventListener('resize', this.doCheck.bind(this), { passive: true });
+      window.addEventListener("scroll", this.doCheck.bind(this), {passive: true});
+      window.addEventListener('resize', this.doCheck.bind(this), {passive: true});
       this.doCheck();
     }
   }
 
-  static getQiNiuWebSrc(src, optimize = false) {
-    let URL = `${src}`;
-    URL = URL.lastIndexOf('?') !== -1 ? `${URL}?` : URL;
-  }
+  // static getQiNiuWebSrc(src, optimize = false) {
+  //   let URL = `${src}`;
+  //   URL = URL.lastIndexOf('?') !== -1 ? `${URL}?` : URL;
+  // }
 
-   changeSrc(image, src) {
+  changeSrc(image, src) {
     const hasQuery = src.lastIndexOf('?') > -1;
+    const isWebp = src.indexOf('.wep') > -1;
+    const isSvg = src.lastIndexOf('.svg') > -1;
 
-    if (src.lastIndexOf('.svg') > -1) {
+    if (isSvg && isWebp) {
       image.src = src;
-      return ;
+      return;
     }
 
     checkSupportWebP('lossy')
@@ -71,7 +73,7 @@ class LazyLoad {
     const self = this;
     this.targetElements.forEach((image, index) => {
       if (self.isInSight(image)) {
-        const { src } = image.dataset;
+        const {src} = image.dataset;
         image.src = src;
         this.targetElements.splice(index, 1);
         if (this.targetElements.length <= 0) {
@@ -88,7 +90,7 @@ class LazyLoad {
       rect.top >= 0 &&
       rect.left >= 0 &&
       rect.bottom <=
-        (window.innerHeight || document.documentElement.clientHeight) &&
+      (window.innerHeight || document.documentElement.clientHeight) &&
       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
   }
