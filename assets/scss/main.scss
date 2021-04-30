@@ -45,9 +45,9 @@ h3,
 h4,
 h5,
 h6 {
- @include font-song;
- color: $text-color;
- font-weight: normal;
+  @include font-song;
+  color: $text-color;
+  font-weight: normal;
 }
 
 .admin-bar {
@@ -72,6 +72,7 @@ h6 {
     td {
       line-height: 1.2;
     }
+
     table {
       margin-bottom: 5px;
       margin-top: 5px;
@@ -201,10 +202,12 @@ figure.alignright {
 
       margin: 0 auto;
       line-height: 30px;
+
       .list-item {
         list-style: none;
         display: inline-block;
         color: #000;
+
         a {
           color: inherit;
         }
@@ -492,7 +495,7 @@ figure.alignright {
           content: "#";
           display: inline;
           font-weight: bolder;
-          
+
           font-family: serif;
           // color: #1967d2;
           //color: #999;
@@ -505,7 +508,6 @@ figure.alignright {
     margin: 50px 0 50px 0;
     border-bottom: 1px solid $border-color;
 
-    
 
     &.last-child {
       border-bottom: none;
@@ -547,6 +549,7 @@ figure.alignright {
           color: #1abc9c;
           margin-right: 0;
         }
+
         // .post-title-url {
         //   //background: yellow;
         // }
@@ -688,6 +691,7 @@ figure.alignright {
           transform: scale3d(1.5, 1.5, 1);
         }
       }
+
       a {
         position: relative;
         display: block;
@@ -736,7 +740,7 @@ figure.alignright {
     background-color: #f8f8f8;
     overflow: auto;
     // font-size: 16px;
-    font-family: Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;
+    font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
 
     code {
       padding: unset;
@@ -746,7 +750,7 @@ figure.alignright {
       box-shadow: none;
       font-size: 15px;
       font-family: inherit;
-      font-family: Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;
+      font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
     }
   }
 
@@ -782,7 +786,7 @@ figure.alignright {
       // border-color: #174ea6;
       // color: #174ea6;
       box-shadow: 1px 2px 0 rgba(60, 64, 67, 0.3),
-        0 2px 6px 2px rgba(60, 64, 67, 0.15);
+      0 2px 6px 2px rgba(60, 64, 67, 0.15);
     }
   }
 
@@ -857,6 +861,7 @@ figure.alignright {
   .post-entry {
     display: flex;
     flex-direction: column;
+
     &:after {
       content: "";
       clear: both;
@@ -902,6 +907,7 @@ figure.alignright {
         box-shadow: 0 0 1px $border-color;
         background-color: lighten($border-color, 5);
         margin-left: $triangle-width;
+
         &:after {
           border-right-color: lighten($border-color, 5);
           left: -$triangle-width * 2;
@@ -919,6 +925,7 @@ figure.alignright {
         box-shadow: 0 0 1px #1abc9c;
         background-color: lighten(#1abc9c, 50);
         border-bottom-right-radius: 0;
+
         &:after {
           border-left-color: lighten(#1abc9c, 50);
           right: -$triangle-width * 2;
@@ -986,6 +993,7 @@ figure.alignright {
       display: inline-block;
       font-size: 0;
       margin: 0 1px;
+
       &:hover {
         a {
           transition: color 0.5s linear;
@@ -1178,6 +1186,7 @@ figure.alignright {
       font-size: 14px;
       line-height: 1;
       margin-left: 50px;
+
       a,
       time {
         font-size: 12px;
@@ -1190,6 +1199,7 @@ figure.alignright {
       }
     }
   }
+
   .children {
     .comment-respond {
       border-radius: 2px;
@@ -1218,6 +1228,7 @@ figure.alignright {
 
   .comment-form {
     margin-bottom: 20px;
+
     .comment-notes {
       font-size: 12px;
       color: $text-not-primary-color;
@@ -1238,6 +1249,7 @@ figure.alignright {
       line-height: 40px;
       flex-grow: 0;
       flex-shrink: 0;
+
       .required {
         color: red;
       }
@@ -1301,7 +1313,7 @@ figure.alignright {
         // border-color: #174ea6;
         // color: #174ea6;
         box-shadow: 1px 2px 0 rgba(60, 64, 67, 0.3),
-          0 2px 6px 2px rgba(60, 64, 67, 0.15);
+        0 2px 6px 2px rgba(60, 64, 67, 0.15);
       }
     }
 
@@ -1360,11 +1372,10 @@ figure.alignright {
       line-height: 1.2;
       max-width: 50%;
       display: flex;
-      align-items: center;
 
       a {
         font-weight: bold;
-        margin: 0 10px;
+        margin: 0 5px;
         word-break: break-all;
         // text-align: justify;
         // text-justify: newspaper;
@@ -1413,6 +1424,7 @@ figure.alignright {
   &.page-template-page-friends {
     .friend-list {
       display: flex;
+
       .friend-list-item {
         box-shadow: 0 1px 10px rgba($color: blue, $alpha: 0.1);
         border-radius: 3px;
@@ -1469,171 +1481,174 @@ figure.alignright {
   }
 
   &.page-template-page-archive {
-      .post-title {
-        @include font-kai;
-        //color: #FFF;
-        border: 1px solid $text-not-primary-color;
-        width: 5ch;
-        margin: 0 auto;
-        //background-color: $text-not-primary-color;
-      }
+    .post-title {
+      @include font-kai;
+      //color: #FFF;
+      border: 1px solid $text-not-primary-color;
+      width: 5ch;
+      margin: 0 auto;
+      //background-color: $text-not-primary-color;
+    }
 
-      .main-content {
-        .post {
-          border-bottom: none;
-          margin-bottom: 0;
-          // background-color: rgba($color: #000000, $alpha: 0.1);
+    .main-content {
+      .post {
+        border-bottom: none;
+        margin-bottom: 0;
+        // background-color: rgba($color: #000000, $alpha: 0.1);
 
-          ul,
-          ol,
-          li {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-          }
+        ul,
+        ol,
+        li {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
 
-          $space: 80px;
+        $space: 80px;
+
+        .unit {
+          @include font-kai;
+        }
+
+        .month-title,
+        .year-title {
+          margin: 0;
+          width: $space;
+          text-align: right;
+          font-weight: bold;
+          line-height: 40px;
+          height: 40px;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          justify-self: center;
 
           .unit {
-            @include font-kai;
-          }
-
-          .month-title,
-          .year-title {
-            margin: 0;
-            width: $space;
-            text-align: right;
-            font-weight: bold;
-            line-height: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            justify-self: center;
-
-            .unit {
-              margin-left: 2px;
-              font-size: 14px;
-              font-weight: normal;
-              line-height: inherit;
-              vertical-align: middle;
-              color: $text-not-primary-color;
-            }
-          }
-
-          .month-list {
-            .month-list-item {
-              margin-bottom: 10px;
-            }
-
-            // margin-left: 20px;
-            .month-title {
-              font-size: 20px;
-            }
-          }
-
-          .year-list {
-            // margin-left: -30px;
-            .year-list-item {
-              margin-bottom: 20px;
-            }
-
-            .year-title {
-              font-size: 28px;
-            }
-          }
-
-          .post-list {
-            position: relative;
-            margin-bottom: 15px;
-
-            .post-list-item {
-              margin-left: $space + 10px;
-              font-size: 16px;
-              line-height: 40px;
-              position: relative;
-              display: flex;
-              align-content: center;
-              justify-content: center;
-              align-items: center;
-              @include font-fang-song;
-
-              &::before {
-                position: absolute;
-                content: "";
-                background-color: $border-color;
-                width: 5px;
-                height: 5px;
-                border-radius: 50%;
-                top: 18px;
-                // transform: translateY(-50%);
-                left: -8px;
-              }
-
-              &:first-child {
-                margin-top: -40px;
-              }
-
-              .line {
-                display: block;
-                height: 0;
-                flex: 1 0 0;
-                font-size: 0;
-                border-bottom: 1px dotted $border-color;
-              }
-
-              a {
-                border-bottom: none;
-                text-decoration: none;
-                &:hover {
-                  color: $text-color;
-                }
-              }
-
-              .comments {
-                margin-left: 5px;
-                font-size: 14px;
-              }
-
-              .title {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
-                margin: 0 5px;
-                font-weight: 500;
-                @include font-kai;
-                &:hover {
-                  color: #000;
-                  transition: color 0.3s linear;
-                }
-              }
-
-              .comments,
-              .publish-time {
-                flex-shrink: 0;
-                font-size: 14px;
-                color: $text-not-primary-color;
-              }
-              .publish-time {
-                font-size: inherit;
-                font-weight: 500;
-              }
-            }
-          }
-
-          .month-title,
-          .year-title,
-          .publish-time {
-            font-weight: 600;
-            font-family: serif, Georgia,Nimbus Roman No9 L,Songti SC,"Noto Serif CJK SC","Source Han Serif SC","Source Han Serif CN",STSong,AR PL New Sung,AR PL SungtiL GB,NSimSun,SimSun,TW\\-Sung,WenQuanYi Bitmap Song,AR PL UMing CN,AR PL UMing HK,AR PL UMing TW,AR PL UMing TW MBE,PMingLiU,MingLiU,serif;
+            margin-left: 2px;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: inherit;
+            vertical-align: middle;
+            color: $text-not-primary-color;
           }
         }
-      }
 
-      #pagesNav {
-        display: none;
+        .month-list {
+          .month-list-item {
+            margin-bottom: 10px;
+          }
+
+          // margin-left: 20px;
+          .month-title {
+            font-size: 20px;
+          }
+        }
+
+        .year-list {
+          // margin-left: -30px;
+          .year-list-item {
+            margin-bottom: 20px;
+          }
+
+          .year-title {
+            font-size: 28px;
+          }
+        }
+
+        .post-list {
+          position: relative;
+          margin-bottom: 15px;
+
+          .post-list-item {
+            margin-left: $space + 10px;
+            font-size: 16px;
+            line-height: 40px;
+            position: relative;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+            @include font-fang-song;
+
+            &::before {
+              position: absolute;
+              content: "";
+              background-color: $border-color;
+              width: 5px;
+              height: 5px;
+              border-radius: 50%;
+              top: 18px;
+              // transform: translateY(-50%);
+              left: -8px;
+            }
+
+            &:first-child {
+              margin-top: -40px;
+            }
+
+            .line {
+              display: block;
+              height: 0;
+              flex: 1 0 0;
+              font-size: 0;
+              border-bottom: 1px dotted $border-color;
+            }
+
+            a {
+              border-bottom: none;
+              text-decoration: none;
+
+              &:hover {
+                color: $text-color;
+              }
+            }
+
+            .comments {
+              margin-left: 5px;
+              font-size: 14px;
+            }
+
+            .title {
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              margin: 0 5px;
+              font-weight: 500;
+              @include font-kai;
+
+              &:hover {
+                color: #000;
+                transition: color 0.3s linear;
+              }
+            }
+
+            .comments,
+            .publish-time {
+              flex-shrink: 0;
+              font-size: 14px;
+              color: $text-not-primary-color;
+            }
+
+            .publish-time {
+              font-size: inherit;
+              font-weight: 500;
+            }
+          }
+        }
+
+        .month-title,
+        .year-title,
+        .publish-time {
+          font-weight: 600;
+          font-family: serif, Georgia, Nimbus Roman No9 L, Songti SC, "Noto Serif CJK SC", "Source Han Serif SC", "Source Han Serif CN", STSong, AR PL New Sung, AR PL SungtiL GB, NSimSun, SimSun, TW\\-Sung, WenQuanYi Bitmap Song, AR PL UMing CN, AR PL UMing HK, AR PL UMing TW, AR PL UMing TW MBE, PMingLiU, MingLiU, serif;
+        }
       }
     }
+
+    #pagesNav {
+      display: none;
+    }
+  }
 }
 
 .error404 {
@@ -1654,10 +1669,11 @@ figure.alignright {
     justify-content: center;
     align-content: center;
   }
+
   .title {
     font-weight: bold;
     font-size: 10em;
-    padding:50px 0;
+    padding: 50px 0;
     text-align: center;
     color: $text-not-primary-color;
     text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.09);
@@ -1718,7 +1734,7 @@ figure.alignright {
   padding: 10px;
   border-radius: 0 2px 2px 0;
   left: 0;
-  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   display: none;
 }
 
@@ -1747,6 +1763,7 @@ figure.alignright {
       .post-wrap {
         padding: 0 25px;
       }
+
       .tag-cloud-link {
         margin: 5px 3px;
         padding: 2px 3px;
@@ -1815,10 +1832,12 @@ figure.alignright {
     .post {
       margin-top: 30px;
       margin-bottom: 30px;
+
       .post-title {
         font-size: 2em;
       }
     }
+
     .hentry {
       //border-bottom: none;
     }
@@ -1833,7 +1852,7 @@ figure.alignright {
   }
 
   .relative-post-nav .nav-list .nav-item {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .main-content .post-meta.post-tags-wrap {
@@ -1848,6 +1867,7 @@ figure.alignright {
     .comment .comment-content {
       font-size: 14px;
     }
+
     .comments-title {
       font-size: 20px;
     }
@@ -1859,8 +1879,8 @@ figure.alignright {
     }
   }
 
-  .pages-nav .page-numbers  {
-    .page-numbers, 
+  .pages-nav .page-numbers {
+    .page-numbers,
     a,
     span {
       font-size: 16px;
@@ -1876,7 +1896,7 @@ figure.alignright {
       // line-height: 25px;
     }
   }
- 
+
 
   #jsToc {
     display: none;

@@ -7,14 +7,14 @@ const TRACK_URL = "/wp-json/wp_theme_pure/v1/ga";
 class Track {
   /**
    * 初始化配置，默认发送 pageView、timing、exception
-   * @param {*} config 
+   * @param {*} config
    */
   constructor(config = {}) {
     this.logexception = config.logexception !== false;
     this.logTiming = config.logTiming !== false;
     this.logPageView = config.logPageView !== false;
 
-    const { value } = document.querySelector('#googleAnalyticsId');
+    const {value} = document.querySelector('#googleAnalyticsId');
 
     this.canSend = !!value;
 
@@ -42,7 +42,7 @@ class Track {
   }
 
   /**
-   * 获取 组合好的 FormData 
+   * 获取 组合好的 FormData
    * 不支持 IE
    * @param {*} data
    */
@@ -92,8 +92,8 @@ class Track {
   }
 
   /**
-   * 发送数据，如果不支持 sendBeacon 会降级到 XMLHttpRequest 
-   * @param {*} data 
+   * 发送数据，如果不支持 sendBeacon 会降级到 XMLHttpRequest
+   * @param {*} data
    */
   send(data) {
     if (!this.canSend) {
@@ -190,4 +190,5 @@ class Track {
     this.send(data);
   }
 }
+
 export default Track;

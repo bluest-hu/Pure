@@ -1,12 +1,13 @@
 // check_webp_feature:
 //   'feature' can be one of 'lossy', 'lossless', 'alpha' or 'animation'.
 //   'callback(feature, result)' will be passed back the detection result (in an asynchronous way!)
-const check_webp_feature = (feature, callback = () => {}) => {
+const check_webp_feature = (feature, callback = () => {
+}) => {
   const key = 'wp_theme_pure_webp_support_result';
   let resultCache = {};
   try {
     resultCache = JSON.parse(localStorage.getItem(key)) || {};
-  } catch(e) {
+  } catch (e) {
     resultCache = {};
   }
 
@@ -15,7 +16,7 @@ const check_webp_feature = (feature, callback = () => {}) => {
       if (resultCache[feature]) {
         reslove(feature);
       } else {
-        reject(feature); 
+        reject(feature);
       }
       return false;
     }
@@ -30,21 +31,21 @@ const check_webp_feature = (feature, callback = () => {}) => {
     let img = new Image();
     img.onload = function () {
       resultCache[feature] = (img.width > 0) && (img.height > 0);
-        try {
-          resultCache = localStorage.setItem(key, JSON.stringify(resultCache));
-        } catch(e) {
-          resultCache = {};
-        }
-        reslove(feature);
-        callback(feature);
-        img = null;
+      try {
+        resultCache = localStorage.setItem(key, JSON.stringify(resultCache));
+      } catch (e) {
+        resultCache = {};
+      }
+      reslove(feature);
+      callback(feature);
+      img = null;
     };
 
     img.onerror = function () {
       resultCache[feature] = false;
       try {
         resultCache = localStorage.setItem(key, JSON.stringify(resultCache));
-      } catch(e) {
+      } catch (e) {
         resultCache = {};
       }
 

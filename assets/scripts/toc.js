@@ -1,5 +1,5 @@
 import * as tocbot from "tocbot";
-import { raf } from "./raf.js";
+import {raf} from "./raf.js";
 
 function toc() {
   // 判断
@@ -24,11 +24,11 @@ function toc() {
   });
 
   let shouldPassScroll = false;
-  let preCalResult  = null;
+  let preCalResult = null;
   // let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 
   if (window.IntersectionObserver === null) {
-    
+
   } else {
     document.addEventListener(
       "scroll",
@@ -44,12 +44,12 @@ function toc() {
           const needFixed = titleDom.getBoundingClientRect().top <= 0;
 
           if (needFixed !== preCalResult) {
-            needFixed ?  tocDom.classList.add("fixed") :  tocDom.classList.remove("fixed");
+            needFixed ? tocDom.classList.add("fixed") : tocDom.classList.remove("fixed");
           }
           preCalResult = needFixed;
         });
       },
-      { passive: true }
+      {passive: true}
     );
   }
 }
