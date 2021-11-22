@@ -2,8 +2,9 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
 const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const WorkboxPlugin = require('workbox-webpack-plugin');
@@ -199,31 +200,32 @@ module.exports = (env, argv) => {
       },
       minimize: true,
       minimizer: [
-        new UglifyJSPlugin({
-          cache: true,
-          parallel: true,
-          sourceMap: isDevMode // set to true if you want JS source maps
-        }),
-        new OptimizeCSSAssetsPlugin({
-          assetNameRegExp: /\.css\.*(?!.*map)/g,
-          cssProcessor: require('cssnano'),
-          cssProcessorPluginOptions: {
-            preset: [
-              'default',
-              {
-                discardComments: {
-                  removeAll: true,
-                },
-                normalizeUnicode: false,
-                autoprefixer: {
-                  disable: false
-                },
-                safe: true,
-              },
-            ],
-          },
-          canPrint: true
-        }),
+        // new UglifyJSPlugin({
+        //   cache: true,
+        //   parallel: true,
+        //   sourceMap: isDevMode // set to true if you want JS source maps
+        // }),
+        new TerserPlugin(),
+        // new OptimizeCSSAssetsPlugin({
+        //   assetNameRegExp: /\.css\.*(?!.*map)/g,
+        //   cssProcessor: require('cssnano'),
+        //   cssProcessorPluginOptions: {
+        //     preset: [
+        //       'default',
+        //       {
+        //         discardComments: {
+        //           removeAll: true,
+        //         },
+        //         normalizeUnicode: false,
+        //         autoprefixer: {
+        //           disable: false
+        //         },
+        //         safe: true,
+        //       },
+        //     ],
+        //   },
+        //   canPrint: true
+        // }),
         new CssMinimizerPlugin({
           test: /\.css\.*(?!.*map)/g,
           parallel: true,

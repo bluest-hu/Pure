@@ -172,46 +172,46 @@ const runtimeCaching = [
     },
   },
   // 缓存 Gavatar
-  {
-    urlPattern: /^(?:http|https):\/\/([0-9]|secure).gravatar.com\/avatar\//,
-    handler: 'CacheFirst',
-    options: {
-      expiration: {
-        maxAgeSeconds: 60 * 60 * 24 * 30,
-      },
-      cacheName: 'pure-theme-cache-gavatar',
-    },
-  },
-  {
-    urlPattern: /^(?:http|https):\/\/cdn.v2ex.com\/gravatar\//,
-    handler: 'CacheFirst',
-    options: {
-      expiration: {
-        maxAgeSeconds: 60 * 60 * 24 * 30,
-      },
-      cacheName: 'pure-theme-cache-gavatar',
-    },
-  },
-  {
-    urlPattern: /^(?:http|https):\/\/gravatar.loli.net\/avatar\//,
-    handler: 'CacheFirst',
-    options: {
-      expiration: {
-        maxAgeSeconds: 60 * 60 * 24 * 30,
-      },
-      cacheName: 'pure-theme-cache-gavatar',
-    },
-  },
-  {
-    urlPattern: /^(?:http|https):\/\/dn-qiniu-avatar.qbox.me\/avatar\//,
-    handler: 'CacheFirst',
-    options: {
-      expiration: {
-        maxAgeSeconds: 60 * 60 * 24 * 30,
-      },
-      cacheName: 'pure-theme-cache-gavatar',
-    },
-  },
+  // {
+  //   urlPattern: /^(?:http|https):\/\/([0-9]|secure).gravatar.com\/avatar\//,
+  //   handler: 'CacheFirst',
+  //   options: {
+  //     expiration: {
+  //       maxAgeSeconds: 60 * 60 * 24 * 30,
+  //     },
+  //     cacheName: 'pure-theme-cache-gavatar',
+  //   },
+  // },
+  // {
+  //   urlPattern: /^(?:http|https):\/\/cdn.v2ex.com\/gravatar\//,
+  //   handler: 'CacheFirst',
+  //   options: {
+  //     expiration: {
+  //       maxAgeSeconds: 60 * 60 * 24 * 30,
+  //     },
+  //     cacheName: 'pure-theme-cache-gavatar',
+  //   },
+  // },
+  // {
+  //   urlPattern: /^(?:http|https):\/\/gravatar.loli.net\/avatar\//,
+  //   handler: 'CacheFirst',
+  //   options: {
+  //     expiration: {
+  //       maxAgeSeconds: 60 * 60 * 24 * 30,
+  //     },
+  //     cacheName: 'pure-theme-cache-gavatar',
+  //   },
+  // },
+  // {
+  //   urlPattern: /^(?:http|https):\/\/dn-qiniu-avatar.qbox.me\/avatar\//,
+  //   handler: 'CacheFirst',
+  //   options: {
+  //     expiration: {
+  //       maxAgeSeconds: 60 * 60 * 24 * 30,
+  //     },
+  //     cacheName: 'pure-theme-cache-gavatar',
+  //   },
+  // },
   {
     urlPattern: /^(?:http|https):\/\/gravatar.bluest.xyz\/avatar\//,
     handler: 'CacheFirst',
