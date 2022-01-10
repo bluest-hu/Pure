@@ -10,7 +10,7 @@ class Track {
    * @param {*} config
    */
   constructor(config = {}) {
-    this.logexception = config.logexception !== false;
+    this.logException = config.logException !== false;
     this.logTiming = config.logTiming !== false;
     this.logPageView = config.logPageView !== false;
 
@@ -24,7 +24,7 @@ class Track {
       self.doLogView();
     }
 
-    if (this.logexception === true) {
+    if (this.logException === true) {
       window.addEventListener('error', event => {
         self.doLogException(event.message);
       });

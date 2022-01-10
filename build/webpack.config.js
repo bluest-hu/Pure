@@ -2,29 +2,12 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
-
 const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const webpack = require('webpack');
-// const copy = require('copy');
-// const fs = require('fs');
 const CopyPlugin = require('copy-webpack-plugin');
 const { runtimeCaching } = require('./runtimeCaching.js');
-
-// copy(
-//   path.resolve(__dirname, '../node_modules/prismjs/components/*.min.js'),
-//   path.resolve(__dirname, '../dist/prism-lan'),
-//   function(err, files) {
-//     if (!err) {
-//       console.log('copy success!');
-//     }
-//   },
-// );
-
 
 /**
  * @deprecated 不需要再依赖 git hash 作为更新的 key 值
@@ -46,7 +29,6 @@ function replaceVersionCode() {
 
 module.exports = (env, argv) => {
   const isDevMode = (argv.mode !== 'production');
-  // console.log('NODE_ENV: ', env, argv);
   console.log(`当前的开发模式为：${isDevMode ? 'dev' : 'production'}`);
 
   return {
@@ -61,7 +43,7 @@ module.exports = (env, argv) => {
     },
     output: {
       filename: '[name].[contenthash:8].min.js',
-      chunkFilename: '[name].[contenthash:8].js',
+      chunkFilename: '[name].[contenthash:8].min.js',
       path: path.resolve(__dirname, '../dist'),
       publicPath: isDevMode ? '/wp-content/themes/pure/dist/' : 'https://static.bluest.xyz/wp-content/themes/pure/dist/',
     },
@@ -137,7 +119,6 @@ module.exports = (env, argv) => {
         ],
         ignoreURLParametersMatching: [],
         cacheId: 'pure-theme-cache',
-        
       }),
       new HtmlWebpackPlugin({
         filename: 'footer_script.php',
@@ -200,32 +181,7 @@ module.exports = (env, argv) => {
       },
       minimize: true,
       minimizer: [
-        // new UglifyJSPlugin({
-        //   cache: true,
-        //   parallel: true,
-        //   sourceMap: isDevMode // set to true if you want JS source maps
-        // }),
         new TerserPlugin(),
-        // new OptimizeCSSAssetsPlugin({
-        //   assetNameRegExp: /\.css\.*(?!.*map)/g,
-        //   cssProcessor: require('cssnano'),
-        //   cssProcessorPluginOptions: {
-        //     preset: [
-        //       'default',
-        //       {
-        //         discardComments: {
-        //           removeAll: true,
-        //         },
-        //         normalizeUnicode: false,
-        //         autoprefixer: {
-        //           disable: false
-        //         },
-        //         safe: true,
-        //       },
-        //     ],
-        //   },
-        //   canPrint: true
-        // }),
         new CssMinimizerPlugin({
           test: /\.css\.*(?!.*map)/g,
           parallel: true,
