@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -27,9 +28,65 @@ function replaceVersionCode() {
   console.log(`git hash code is ${gitCommitHashCode}`);
 }
 
+
 module.exports = (env, argv) => {
   const isDevMode = (argv.mode !== 'production');
   console.log(`当前的开发模式为：${isDevMode ? 'dev' : 'production'}`);
+
+  const webpackPlugins =  [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        // '!prism-lan/*',
+        path.resolve(__dirname, '../dist')
+      ],
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].min.css",
+      chunkFilename: "[id].css"
+    }),
+    // new WebpackBundleAnalyzer(),
+    new WorkboxPlugin.GenerateSW({
+      // importWorkboxFrom: 'local',
+      // chunks: ['main'],
+      inlineWorkboxRuntime: true,
+      directoryIndex: './dist/',
+      swDest: 'service-worker.js',
+      offlineGoogleAnalytics: true,
+      // clientsClaim: true,
+      // skipWaiting: true,
+      sourcemap: isDevMode,
+      cleanupOutdatedCaches: true,
+      runtimeCaching: runtimeCaching,
+      include: [
+      ],
+      exclude: [
+        /wp-admin/
+      ],
+      ignoreURLParametersMatching: [],
+      cacheId: 'pure-theme-cache',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'footer_script.php',
+      template: './template/footer_script.ejs',
+      inject: false,
+      minify: true,
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, '../node_modules/prismjs/components/*.min.js'),
+          to: path.resolve(__dirname, '../dist/prism-lan/[name].[ext]'),
+          toType: 'template',
+        }
+      ]
+    }),
+  ];
+
+  if (isDevMode) {
+    webpackPlugins.concat([
+      new webpack.HotModuleReplacementPlugin([]),
+    ]);
+  }
 
   return {
     name: 'wp-theme-pure',
@@ -87,54 +144,7 @@ module.exports = (env, argv) => {
         },
       ]
     },
-    plugins: [
-      new CleanWebpackPlugin({
-        cleanOnceBeforeBuildPatterns: [
-          // '!prism-lan/*',
-          path.resolve(__dirname, '../dist')
-        ],
-      }),
-      new MiniCssExtractPlugin({
-        filename: "[name].min.css",
-        chunkFilename: "[id].css"
-      }),
-      // new WebpackBundleAnalyzer(),
-      new WorkboxPlugin.GenerateSW({
-        // importWorkboxFrom: 'local',
-        // chunks: ['main'],
-        inlineWorkboxRuntime: true,
-        directoryIndex: './dist/',
-        swDest: 'service-worker.js',
-        offlineGoogleAnalytics: true,
-        // clientsClaim: true,
-        // skipWaiting: true,
-        sourcemap: argv.mode,
-        cleanupOutdatedCaches: true,
-        runtimeCaching: runtimeCaching,
-        include: [
-        ],
-        exclude: [
-          /wp-admin/
-        ],
-        ignoreURLParametersMatching: [],
-        cacheId: 'pure-theme-cache',
-      }),
-      new HtmlWebpackPlugin({
-        filename: 'footer_script.php',
-        template: './template/footer_script.ejs',
-        inject: false,
-        minify: true,
-      }),
-      new CopyPlugin({
-        patterns: [
-          {
-            from: path.resolve(__dirname, '../node_modules/prismjs/components/*.min.js'),
-            to: path.resolve(__dirname, '../dist/prism-lan/[name].[ext]'),
-            toType: 'template',
-          }
-        ]
-      }),
-    ],
+    plugins: webpackPlugins,
     performance: {
       hints: 'error',
       assetFilter: function(assetFilename) {
@@ -148,7 +158,8 @@ module.exports = (env, argv) => {
       timings: true,
       version: true,
       moduleTrace: true,
-      errorDetails: true
+      errorDetails: true,
+      children: !isDevMode,
     },
     optimization: {
       splitChunks: {

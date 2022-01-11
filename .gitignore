@@ -6,3 +6,4 @@ node_modules
 
 # 编辑器
 .idea/
+.DS_Store

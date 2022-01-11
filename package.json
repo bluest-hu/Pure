@@ -11,7 +11,7 @@
   "repository": {
     "url": "git+https://github.com/ihuguowei/Pure.git",
     "type": "git"
-  }, 
+  },
   "author": "hubery",
   "license": "GPL-V3",
   "bugs": {
@@ -39,6 +39,7 @@
     "sass-loader": "^12.4.0",
     "style-loader": "^3.3.1",
     "stylelint": "^14.2.0",
+    "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-config-standard": "^24.0.0",
     "terser-webpack-plugin": "^5.3.0",
     "webpack": "^5.65.0",

@@ -1,4 +1,5 @@
 module.exports = {
+  ident: 'postcss',
   // parser: 'sugarss',
   plugins: [
     require('autoprefixer'),
@@ -13,6 +14,6 @@ module.exports = {
         safe: true,
       }],
     }),
-    // require('stylelint')(),
+    require('stylelint')(),
   ],
 };
