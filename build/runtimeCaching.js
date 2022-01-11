@@ -22,7 +22,7 @@ const runtimeCaching = [
     handler: 'CacheFirst',
     options: {
       matchOptions: {
-        ignoreSearch: false,
+        ignoreSearch: true,
       },
       cacheName: 'pure-theme-cache-image',
       expiration: {

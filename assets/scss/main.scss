@@ -1243,12 +1243,15 @@ figure.alignright {
     }
 
     label {
-      display: inline-block;
+      display: inline-flex;
       width: 80px;
       font-size: 16px;
-      line-height: 40px;
       flex-grow: 0;
       flex-shrink: 0;
+      line-height: 1.4;
+      justify-content: left;
+      align-items: center;
+      justify-items: left;
 
       .required {
         color: red;
