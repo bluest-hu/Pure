@@ -1,5 +1,6 @@
-@import "tocbot/src/scss/tocbot.scss";
-@import "fonts.css/dist/fonts.scss";
+@import "tocbot/src/scss/tocbot";
+@import "fonts.css/dist/fonts";
+@import "typo.css/typo.css";
 
 .js-toc {
   padding-right: 10px;
@@ -8,8 +9,9 @@
   left: calc(50% + 360px);
   color: #999;
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgb(255 255 255 / 10%);
   backdrop-filter: blur(2px);
+
   @include font-fang-song;
 
   .toc-list-item {
@@ -26,11 +28,11 @@
     }
   }
 
-  .toc-link:before {
+  .toc-link::before {
     background-color: #efefef;
   }
 
-  .is-active-link:before {
+  .is-active-link::before {
     background-color: #54bc4b;
   }
 

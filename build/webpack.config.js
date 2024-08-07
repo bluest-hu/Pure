@@ -9,6 +9,7 @@ const WorkboxPlugin = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { runtimeCaching } = require('./runtimeCaching.js');
+const StylelintPlugin = require('stylelint-webpack-plugin');
 
 /**
  * @deprecated 不需要再依赖 git hash 作为更新的 key 值
@@ -65,6 +66,9 @@ module.exports = (env, argv) => {
       ignoreURLParametersMatching: [],
       cacheId: 'pure-theme-cache',
     }),
+	new StylelintPlugin({
+		fix: true,
+	}),
     new HtmlWebpackPlugin({
       filename: 'footer_script.php',
       template: './template/footer_script.ejs',
@@ -102,7 +106,8 @@ module.exports = (env, argv) => {
       filename: '[name].[contenthash:8].min.js',
       chunkFilename: '[name].[contenthash:8].min.js',
       path: path.resolve(__dirname, '../dist'),
-      publicPath: isDevMode ? '/wp-content/themes/pure/dist/' : 'https://static.bluest.xyz/wp-content/themes/pure/dist/',
+      publicPath: '/wp-content/themes/pure/dist/',
+	  clean: true
     },
     module: {
       rules: [
@@ -151,6 +156,10 @@ module.exports = (env, argv) => {
         return !assetFilename.endsWith('.map');
       }
     },
+	devServer: {
+		static: './dist',
+		hot: true,
+	},
     // stats: 'verbose',
     stats: {
       errors: true,
